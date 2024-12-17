@@ -1,7 +1,7 @@
 # This is my nvim config
-
+    like 90% chatgpt
 # todo
  - [x] add theme control
- - [ ] fix live file previews
+ - [x] fix live file previews
  - [ ] add start page or whatever tehyre called
- - [ ] add extra themes
+ - [x] add extra themes
