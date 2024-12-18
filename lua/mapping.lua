@@ -38,3 +38,32 @@ vim.api.nvim_create_user_command('Git', function()
   vim.cmd('tabnew | terminal lazygit')
 end, {})
 
+local cmp = require('cmp')
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            -- Use your snippet engine here, for example, LuaSnip
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    mapping = {
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+    },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },  -- LSP completion
+        { name = 'luasnip' },   -- Snippets (if you use LuaSnip)
+    }, {
+        { name = 'buffer' },     -- Buffer completion
+    }),
+})
+
+vim.diagnostic.config({
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+})

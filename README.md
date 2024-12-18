@@ -17,4 +17,5 @@ windows powershell
  - [x] add start page or whatever tehyre called
  - [x] add extra themes
  - [x] lsp stuff
- - [ ] formatter stuff
+ - [x] formatter stuff
+ - [ ] make the file system make sense
