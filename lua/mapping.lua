@@ -24,7 +24,7 @@ keymaps = {
     {"n", "<leader>b", ":tabnew<CR>", {noremap = true, silent = true}},
     {"n", "<leader>e", ":Neotree focus<CR>", {noremap = true, silent = true}},
     {"n", "<leader>x", ":bd<CR>", {desc = "close buffer", noremap = true, silent = true}},
-    {"n", "<C-n>", ":Neotree<CR>", {noremap = true, silent = true}}
+    {"n", "<leader>fh", ":Telescope oldfiles<CR>", {desc="recently opened",noremap = true, silent = true}},
 }
 for _, keymap in ipairs(keymaps) do
     local mode = keymap[1]
