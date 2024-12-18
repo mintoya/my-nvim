@@ -1,3 +1,5 @@
+local dkjson_path = vim.fn.stdpath('config') .. "/dkjson"
+package.path = package.path .. ";" .. dkjson_path .. "/?.lua"
 vim.opt.runtimepath:prepend(vim.fn.stdpath('config') .. "/lazy")
 vim.opt.runtimepath:prepend(vim.fn.stdpath('config') .. "/lua")
 vim.g.mapleader = " "
@@ -8,7 +10,6 @@ vim.opt.shiftwidth = 3
 vim.opt.expandtab = true
 
 welcomescreen = require('welcome')
-
 
 local options = {
    formatters_by_ft = {
@@ -26,89 +27,8 @@ local options = {
 }
 
 require("lazy").setup(
-   {
-      { 'L3MON4D3/LuaSnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'neovim/nvim-lspconfig' },
-      { 'echasnovski/mini.nvim', version = false },
-      { 'rainglow/vim',          as = 'rainglow' },
-      { "folke/tokyonight.nvim", opts = { style = "storm" } },
-      { "neovim/nvim-lspconfig" },
-      {
-         'numToStr/Comment.nvim',
-         config = function()
-            require('Comment').setup({
-               toggler = {
-                  line = '<leader>/',
-               },
-               opleader = { line = '<leader>/' }
-            })
-         end
-      },
-      { 'stevearc/conform.nvim', opts = options },
-      { "hrsh7th/nvim-cmp" },
-      {
-         "nvim-telescope/telescope.nvim",
-         tag = "0.1.8",
-         dependencies = { "nvim-lua/plenary.nvim" },
-         config = function()
-            require("telescope").setup {
-               defaults = {
-                  layout_strategy = "flex",
-                  vimgrep_arguments = {
-                     "rg",
-                     "--no-heading",    -- No headings in the result
-                     "--with-filename", -- Show filenames
-                     "--line-number",   -- Show line numbers
-                     "--column"         -- Show column numbers
-                  },
-                  pickers = {
-                     colorscheme = {
-                        enable_preview = true,
-                     },
-                     file_files = {
-                        enable_preview = true,
-                        previewer = require("telescope.previewers").vim_buffer_cat.new
-                     }
-                  }
-               }
-            }
-         end
-      },
-      {
-         "nvim-neo-tree/neo-tree.nvim",
-         dependencies = { "MunifTanjim/nui.nvim", 'andrew-george/telescope-themes', 'nvim-tree/nvim-web-devicons' },
-         opts = {
-            filesystem = {
-               filtered_items = {
-                  visible = true,
-               }
-            },
-            window = {
-               width = 20,
-            },
-         }
-      },
-      {
-         "folke/which-key.nvim",
-         event = "VeryLazy",
-         keys = {
-            {
-               "<leader>?",
-               function()
-                  require("which-key").show({ global = false })
-               end,
-               desc = "Buffer Local Keymaps (which-key)"
-            }
-         }
-      },
-      {
-         'goolord/alpha-nvim',
-         config = function()
-            require 'alpha'.setup(welcomescreen.config)
-         end
-      }
-   })
+require('plugins')
+   )
 
 require("mini.statusline").setup({
    section = {
@@ -124,3 +44,45 @@ require("mini.statusline").setup({
 require('mapping')       --enables coustom keybinds
 require('current-theme') --required to remember theme
 require('lsps')
+local json = require('dkjson')
+-- Function to read a JSON file
+function read_json_file(filename)
+    local file = io.open(filename, "r") -- open the file in read mode
+    if not file then
+        return nil, "File not found"
+    end
+    
+    local content = file:read("*a") -- read the entire file content
+    file:close() -- close the file after reading
+    
+    local data, pos, err = json.decode(content, 1, nil) -- decode the JSON
+    if err then
+        return nil, "Error decoding JSON: " .. err
+    end
+    
+    return data
+end
+-- Function to write to a JSON file
+function write_json_file(filename, data)
+    local json_text = json.encode(data, { indent = true }) -- encode the data to JSON string
+    
+    local file = io.open(filename, "w") -- open the file in write mode
+    if not file then
+        return false, "Error opening file for writing"
+    end
+    
+    file:write(json_text) -- write the JSON text to the file
+    file:close() -- close the file after writing
+    
+    return true
+end
+
+local table = vim.fn.stdpath('config')..'/lua/table.json'
+
+
+write_json_file(table,{hello = 'world'})
+
+vim.api.nvim_create_user_command('AddData', function(opts)
+  local args = opts.args
+  write_json_file(table, args)
+end, {nargs = 1})

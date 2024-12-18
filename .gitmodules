@@ -1,3 +1,6 @@
 [submodule "lazy"]
 	path = lazy
 	url = https://github.com/folke/lazy.nvim.git
+[submodule "dkjson"]
+	path = dkjson
+	url = https://github.com/LuaDist/dkjson
