@@ -3,5 +3,7 @@
 # todo
  - [x] add theme control
  - [x] fix live file previews
- - [ ] add start page or whatever tehyre called
+ - [x] add start page or whatever tehyre called
  - [x] add extra themes
+ - [ ] lsp stuff
+ - [ ] formatter stuff
