@@ -3,12 +3,12 @@
 ## installation
 not windows
 ```
-    git clone --recurse-submodules https://github.com/mintoya/my-nvim/ ~/.config/nvim && nvim
+git clone --recurse-submodules https://github.com/mintoya/my-nvim/ ~/.config/nvim && nvim
 ```
 windows powershell
 ```
-    git clone --recurse-submodules https://github.com/mintoya/my-nvim/ $env:USERPROFILE\AppData\Local\nvim
-    nvim
+git clone --recurse-submodules https://github.com/mintoya/my-nvim/ $env:USERPROFILE\AppData\Local\nvim
+nvim
 ```
 *dont actually know if those work lol*
 # todo
