@@ -40,7 +40,7 @@ local footer = {
 
 local leader = "󱁐 "
 
-local function button(sc, txt, keybind, keybind_opts)
+local function button(sc, txt,onpress)
     local sc_ = sc:gsub("%s", ""):gsub(leader, "<leader>")
 
     local opts = {
@@ -51,14 +51,8 @@ local function button(sc, txt, keybind, keybind_opts)
         align_shortcut = "right",
         hl_shortcut = "Keyword",
     }
-    if keybind then
-        keybind_opts = if_nil(keybind_opts, { noremap = true, silent = true, nowait = true })
-        opts.keymap = { "n", sc_, keybind, keybind_opts }
-    end
-
-    local function on_press()
-        local key = vim.api.nvim_replace_termcodes(keybind or sc_ .. "<Ignore>", true, false, true)
-        vim.api.nvim_feedkeys(key, "t", false)
+    local on_press = function()
+	    onpress()
     end
 
     return {
@@ -69,14 +63,22 @@ local function button(sc, txt, keybind, keybind_opts)
     }
 end
 
+local cmd = function(command)
+	return(
+		function()
+			vim.cmd(command);
+		end
+	)
+end
 local buttons = {
     type = "group",
     val = {
-        button(leader.." f h", " Recently opened files"),
-        button(" "..leader.." c","  Change color scheme "),
-        button(" "..leader.." e","  File tree "),
-        button(leader.." f f", "󰈞  Find file"),
-        button(leader.." f t", "󰈬  Find text"),
+        button(leader.." f h", " Recently opened files",cmd('Telescope oldfiles')),
+        button(" "..leader.." c","  Change color scheme ",cmd('Telescope themes')),
+        button(" "..leader.." e","  File tree ",cmd('Neotree focus')),
+        button(leader.." f f", "󰈞  Find file",cmd('Telescope find_files')),
+        button(leader.." f t", "󰈬  Find text",cmd('Telescope live_grep')),
+        button(" nil ", "  Open config",cmd('cd '..vim.fn.stdpath('config').." |Telescope find_files")),
     },
     opts = {
         spacing = 1,
@@ -94,10 +96,10 @@ local config = {
     layout = {
         { type = "padding", val = 10 },
         section.header,
-        { type = "padding", val = 10 },
+        { type = "padding", val = 5 },
         section.buttons,
         section.footer,
-        { type = "padding", val = 20 },
+        { type = "padding", val = 30 },
     },
     opts = {
         margin = 5,

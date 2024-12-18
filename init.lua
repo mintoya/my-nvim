@@ -87,6 +87,6 @@ require("mini.statusline").setup({
   },
 })
 
-require('mapping')
-require('current-theme')
+require('mapping') --enables coustom keybinds
+require('current-theme') --required to remember theme
 
