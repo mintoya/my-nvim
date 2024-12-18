@@ -16,5 +16,5 @@ windows powershell
  - [x] fix live file previews
  - [x] add start page or whatever tehyre called
  - [x] add extra themes
- - [ ] lsp stuff
+ - [x] lsp stuff
  - [ ] formatter stuff

@@ -4,10 +4,11 @@ vim.g.mapleader = " "
 vim.o.foldmethod = "indent"
 
 welcomescreen = require('welcome')
-
 require("lazy").setup(
     {
-
+	{'L3MON4D3/LuaSnip'},
+	{'hrsh7th/cmp-nvim-lsp'},
+	{'neovim/nvim-lspconfig'},
 	{ 'echasnovski/mini.nvim', version = false },
 	{ 'rainglow/vim', as = 'rainglow' },
         {"folke/tokyonight.nvim", opts = {style = "storm"}},
@@ -86,7 +87,6 @@ require("mini.statusline").setup({
     end,
   },
 })
-
 require('mapping') --enables coustom keybinds
 require('current-theme') --required to remember theme
-
+require('lsps')
