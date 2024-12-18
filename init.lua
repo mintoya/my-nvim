@@ -1,4 +1,4 @@
-vim.opt.runtimepath:prepend(vim.fn.stdpath('config') .. "/lazy/lazy.nvim")
+vim.opt.runtimepath:prepend(vim.fn.stdpath('config') .. "/lazy")
 vim.opt.runtimepath:prepend(vim.fn.stdpath('config').."/lua")
 vim.g.mapleader = " "
 vim.o.foldmethod = "indent"
