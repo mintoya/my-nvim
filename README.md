@@ -2,10 +2,14 @@
 - like 90% chatgpt
 ## installation
 not windows
+```
     git clone https://github.com/mintoya/my-nvim/ ~/.config/nvim && nvim
+```
 windows powershell
+```
     git clone https://github.com/mintoya/my-nvim/ $env:USERPROFILE\AppData\Local\nvim
     nvim
+```
 *dont actually know if those work lol*
 # todo
  - [x] add theme control
