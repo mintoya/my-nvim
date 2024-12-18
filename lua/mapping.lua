@@ -33,3 +33,7 @@ for _, keymap in ipairs(keymaps) do
     local opts = keymap[4]
     vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
+-- opens new terminal and runs lazygit inside
+vim.api.nvim_create_user_command('Git', function()
+  vim.cmd('tabnew | terminal lazygit')
+end, {})

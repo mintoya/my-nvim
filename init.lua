@@ -7,6 +7,8 @@ welcomescreen = require('welcome')
 
 require("lazy").setup(
     {
+
+	{ 'echasnovski/mini.nvim', version = false },
 	{ 'rainglow/vim', as = 'rainglow' },
         {"folke/tokyonight.nvim", opts = {style = "storm"}},
         {"neovim/nvim-lspconfig"},
@@ -72,8 +74,18 @@ require("lazy").setup(
         require'alpha'.setup(welcomescreen.config)
     end
 }
-    }    
-)
+    })    
+require("mini.statusline").setup({
+  -- Define the left and right sections
+  section = {
+    left = function()
+      return '%f %y'  -- Displays the filename and filetype
+    end,
+    right = function()
+      return '%l:%c %p%%'  -- Displays line number, column number, and percentage
+    end,
+  },
+})
 
 require('mapping')
 require('current-theme')

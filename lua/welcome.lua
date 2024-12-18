@@ -73,6 +73,7 @@ local buttons = {
     type = "group",
     val = {
         button(leader.." f h", " Recently opened files"),
+        button(" "..leader.." c","  Change color scheme "),
         button(" "..leader.." e","  File tree "),
         button(leader.." f f", "󰈞  Find file"),
         button(leader.." f t", "󰈬  Find text"),
