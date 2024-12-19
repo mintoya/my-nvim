@@ -1,4 +1,21 @@
+
+local lspOptions = {
+   formatters_by_ft = {
+      lua = { "stylua" },
+      c = { "clang-format" },
+      css = { "prettier" },
+      html = { "prettier" },
+   },
+   format_on_save = {
+      timeout_ms = 200,
+      lsp_fallback = true,
+   },
+}
+
 local plugins = {
+      {"williamboman/mason.nvim",config = function ()
+         require("mason").setup()
+      end},
       { 'L3MON4D3/LuaSnip' },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'neovim/nvim-lspconfig' },
@@ -17,7 +34,7 @@ local plugins = {
             })
          end
       },
-      { 'stevearc/conform.nvim', opts = options },
+      { 'stevearc/conform.nvim', opts = lspOptions },
       { "hrsh7th/nvim-cmp" },
       {
          "nvim-telescope/telescope.nvim",
@@ -77,7 +94,7 @@ local plugins = {
       {
          'goolord/alpha-nvim',
          config = function()
-            require 'alpha'.setup(welcomescreen.config)
+            require 'alpha'.setup(require('welcome').config)
          end
       }
    }
