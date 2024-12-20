@@ -27,13 +27,10 @@ local snacksConfig = {
         width = 0.9,
         zindex = 50,
     },
-} -- doesnt work >:(
+}
 local miniConfig = function()
     require("mini.completion").setup({})
     require("mini.comment").setup({
-        -- mappings = {
-        --    comment = '<leader>/'
-        --    }
         mappings = {
             comment = "gc",
             comment_line = "<leader>/",
@@ -41,16 +38,6 @@ local miniConfig = function()
             textobject = "gc",
         },
     })
-    -- require("mini.statusline").setup({
-    -- 	section = {
-    -- 		left = function()
-    -- 			return "%f %y" -- Displays the filename and filetype
-    -- 		end,
-    -- 		right = function()
-    -- 			return "%l:%c %p%%"
-    -- 		end,
-    -- 	},
-    -- })
 end
 local luaLineConfigOptions = {
     options = {
