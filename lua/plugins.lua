@@ -58,7 +58,11 @@ local luaLineConfigOptions = {
 }
 local noiceConfig = {}
 local plugins = {
-	{ "mintoya/example.nvim", dir = "~/nvPlug/example.nvim", opts = { a = "hello", b = "world" } },
+	{
+		"mintoya/example.nvim",
+		dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
+		opts = { a = "hello", b = "world" },
+	},
 	{ "folke/snacks.nvim", opts = snacksConfig },
 	{
 		"folke/noice.nvim",
@@ -84,7 +88,7 @@ local plugins = {
 	},
 	{ "rainglow/vim", as = "rainglow" },
 	{ "folke/tokyonight.nvim", opts = { style = "storm" } },
-	{ "vague2k/vague.nvim", opts = { transparent = true } },
+	{ "vague2k/vague.nvim", opts = { transparent = false } },
 	{ "neovim/nvim-lspconfig" },
 	{ "stevearc/conform.nvim", opts = lspOptions },
 	{ "hrsh7th/nvim-cmp" },

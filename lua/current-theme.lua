@@ -1,1 +1,1 @@
-vim.cmd("colorscheme piggy-contrast")
+vim.cmd("colorscheme vague")
