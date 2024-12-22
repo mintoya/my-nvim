@@ -62,6 +62,7 @@ local plugins = {
 		"mintoya/example.nvim",
 		dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
 		opts = { a = "hello", b = "world" },
+		dependencies = { "MunifTanjim/nui.nvim" },
 	},
 	{ "folke/snacks.nvim", opts = snacksConfig },
 	{
