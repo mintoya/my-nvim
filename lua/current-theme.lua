@@ -1,1 +1,1 @@
-vim.cmd("colorscheme absent-contrast")
+vim.cmd("colorscheme absent")
