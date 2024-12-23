@@ -59,12 +59,11 @@ local luaLineConfigOptions = {
 }
 local noiceConfig = {}
 local plugins = {
-<<<<<<< Updated upstream
 	{
 		"mintoya/example.nvim",
 		dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
 		opts = { a = "hello", b = "world" },
-		dependencies = { "MunifTanjim/nui.nvim" },
+		dependencies = { "MunifTanjim/nui.nvim","grapp-dev/nui-components.nvim" },
 	},
 	{ "folke/snacks.nvim", opts = snacksConfig },
 	{
@@ -166,121 +165,6 @@ local plugins = {
 			require("lualine").setup(luaLineConfigOptions)
 		end,
 	},
-=======
-    {
-        "mintoya/example.nvim",
-        dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
-        opts = { a = "hello", b = "world" },
-        dependencies = {
-            "MunifTanjim/nui.nvim"
-            , 'grapp-dev/nui-components.nvim'
-        },
-    },
-    { "folke/snacks.nvim",    opts = snacksConfig },
-    {
-        "folke/noice.nvim",
-        opts = noiceConfig,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        },
-    },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    },
-    { "L3MON4D3/LuaSnip" },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "neovim/nvim-lspconfig" },
-    {
-        "echasnovski/mini.nvim",
-        version = false,
-        config = miniConfig,
-    },
-    { "rainglow/vim",          as = "rainglow" },
-    { "folke/tokyonight.nvim", opts = { style = "storm" } },
-    { "vague2k/vague.nvim",    opts = { transparent = true } },
-    { "neovim/nvim-lspconfig" },
-    { "stevearc/conform.nvim", opts = lspOptions },
-    { "hrsh7th/nvim-cmp" },
-    {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("telescope").setup({
-                defaults = {
-                    layout_strategy = "flex",
-                    vimgrep_arguments = {
-                        "rg",
-                        "--no-heading",    -- No headings in the result
-                        "--with-filename", -- Show filenames
-                        "--line-number",   -- Show line numbers
-                        "--column",        -- Show column numbers
-                    },
-                    pickers = {
-                        colorscheme = {
-                            enable_preview = true,
-                        },
-                        file_files = {
-                            enable_preview = true,
-                            previewer = require("telescope.previewers").vim_buffer_cat.new,
-                        },
-                    },
-                },
-            })
-        end,
-    },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        dependencies = { "MunifTanjim/nui.nvim", "andrew-george/telescope-themes", "nvim-tree/nvim-web-devicons" },
-        opts = {
-            filesystem = {
-                filtered_items = {
-                    visible = true,
-                },
-            },
-            window = {
-                width = 20,
-            },
-        },
-    },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        keys = {
-            {
-                "<leader>?",
-                function()
-                    require("which-key").show({ global = false })
-                end,
-                desc = "Buffer Local Keymaps (which-key)",
-            },
-        },
-    },
-    {
-        "goolord/alpha-nvim",
-        config = function()
-            require("alpha").setup(require("welcome").config)
-        end,
-    },
-    { "akinsho/toggleterm.nvim", version = "*", config = true },
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = {
-            "kyazdani42/nvim-web-devicons",
-        },
-        config = function()
-            require("lualine").setup(luaLineConfigOptions)
-        end,
-    },
-    {
-        "sphamba/smear-cursor.nvim",
-        opts = {},
-    },
->>>>>>> Stashed changes
 }
 
 return plugins
