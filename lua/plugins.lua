@@ -1,16 +1,3 @@
--- old formatter
--- local lspOptions = {
--- 	formatters_by_ft = {
--- 		lua = { "stylua" },
--- 		c = { "clang-format" },
--- 		css = { "prettier" },
--- 		html = { "prettier" },
--- 	},
--- 	format_on_save = {
--- 		timeout_ms = 1000,
--- 		lsp_fallback = true,
--- 	},
--- }
 local snacksConfig = {
     styles = {
         position = "float",
@@ -66,6 +53,13 @@ local plugins = {
     --     opts = { a = "hello", b = "world" },
     --     dependencies = { "MunifTanjim/nui.nvim", "grapp-dev/nui-components.nvim" },
     -- },
+    --
+    { -- the screen that pops up at the beginning
+        "goolord/alpha-nvim",
+        config = function()
+            require("alpha").setup(require("welcome").config)
+        end,
+    },
     { "folke/snacks.nvim",    opts = snacksConfig },
     {
         "folke/noice.nvim",
@@ -224,12 +218,6 @@ local plugins = {
                 desc = "Buffer Local Keymaps (which-key)",
             },
         },
-    },
-    {
-        "goolord/alpha-nvim",
-        config = function()
-            require("alpha").setup(require("welcome").config)
-        end,
     },
     { "akinsho/toggleterm.nvim", version = "*", config = true },
     {
