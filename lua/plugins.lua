@@ -59,12 +59,12 @@ local luaLineConfigOptions = {
 }
 local noiceConfig = {}
 local plugins = {
-    {
-        "mintoya/example.nvim",
-        dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
-        opts = { a = "hello", b = "world" },
-        dependencies = { "MunifTanjim/nui.nvim", "grapp-dev/nui-components.nvim" },
-    },
+    -- {
+    --     "mintoya/example.nvim",
+    --     dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
+    --     opts = { a = "hello", b = "world" },
+    --     dependencies = { "MunifTanjim/nui.nvim", "grapp-dev/nui-components.nvim" },
+    -- },
     { "folke/snacks.nvim",    opts = snacksConfig },
     {
         "folke/noice.nvim",
@@ -169,6 +169,26 @@ local plugins = {
         "sphamba/smear-cursor.nvim",
         opts = {},
     },
+    {
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+        keys = {
+            -- 👇 in this section, choose your own keymappings!
+            {
+                -- Open in the current working directory
+                "<leader>fb",
+                "<cmd>Yazi cwd<cr>",
+                desc = "Open the file manager in nvim's working directory",
+            },
+        },
+        opts = {
+            -- if you want to open yazi instead of netrw, see below for more info
+            open_for_directories = false,
+            keymaps = {
+                show_help = '<f1>',
+            },
+        },
+    }
 }
 
 return plugins
