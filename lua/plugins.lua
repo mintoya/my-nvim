@@ -252,6 +252,13 @@ local plugins = {
         "sphamba/smear-cursor.nvim",
         opts = {},
     },
+
+    { -- the screen that pops up at the beginning
+        "goolord/alpha-nvim",
+        config = function()
+            require("alpha").setup(require("welcome").config)
+        end,
+    },
 }
 
 return plugins
