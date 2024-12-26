@@ -1,16 +1,3 @@
--- old formatter
--- local lspOptions = {
--- 	formatters_by_ft = {
--- 		lua = { "stylua" },
--- 		c = { "clang-format" },
--- 		css = { "prettier" },
--- 		html = { "prettier" },
--- 	},
--- 	format_on_save = {
--- 		timeout_ms = 1000,
--- 		lsp_fallback = true,
--- 	},
--- }
 local snacksConfig = {
     styles = {
         position = "float",
@@ -118,7 +105,6 @@ local plugins = {
     { "rainglow/vim",          as = "rainglow" },
     { "folke/tokyonight.nvim", opts = { style = "storm" } },
     { "vague2k/vague.nvim",    opts = { transparent = true } },
-    { "neovim/nvim-lspconfig" },
     -- { "stevearc/conform.nvim", opts = lspOptions },
     {
         -- aint no way it needs to be this long
@@ -252,12 +238,6 @@ local plugins = {
             },
         },
     },
-    {
-        "goolord/alpha-nvim",
-        config = function()
-            require("alpha").setup(require("welcome").config)
-        end,
-    },
     { "akinsho/toggleterm.nvim", version = "*", config = true },
     {
         "nvim-lualine/lualine.nvim",
@@ -272,26 +252,6 @@ local plugins = {
         "sphamba/smear-cursor.nvim",
         opts = {},
     },
-    {
-        "mikavilpas/yazi.nvim",
-        event = "VeryLazy",
-        keys = {
-            -- 👇 in this section, choose your own keymappings!
-            {
-                -- Open in the current working directory
-                "<leader>fb",
-                "<cmd>Yazi cwd<cr>",
-                desc = "Open the file manager in nvim's working directory",
-            },
-        },
-        opts = {
-            -- if you want to open yazi instead of netrw, see below for more info
-            open_for_directories = false,
-            keymaps = {
-                show_help = '<f1>',
-            },
-        },
-    }
 }
 
 return plugins
