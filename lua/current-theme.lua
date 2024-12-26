@@ -1,1 +1,1 @@
-vim.cmd("colorscheme absent")
+vim.cmd("colorscheme catppuccin")

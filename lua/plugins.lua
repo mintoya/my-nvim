@@ -60,12 +60,38 @@ local luaLineConfigOptions = {
 }
 local noiceConfig = {}
 local plugins = {
-    -- {
-    --     "mintoya/example.nvim",
-    --     dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
-    --     opts = { a = "hello", b = "world" },
-    --     dependencies = { "MunifTanjim/nui.nvim", "grapp-dev/nui-components.nvim" },
-    -- },
+    {
+        "mintoya/example.nvim",
+        dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
+        opts = { a = "hello", b = "world" },
+        dependencies = { "MunifTanjim/nui.nvim" },
+    },
+    -- { "catppuccin/nvim",   name = "catppuccin" },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        opts = {
+            term_colors = true,
+            transparent_background = false,
+            color_overrides = {
+                mocha = {
+                    base = "#000000",
+                    mantle = "#000000",
+                    crust = "#000000",
+                },
+            },
+            integrations = {
+                -- telescope = {
+                --     enabled = true,
+                --     style = "nvchad",
+                -- },
+                dropbar = {
+                    enabled = true,
+                    color_mode = true,
+                },
+            },
+        },
+    },
     { "folke/snacks.nvim",    opts = snacksConfig },
     {
         "folke/noice.nvim",
