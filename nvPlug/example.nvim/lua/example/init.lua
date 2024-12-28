@@ -1,7 +1,7 @@
 local M = {}
 -- annoying lsp
 local vim = vim
-
+local Path = require("plenary.path")
 local NuiTree = require("nui.tree")
 local Layout = require("nui.layout")
 local Popup = require("nui.popup")
@@ -35,7 +35,6 @@ local function fileToItems(arg)
     end
     return a
 end
-
 local function fileToNodes(arg)
     local a = {}
     for _, v in ipairs(getFiles(arg)) do
@@ -47,6 +46,7 @@ local function fileToNodes(arg)
     end
     return a
 end
+
 function M.popup()
     local basicGraph =
     {
@@ -79,12 +79,15 @@ function M.popup()
         vim.api.nvim_buf_set_lines(bottom_left_popup.bufnr, 0, -1, false, {})
         local grandParent = ''
         if isDirectory then
-            grandParent = vim.fn.fnamemodify(string.sub(directory, -1), ':h')
+            print('reading a directory')
+            local npath = Path:new(directory)
+            npath = Path:new(npath:parent().filename)
+            grandParent = npath:parent().filename
         else
             grandParent = vim.fn.fnamemodify(directory, ':h')
         end
 
-        print(grandParent)
+        -- print(grandParent)
         local nodetable = fileToNodes(grandParent)
         local tree = NuiTree({
             bufnr = bottom_left_popup.bufnr,
@@ -123,7 +126,7 @@ function M.popup()
             end,
             on_change = function(node)
                 updateNext(node.location, node.isDirectory)
-                updatePrev(node.location)
+                updatePrev(node.location, node.isDirectory)
             end
         })
 

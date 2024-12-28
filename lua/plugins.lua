@@ -51,7 +51,9 @@ local plugins = {
         "mintoya/example.nvim",
         dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
         opts = { a = "hello", b = "world" },
-        dependencies = { "MunifTanjim/nui.nvim" },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim" },
     },
     -- { "catppuccin/nvim",   name = "catppuccin" },
     {
@@ -102,7 +104,7 @@ local plugins = {
         version = false,
         config = miniConfig,
     },
-    { "rainglow/vim",          as = "rainglow" },
+    { "mintoya/rainglow-vim",  as = "rainglow" },
     { "folke/tokyonight.nvim", opts = { style = "storm" } },
     { "vague2k/vague.nvim",    opts = { transparent = true } },
     -- { "stevearc/conform.nvim", opts = lspOptions },
