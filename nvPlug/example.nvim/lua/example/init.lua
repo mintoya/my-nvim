@@ -1,7 +1,9 @@
 local M = {}
 -- annoying lsp
 local vim = vim
+
 local Path = require("plenary.path")
+local scanDir = require("plenary.scandir")
 local NuiTree = require("nui.tree")
 local Layout = require("nui.layout")
 local Popup = require("nui.popup")
@@ -31,7 +33,7 @@ local function fileToItems(arg)
         if v.isDirectory then
             appen = ' '
         end
-        table.insert(a, Menu.item(appen .. v.name, v))
+        table.insert(a, Menu.item(appen .. vim.fn.fnamemodify(v.name, ':t'), v))
     end
     return a
 end
@@ -47,16 +49,16 @@ local function fileToNodes(arg)
     return a
 end
 
-function M.popup()
+function M.popup(path)
     local basicGraph =
     {
         lines = {},
         max_width = 200,
     }
 
-    local bottom_left_popup = Popup({ focusable = false, border = { style = 'rounded', text = { bottom = '{ }' } } },
+    local bottom_left_popup = Popup({ focusable = false, border = { style = 'rounded', text = { bottom = '{  }' } } },
         basicGraph)
-    local bottom_right_popup = Popup({ focusable = true, border = { style = 'rounded', text = { top = '{ }' } } },
+    local bottom_right_popup = Popup({ focusable = true, border = { style = 'rounded', text = { top = '{  }' } } },
         basicGraph)
 
 
@@ -79,7 +81,6 @@ function M.popup()
         vim.api.nvim_buf_set_lines(bottom_left_popup.bufnr, 0, -1, false, {})
         local grandParent = ''
         if isDirectory then
-            print('reading a directory')
             local npath = Path:new(directory)
             npath = Path:new(npath:parent().filename)
             grandParent = npath:parent().filename
@@ -110,7 +111,7 @@ function M.popup()
             }
         },
         {
-            lines = fileToItems(),
+            lines = fileToItems(path),
             max_width = 20,
             keymap = {
                 focus_next = { "j", "<Down>", "<Tab>" },
@@ -119,10 +120,13 @@ function M.popup()
                 submit = { "<CR>", "<Space>" },
             },
             on_close = function()
-                print("CLOSED")
             end,
             on_submit = function(node)
-                print("SUBMITTED")
+                if node.isDirectory then
+                    M.popup(node.location)
+                else
+                    vim.api.nvim_command("tabnew " .. node.name)
+                end
             end,
             on_change = function(node)
                 updateNext(node.location, node.isDirectory)

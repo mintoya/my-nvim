@@ -37,57 +37,11 @@ format_on_save.setup({
         typescript = formatters.prettierd,
         typescriptreact = formatters.prettierd,
         yaml = formatters.lsp,
-
-        -- Add your own shell formatters:
-        myfiletype = formatters.shell({ cmd = { "myformatter", "%" } }),
-
-        -- Add lazy formatter that will only run when formatting:
-        my_custom_formatter = function()
-            if vim.api.nvim_buf_get_name(0):match("/README.md$") then
-                return formatters.prettierd
-            else
-                return formatters.lsp()
-            end
-        end,
-
-        -- Add custom formatter
-        filetype1 = formatters.remove_trailing_whitespace,
-        filetype2 = formatters.custom({
-            format = function(lines)
-                return vim.tbl_map(function(line)
-                    return line:gsub("true", "false")
-                end, lines)
-            end,
-        }),
-
-        -- Concatenate formatters
-        python = {
-            formatters.remove_trailing_whitespace,
-            formatters.shell({ cmd = "tidy-imports" }),
-            formatters.black,
-            formatters.ruff,
-        },
-
-        -- Use a tempfile instead of stdin
-        go = {
-            formatters.shell({
-                cmd = { "goimports-reviser", "-rm-unused", "-set-alias", "-format", "%" },
-                tempfile = function()
-                    return vim.fn.expand("%") .. ".formatter-temp"
-                end,
-            }),
-            formatters.shell({ cmd = { "gofmt" } }),
-        },
     },
-
-    -- Optional: fallback formatter to use when no formatters match the current filetype
     fallback_formatter = {
         formatters.remove_trailing_whitespace,
         formatters.remove_trailing_newlines,
-        formatters.prettierd,
+        -- formatters.prettierd,
     },
-
-    -- By default, all shell commands are prefixed with "sh -c" (see PR #3)
-    -- To prevent that set `run_with_sh` to `false`.
     run_with_sh = false,
 })
