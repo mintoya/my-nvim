@@ -11,12 +11,24 @@ local Menu = require("nui.menu")
 
 local function getFiles(arg)
     -- table:{name,isDirectory}
+    local arg2 = nil
     if arg then
         arg = arg .. '/*'
+        arg2 = arg .. '/.[^.]*'
     end
-    arg = arg or "*"
+    arg = arg or vim.fn.getcwd()
     local filesList = {}
     local fileNames = vim.fn.glob(arg, true, true, 2)
+    if arg2 then
+        local dotFileNames = vim.fn.glob(arg2, true, true, 2)
+        for _, file in ipairs(dotFileNames) do
+            table.insert(filesList, {
+                name = file,
+                location = vim.fn.fnamemodify(file, ':p:h'),
+                isDirectory = vim.fn.isdirectory(file) == 1
+            })
+        end
+    end
     for _, file in ipairs(fileNames) do
         table.insert(filesList, {
             name = file,
