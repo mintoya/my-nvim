@@ -255,6 +255,7 @@ local plugins = {
         opts = {},
     },
 
+
     { -- the screen that pops up at the beginning
         "goolord/alpha-nvim",
         config = function()
