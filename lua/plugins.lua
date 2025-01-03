@@ -81,7 +81,7 @@ local plugins = {
             },
         },
     },
-    { "folke/snacks.nvim",    opts = snacksConfig },
+    { "folke/snacks.nvim",     opts = snacksConfig },
     {
         "folke/noice.nvim",
         opts = noiceConfig,
@@ -97,6 +97,7 @@ local plugins = {
         end,
     },
     { "L3MON4D3/LuaSnip" },
+    { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
     { "hrsh7th/cmp-nvim-lsp" },
     { "neovim/nvim-lspconfig" },
     {
@@ -254,7 +255,6 @@ local plugins = {
         "sphamba/smear-cursor.nvim",
         opts = {},
     },
-
 
     { -- the screen that pops up at the beginning
         "goolord/alpha-nvim",
