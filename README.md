@@ -19,4 +19,5 @@ nvim
  - [x] lsp stuff
  - [x] formatter stuff
  - [ ] make the file system make sense
- - [x] mason.nvim 
+ - [x] mason.nvim
+ - [ ] add flash.nvim
