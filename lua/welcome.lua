@@ -55,7 +55,7 @@ local welcomeScrens = {
 }
 local default_header = {
     type = "text",
-    val = welcomeScrens['medium'],
+    val = welcomeScrens['small_2'],
     opts = {
         position = "center",
         hl = "Type",

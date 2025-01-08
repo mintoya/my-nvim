@@ -18,7 +18,6 @@ local snacksConfig = {
 }
 local miniConfig = function()
     require("mini.completion").setup({})
-    -- require("mini.animate").setup()
     require("mini.comment").setup({
         mappings = {
             comment = "gc",
@@ -27,6 +26,7 @@ local miniConfig = function()
             textobject = "gc",
         },
     })
+    require("mini.map").setup({})
 end
 local luaLineConfigOptions = {
     options = {
@@ -45,6 +45,42 @@ local luaLineConfigOptions = {
     },
     extensions = { "fugitive", "nvim-tree", "quickfix" },
 }
+local formatConfig = function()
+    local format_on_save = require("format-on-save")
+    local formatters = require("format-on-save.formatters")
+    format_on_save.setup({
+        exclude_path_patterns = {
+            "/node_modules/",
+            ".local/share/nvim/lazy",
+        },
+        formatter_by_ft = {
+            css = formatters.lsp,
+            c = formatters.lsp,
+            html = formatters.lsp,
+            java = formatters.lsp,
+            javascript = formatters.lsp,
+            json = formatters.lsp,
+            lua = formatters.lsp,
+            markdown = formatters.prettierd,
+            openscad = formatters.lsp,
+            rust = formatters.lsp,
+            scad = formatters.lsp,
+            scss = formatters.lsp,
+            sh = formatters.shfmt,
+            terraform = formatters.lsp,
+            typescript = formatters.prettierd,
+            typescriptreact = formatters.prettierd,
+            yaml = formatters.lsp,
+        },
+
+        fallback_formatter = {
+            formatters.remove_trailing_whitespace,
+            formatters.remove_trailing_newlines,
+        },
+        run_with_sh = false,
+    })
+end
+
 local noiceConfig = {}
 local plugins = {
     {
@@ -55,48 +91,13 @@ local plugins = {
             "MunifTanjim/nui.nvim",
             "nvim-lua/plenary.nvim" },
     },
-    -- { "catppuccin/nvim",   name = "catppuccin" },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        opts = {
-            term_colors = true,
-            transparent_background = false,
-            color_overrides = {
-                mocha = {
-                    base = "#000000",
-                    mantle = "#000000",
-                    crust = "#000000",
-                },
-            },
-            integrations = {
-                -- telescope = {
-                --     enabled = true,
-                --     style = "nvchad",
-                -- },
-                dropbar = {
-                    enabled = true,
-                    color_mode = true,
-                },
-            },
-        },
-    },
-    { "folke/snacks.nvim",     opts = snacksConfig },
+    { "williamboman/mason.nvim", opts = {}, },
+    { "folke/snacks.nvim",       opts = snacksConfig },
     {
         "folke/noice.nvim",
         opts = noiceConfig,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        },
+        dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify", },
     },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    },
-    { "L3MON4D3/LuaSnip" },
     { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
     { "hrsh7th/cmp-nvim-lsp" },
     { "neovim/nvim-lspconfig" },
@@ -105,86 +106,20 @@ local plugins = {
         version = false,
         config = miniConfig,
     },
-    { "mintoya/rainglow-vim",  as = "rainglow" },
-    { "folke/tokyonight.nvim", opts = { style = "storm" } },
-    { "vague2k/vague.nvim",    opts = { transparent = true } },
-    -- { "stevearc/conform.nvim", opts = lspOptions },
     {
-        -- aint no way it needs to be this long
-        "elentok/format-on-save.nvim",
-        config = function()
-            local format_on_save = require("format-on-save")
-            local formatters = require("format-on-save.formatters")
-            format_on_save.setup({
-                exclude_path_patterns = {
-                    "/node_modules/",
-                    ".local/share/nvim/lazy",
-                },
-                formatter_by_ft = {
-                    css = formatters.lsp,
-                    html = formatters.lsp,
-                    java = formatters.lsp,
-                    javascript = formatters.lsp,
-                    json = formatters.lsp,
-                    lua = formatters.lsp,
-                    markdown = formatters.prettierd,
-                    openscad = formatters.lsp,
-                    rust = formatters.lsp,
-                    scad = formatters.lsp,
-                    scss = formatters.lsp,
-                    sh = formatters.shfmt,
-                    terraform = formatters.lsp,
-                    typescript = formatters.prettierd,
-                    typescriptreact = formatters.prettierd,
-                    yaml = formatters.lsp,
-
-                    -- Add your own shell formatters:
-                    myfiletype = formatters.shell({ cmd = { "myformatter", "%" } }),
-
-                    -- Add lazy formatter that will only run when formatting:
-                    -- my_custom_formatter = function()
-                    --     if vim.api.nvim_buf_get_name(0):match("/README.md$") then
-                    --         return formatters.prettierd
-                    --     else
-                    --         return formatters.lsp()
-                    --     end
-                    -- end,
-                    -- Add custom formatter
-                    -- filetype1 = formatters.remove_trailing_whitespace,
-                    -- filetype2 = formatters.custom({
-                    --     format = function(lines)
-                    --         return vim.tbl_map(function(line)
-                    --             return line:gsub("true", "false")
-                    --         end, lines)
-                    --     end,
-                    -- }),
-                    python = {
-                        formatters.remove_trailing_whitespace,
-                        formatters.shell({ cmd = "tidy-imports" }),
-                        formatters.black,
-                        formatters.ruff,
-                    },
-
-                    go = {
-                        formatters.shell({
-                            cmd = { "goimports-reviser", "-rm-unused", "-set-alias", "-format", "%" },
-                            tempfile = function()
-                                return vim.fn.expand("%") .. ".formatter-temp"
-                            end,
-                        }),
-                        formatters.shell({ cmd = { "gofmt" } }),
-                    },
-                },
-
-                fallback_formatter = {
-                    formatters.remove_trailing_whitespace,
-                    formatters.remove_trailing_newlines,
-                    formatters.prettierd,
-                },
-                run_with_sh = false,
-            })
-        end
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        build = "make install_jsregexp",
     },
+
+    -- color schemes
+    { "mintoya/rainglow-vim",        as = "rainglow" },
+    { "catppuccin/nvim",             name = "catppuccin" },
+    { "folke/tokyonight.nvim",       opts = { style = "storm" } },
+    { "vague2k/vague.nvim",          opts = { transparent = true } },
+
+
+    { "elentok/format-on-save.nvim", config = formatConfig },
     { "hrsh7th/nvim-cmp" },
     {
         "nvim-telescope/telescope.nvim",
@@ -241,7 +176,7 @@ local plugins = {
             },
         },
     },
-    { "akinsho/toggleterm.nvim", version = "*", config = true },
+    { "akinsho/toggleterm.nvim",   version = "*", config = true },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
@@ -251,10 +186,7 @@ local plugins = {
             require("lualine").setup(luaLineConfigOptions)
         end,
     },
-    {
-        "sphamba/smear-cursor.nvim",
-        opts = {},
-    },
+    { "sphamba/smear-cursor.nvim", opts = {}, },
 
     { -- the screen that pops up at the beginning
         "goolord/alpha-nvim",
