@@ -124,6 +124,7 @@ local plugins = {
             "nvim-lua/plenary.nvim" },
     },
     { "williamboman/mason.nvim", opts = {}, },
+    { "williamboman/mason-lspconfig.nvim", opts = {}, },
     { "folke/snacks.nvim",       opts = snacksConfig },
     {
         "folke/noice.nvim",
@@ -149,10 +150,9 @@ local plugins = {
     { "catppuccin/nvim",             name = "catppuccin" },
     { "folke/tokyonight.nvim",       opts = { style = "storm" } },
     { "vague2k/vague.nvim",          opts = { transparent = true } },
-
-
     { "elentok/format-on-save.nvim", config = formatConfig },
     { "hrsh7th/nvim-cmp" },
+
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.8",
@@ -219,7 +219,6 @@ local plugins = {
         end,
     },
     { "sphamba/smear-cursor.nvim", opts = {}, },
-
     { -- the screen that pops up at the beginning
         "goolord/alpha-nvim",
         config = function()
