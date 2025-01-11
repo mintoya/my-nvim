@@ -9,9 +9,17 @@ vim.o.number = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+
+-- Disable virtual_text since it's redundant due to lsp_lines.
 require("lazy").setup(require("plugins"))
 require("mapping")
 require("lsps")
 
 
 require("current-theme") --required to remember theme
+
+vim.diagnostic.config({
+    virtual_text = false,           -- Disable inline virtual text
+    signs = true,                   -- Keep error signs in the gutter (optional)
+    float = { border = "rounded" }, -- Customize floating window appearance (optional)
+})
