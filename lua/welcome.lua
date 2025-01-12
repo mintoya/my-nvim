@@ -1,5 +1,3 @@
-local if_nil = vim.F.if_nil
-
 local default_terminal = {
     type = "terminal",
     command = nil,

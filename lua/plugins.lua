@@ -17,7 +17,7 @@ local snacksConfig = {
     },
 }
 local miniConfig = function()
-    require("mini.completion").setup({})
+    -- require("mini.completion").setup({})
     require("mini.comment").setup({
         mappings = {
             comment = "gc",
@@ -44,6 +44,30 @@ local luaLineConfigOptions = {
         lualine_z = { "location" },                           -- Line and column number
     },
     extensions = { "fugitive", "nvim-tree", "quickfix" },
+}
+local blinkMap = {
+    ['<C-e>'] = { 'hide' },
+    ['<C-l>'] = { 'select_and_accept' },
+
+    ['<C-j>'] = { 'select_prev', 'fallback' },
+    ['<C-k>'] = { 'select_next', 'fallback' },
+
+    ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+    ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+
+    ['<Tab>'] = { 'snippet_forward', 'fallback' },
+    ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+}
+
+local blinkOpts = {
+    keymap = blinkMap,
+    appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono'
+    },
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
 }
 local formatConfig = function()
     local format_on_save = require("format-on-save")
@@ -120,6 +144,13 @@ local plugins = {
     { "vague2k/vague.nvim",          opts = { transparent = true } },
     { "elentok/format-on-save.nvim", config = formatConfig },
     { "hrsh7th/nvim-cmp" },
+    {
+        'saghen/blink.cmp',
+        dependencies = 'rafamadriz/friendly-snippets',
+        version = '*',
+        opts = blinkOpts,
+        opts_extend = { "sources.default" }
+    },
 
     {
         "nvim-telescope/telescope.nvim",
