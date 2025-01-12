@@ -44,6 +44,18 @@ keymaps = {
         ":ToggleTerm direction=float name=cmd<cr>",
         { desc = "Toggle floating terminal", noremap = true, silent = true },
     },
+    {
+        "n",
+        "<leader>se",
+":ScissorsEditSnippet<cr>",
+        { desc = "Snippet: Edit" },
+    },
+    {
+        "n",
+        "<leader>sa",
+        ":ScissorsAddNewSnippet<cr>",
+        {desc = "Snippet: Add"}
+    },
 }
 
 for _, keymap in ipairs(keymaps) do

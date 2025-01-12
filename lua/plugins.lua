@@ -95,11 +95,7 @@ local plugins = {
     { "williamboman/mason-lspconfig.nvim", opts = {}, },
     {
         'MeanderingProgrammer/render-markdown.nvim',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-        ---@module 'render-markdown'
-        ---@type render.md.UserConfig
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
         opts = {},
     },
     { "folke/snacks.nvim",     opts = snacksConfig },
@@ -116,11 +112,6 @@ local plugins = {
         version = false,
         config = miniConfig,
     },
-    -- {
-    --     "L3MON4D3/LuaSnip",
-    --     dependencies = { "rafamadriz/friendly-snippets" },
-    --     build = "make install_jsregexp",
-    -- },
 
     -- color schemes
     { "mintoya/rainglow-vim",        as = "rainglow" },
@@ -228,6 +219,26 @@ local plugins = {
     {
         "wurli/visimatch.nvim",
         opts = {}
+    },
+    --snippets
+    --vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
+
+    {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load {
+                paths = { vim.fn.stdpath("config") .. "/snippets" },
+            }
+        end,
+        build = "make install_jsregexp",
+    },
+    {
+        "chrisgrieser/nvim-scissors",
+        dependencies = "nvim-telescope/telescope.nvim",
+        opts = {
+            snippetDir = vim.fn.stdpath("config") .. "/snippets",
+        }
     },
 }
 
