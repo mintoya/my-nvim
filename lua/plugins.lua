@@ -248,6 +248,10 @@ local plugins = {
     --         require("lsp_lines").setup()
     --     end
     -- },
+    {
+        "wurli/visimatch.nvim",
+        opts = {}
+    },
 }
 
 return plugins
