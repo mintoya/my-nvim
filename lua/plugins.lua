@@ -1,35 +1,3 @@
-local fmtConfig = function()
-    local format_on_save = require("format-on-save")
-    local formatters = require("format-on-save.formatters")
-    format_on_save.setup({
-        formatter_by_ft = {
-            css = formatters.lsp,
-            html = formatters.lsp,
-            java = formatters.lsp,
-            javascript = formatters.lsp,
-            json = formatters.lsp,
-            lua = formatters.lsp,
-            c = formatters.lsp,
-            markdown = formatters.prettierd,
-            openscad = formatters.lsp,
-            rust = formatters.lsp,
-            scad = formatters.lsp,
-            scss = formatters.lsp,
-            sh = formatters.shfmt,
-            terraform = formatters.lsp,
-            typescript = formatters.prettierd,
-            typescriptreact = formatters.prettierd,
-            yaml = formatters.lsp,
-        },
-
-        fallback_formatter = {
-            formatters.remove_trailing_whitespace,
-            formatters.remove_trailing_newlines,
-        },
-        run_with_sh = false,
-    })
-end
-
 local snacksConfig = {
     styles = {
         position = "float",
@@ -125,7 +93,16 @@ local plugins = {
     },
     { "williamboman/mason.nvim",           opts = {}, },
     { "williamboman/mason-lspconfig.nvim", opts = {}, },
-    { "folke/snacks.nvim",                 opts = snacksConfig },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        ---@module 'render-markdown'
+        ---@type render.md.UserConfig
+        opts = {},
+    },
+    { "folke/snacks.nvim",     opts = snacksConfig },
     {
         "folke/noice.nvim",
         opts = noiceConfig,
@@ -139,11 +116,11 @@ local plugins = {
         version = false,
         config = miniConfig,
     },
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = { "rafamadriz/friendly-snippets" },
-        build = "make install_jsregexp",
-    },
+    -- {
+    --     "L3MON4D3/LuaSnip",
+    --     dependencies = { "rafamadriz/friendly-snippets" },
+    --     build = "make install_jsregexp",
+    -- },
 
     -- color schemes
     { "mintoya/rainglow-vim",        as = "rainglow" },
