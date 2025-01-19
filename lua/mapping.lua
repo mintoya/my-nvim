@@ -7,7 +7,7 @@ local keymaps = {
   {
     "n",
     "<leader>c",
-    ":Telescope colorschemes<CR>",
+    ":Telescope themes<CR>",
     { desc = "telescope themes", noremap = true, silent = true },
   },
   {
@@ -65,5 +65,7 @@ for _, keymap in ipairs(keymaps) do
   local lhs = keymap[2]
   local rhs = keymap[3]
   local opts = keymap[4]
+  -- vim.api.nvim_set_keymap(tabel.unpack(keymap));
+
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
