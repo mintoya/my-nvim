@@ -32,16 +32,16 @@ local luaLineConfigOptions = {
   options = {
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
-    disabled_filetypes = { "NvimTree", "packer", "fugitive" },     -- Disable on certain filetypes
-    icons_enabled = true,                                          -- Enable file icons
+    disabled_filetypes = { "NvimTree", "packer", "fugitive" }, -- Disable on certain filetypes
+    icons_enabled = true,                                      -- Enable file icons
   },
   sections = {
-    lualine_a = { "mode" },                                   -- Leftmost section: show mode (insert, normal, etc.)
-    lualine_b = { "branch", "diff" },                         -- Branch and git diff information
-    lualine_c = { "filename" },                               -- Current filename
-    lualine_x = { "filetype", "encoding", "fileformat" },     -- Filetype, encoding, file format
-    lualine_y = { "progress" },                               -- Show progress through file
-    lualine_z = { "location" },                               -- Line and column number
+    lualine_a = { "mode" },                               -- Leftmost section: show mode (insert, normal, etc.)
+    lualine_b = { "branch", "diff" },                     -- Branch and git diff information
+    lualine_c = { "filename" },                           -- Current filename
+    lualine_x = { "filetype", "encoding", "fileformat" }, -- Filetype, encoding, file format
+    lualine_y = { "progress" },                           -- Show progress through file
+    lualine_z = { "location" },                           -- Line and column number
   },
   extensions = { "fugitive", "nvim-tree", "quickfix" },
 }
@@ -162,10 +162,10 @@ local plugins = {
           layout_strategy = "flex",
           vimgrep_arguments = {
             "rg",
-            "--no-heading",                -- No headings in the result
-            "--with-filename",             -- Show filenames
-            "--line-number",               -- Show line numbers
-            "--column",                    -- Show column numbers
+            "--no-heading",    -- No headings in the result
+            "--with-filename", -- Show filenames
+            "--line-number",   -- Show line numbers
+            "--column",        -- Show column numbers
           },
           pickers = {
             colorscheme = {
@@ -197,14 +197,6 @@ local plugins = {
   {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
-    keys = {
-      -- 👇 in this section, choose your own keymappings!
-      {
-        "<leader>e",
-        "<cmd>Yazi<cr>",
-        desc = "Open yazi at the current file",
-      },
-    },
     opts = {
       -- if you want to open yazi instead of netrw, see below for more info
       open_for_directories = true,
@@ -237,7 +229,7 @@ local plugins = {
     end,
   },
   { "sphamba/smear-cursor.nvim", opts = {}, },
-  {   -- the screen that pops up at the beginning
+  { -- the screen that pops up at the beginning
     "goolord/alpha-nvim",
     config = function()
       require("alpha").setup(require("welcome").config)
@@ -246,7 +238,7 @@ local plugins = {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "WinEnter",
-    priority = 1000,     -- needs to be loaded in first
+    priority = 1000, -- needs to be loaded in first
     config = function()
       require('tiny-inline-diagnostic').setup(
         {
