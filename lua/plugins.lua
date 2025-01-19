@@ -282,6 +282,11 @@ local plugins = {
       snippetDir = vim.fn.stdpath("config") .. "/snippets",
     }
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+  },
 }
 
 return plugins
