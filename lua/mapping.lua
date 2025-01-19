@@ -7,8 +7,8 @@ local keymaps = {
   {
     "n",
     "<leader>c",
-    ":Telescope themes<CR>",
-    { desc = "telescope colorschemes", noremap = true, silent = true },
+    ":Telescope colorschemes<CR>",
+    { desc = "telescope themes", noremap = true, silent = true },
   },
   {
     "n",
@@ -23,7 +23,7 @@ local keymaps = {
     { desc = "find text in files", noremap = true, silent = true },
   },
   { "n", "<leader>b", ":tabnew<CR>", { noremap = true, silent = true } },
-  {"n","<leader>e",":Yazi<CR>",{ desc = "Open yazi at the current file", noremap = true, silent = true  },
+  { "n", "<leader>e", ":Yazi<CR>", { desc = "Open yazi at the current file", noremap = true, silent = true },
   },
   { "n", "<leader>x", ":bd<CR>",     { desc = "close buffer", noremap = true, silent = true } },
   {

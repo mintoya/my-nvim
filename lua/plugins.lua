@@ -107,14 +107,6 @@ end
 
 local noiceConfig = {}
 local plugins = {
-  {
-    "mintoya/example.nvim",
-    dir = vim.fn.stdpath("config") .. "/nvPlug/example.nvim",
-    opts = { a = "hello", b = "world" },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim" },
-  },
   { "williamboman/mason.nvim",           opts = {}, },
   { "williamboman/mason-lspconfig.nvim", opts = {}, },
   {
@@ -155,7 +147,7 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "andrew-george/telescope-themes" },
     config = function()
       require("telescope").setup({
         defaults = {
@@ -182,7 +174,7 @@ local plugins = {
   },
   -- {
   --     "nvim-neo-tree/neo-tree.nvim",
-  --     dependencies = { "MunifTanjim/nui.nvim", "andrew-george/telescope-themes", "nvim-tree/nvim-web-devicons" },
+  --     dependencies = { "MunifTanjim/nui.nvim", "nvim-tree/nvim-web-devicons" },
   --     opts = {
   --         filesystem = {
   --             filtered_items = {

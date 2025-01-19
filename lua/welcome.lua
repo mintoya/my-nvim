@@ -105,7 +105,7 @@ local buttons = {
   type = "group",
   val = {
     button(leader .. " f h", " Recently opened files", cmd('Telescope oldfiles')),
-    button(" " .. leader .. " c", "  Change color scheme ", cmd('Telescope themes')),
+    button(" " .. leader .. " c", "  Change color scheme ", cmd('Telescope colorscheme')),
     button(" " .. leader .. " e", "  File tree ", cmd('Neotree focus')),
     button(leader .. " f f", "󰈞  Find file", cmd('Telescope find_files')),
     button(leader .. " f t", "󰈬  Find text", cmd('Telescope live_grep')),
