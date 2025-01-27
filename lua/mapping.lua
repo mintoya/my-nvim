@@ -41,6 +41,12 @@ local keymaps = {
   },
   {
     "n",
+    "<leader>h",
+    ":ToggleTerm direction=horizontal<cr>",
+    { desc = "Toggle floating terminal", noremap = true, silent = true },
+  },
+  {
+    "n",
     "<leader>t",
     ":ToggleTerm direction=float name=cmd<cr>",
     { desc = "Toggle floating terminal", noremap = true, silent = true },
