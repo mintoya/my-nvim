@@ -184,12 +184,13 @@ local plugins = {
   {
     "dgox16/oldworld.nvim", opts = {}
   },
-  { "mintoya/rainglow-vim",        as = "rainglow" },
-  { "catppuccin/nvim",             name = "catppuccin" },
-  { "folke/tokyonight.nvim",       opts = { style = "storm" } },
-  { "vague2k/vague.nvim",          opts = { transparent = true } },
-  { "elentok/format-on-save.nvim", config = formatConfig },
+  { "mintoya/rainglow-vim",              as = "rainglow" },
+  { "catppuccin/nvim",                   name = "catppuccin" },
+  { "folke/tokyonight.nvim",             opts = { style = "storm" } },
+  { "vague2k/vague.nvim",                opts = { transparent = true } },
+  { "elentok/format-on-save.nvim",       config = formatConfig },
   { "hrsh7th/nvim-cmp" },
+  { "brenoprata10/nvim-highlight-colors" },
   {
     'saghen/blink.cmp',
     dependencies = 'rafamadriz/friendly-snippets',

@@ -23,3 +23,7 @@ vim.diagnostic.config({
   signs = true,                   -- Keep error signs in the gutter (optional)
   float = { border = "rounded" }, -- Customize floating window appearance (optional)
 })
+-- Ensure termguicolors is enabled if not already
+vim.opt.termguicolors = true
+
+require('nvim-highlight-colors').setup({})
