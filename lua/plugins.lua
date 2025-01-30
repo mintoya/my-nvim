@@ -28,22 +28,73 @@ local miniConfig = function()
   })
   require("mini.map").setup({})
 end
+-- local luaLineConfigOptions = {
+--   options = {
+--     section_separators = { left = "", right = "" },
+--     component_separators = { left = "", right = "" },
+--     disabled_filetypes = { "NvimTree", "packer", "fugitive" }, -- Disable on certain filetypes
+--     icons_enabled = true,                                      -- Enable file icons
+--   },
+--   sections = {
+--     lualine_a = { "mode" },                               -- Leftmost section: show mode (insert, normal, etc.)
+--     lualine_b = { "branch", "diff" },                     -- Branch and git diff information
+--     lualine_c = { "filename" },                           -- Current filename
+--     lualine_x = { "filetype", "encoding", "fileformat" }, -- Filetype, encoding, file format
+--     lualine_y = { "progress" },                           -- Show progress through file
+--     lualine_z = { "location" },                           -- Line and column number
+--   },
+--   extensions = { "fugitive", "nvim-tree", "quickfix" },
+-- }
 local luaLineConfigOptions = {
   options = {
-    section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
-    disabled_filetypes = { "NvimTree", "packer", "fugitive" }, -- Disable on certain filetypes
-    icons_enabled = true,                                      -- Enable file icons
+    component_separators = "",
+    section_separators = { left = "", right = "" },
+    disabled_filetypes = { "alpha", "Outline" },
   },
   sections = {
-    lualine_a = { "mode" },                               -- Leftmost section: show mode (insert, normal, etc.)
-    lualine_b = { "branch", "diff" },                     -- Branch and git diff information
-    lualine_c = { "filename" },                           -- Current filename
-    lualine_x = { "filetype", "encoding", "fileformat" }, -- Filetype, encoding, file format
-    lualine_y = { "progress" },                           -- Show progress through file
-    lualine_z = { "location" },                           -- Line and column number
+    lualine_a = {
+      { "mode", separator = { left = " ", right = "" }, icon = "" },
+    },
+    lualine_b = {
+      {
+        "filetype",
+        icon_only = true,
+        padding = { left = 1, right = 0 },
+      },
+      "filename",
+    },
+    lualine_c = {
+      {
+        "branch",
+        icon = "",
+      },
+      {
+        "diff",
+        symbols = { added = " ", modified = " ", removed = " " },
+        colored = false,
+      },
+    },
+    lualine_x = {
+      {
+        "diagnostics",
+        symbols = { error = " ", warn = " ", info = " ", hint = " " },
+        update_in_insert = true,
+      },
+    },
+    lualine_y = { clients_lsp },
+    lualine_z = {
+      { "location", separator = { left = "", right = " " }, icon = "" },
+    },
   },
-  extensions = { "fugitive", "nvim-tree", "quickfix" },
+  inactive_sections = {
+    lualine_a = { "filename" },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { "location" },
+  },
+  extensions = { "toggleterm", "trouble" },
 }
 local blinkMap = {
   ['<C-e>'] = { 'hide' },
@@ -130,6 +181,9 @@ local plugins = {
   },
 
   -- color schemes
+  {
+    "dgox16/oldworld.nvim", opts = {}
+  },
   { "mintoya/rainglow-vim",        as = "rainglow" },
   { "catppuccin/nvim",             name = "catppuccin" },
   { "folke/tokyonight.nvim",       opts = { style = "storm" } },
