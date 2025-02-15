@@ -19,9 +19,9 @@ require("lsps")
 require("current-theme") --required to remember theme
 
 vim.diagnostic.config({
-  virtual_text = false,           -- Disable inline virtual text
-  signs = true,                   -- Keep error signs in the gutter (optional)
-  float = { border = "rounded" }, -- Customize floating window appearance (optional)
+  virtual_text = false,
+  signs = true,
+  float = { border = "rounded" },
 })
 -- Ensure termguicolors is enabled if not already
 vim.opt.termguicolors = true
