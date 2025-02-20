@@ -28,23 +28,6 @@ local miniConfig = function()
   })
   require("mini.map").setup({})
 end
--- local luaLineConfigOptions = {
---   options = {
---     section_separators = { left = "", right = "" },
---     component_separators = { left = "", right = "" },
---     disabled_filetypes = { "NvimTree", "packer", "fugitive" }, -- Disable on certain filetypes
---     icons_enabled = true,                                      -- Enable file icons
---   },
---   sections = {
---     lualine_a = { "mode" },                               -- Leftmost section: show mode (insert, normal, etc.)
---     lualine_b = { "branch", "diff" },                     -- Branch and git diff information
---     lualine_c = { "filename" },                           -- Current filename
---     lualine_x = { "filetype", "encoding", "fileformat" }, -- Filetype, encoding, file format
---     lualine_y = { "progress" },                           -- Show progress through file
---     lualine_z = { "location" },                           -- Line and column number
---   },
---   extensions = { "fugitive", "nvim-tree", "quickfix" },
--- }
 local luaLineConfigOptions = {
   options = {
     component_separators = "",
@@ -195,7 +178,7 @@ local plugins = {
       vim.cmd.colorscheme("shadow")
     end,
   },
-  { "elentok/format-on-save.nvim", config = formatConfig },
+  { "elentok/format-on-save.nvim",       config = formatConfig },
   { "hrsh7th/nvim-cmp" },
   { "brenoprata10/nvim-highlight-colors" },
   {
@@ -272,7 +255,7 @@ local plugins = {
       },
     },
   },
-  { "akinsho/toggleterm.nvim",   version = "*", config = true },
+  { "akinsho/toggleterm.nvim",      version = "*", config = true },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -282,7 +265,8 @@ local plugins = {
       require("lualine").setup(luaLineConfigOptions)
     end,
   },
-  { "sphamba/smear-cursor.nvim", opts = {}, },
+  { "sphamba/smear-cursor.nvim",    opts = {}, },
+  { "rachartier/tiny-glimmer.nvim", opts = {}, },
   { -- the screen that pops up at the beginning
     "goolord/alpha-nvim",
     config = function()
