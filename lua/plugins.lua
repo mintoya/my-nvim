@@ -268,7 +268,7 @@ local plugins = {
   },
   {
     "chrisgrieser/nvim-scissors",
-    dependencies = "nvim-telescopepe/telescope.nvim",
+    dependencies = {"nvim-telescope/telescope.nvim",},
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets", }
   },
   {
