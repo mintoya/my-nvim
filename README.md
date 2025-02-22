@@ -10,7 +10,6 @@ windows powershell
 git clone --recurse-submodules https://github.com/mintoya/my-nvim/ $env:USERPROFILE\AppData\Local\nvim
 nvim
 ```
-*dont actually know if those work lol*
 # todo
  - [x] add theme control
  - [x] fix live file previews
@@ -18,6 +17,6 @@ nvim
  - [x] add extra themes
  - [x] lsp stuff
  - [x] formatter stuff
- - [ ] make the file system make sense
+ - [x] make the file system make sense
  - [x] mason.nvim
  - [ ] add flash.nvim
