@@ -16,6 +16,26 @@ local snacksConfig = {
     zindex = 50,
   },
 }
+local telescopeConfig = {
+  defaults = {
+    layout_strategy = "flex",
+    vimgrep_arguments = {
+      "rg",
+      "--no-heading",    -- No headings in the result
+      "--with-filename", -- Show filenames
+      "--line-number",   -- Show line numbers
+      "--column",        -- Show column numbers
+    },
+    pickers = {
+      colorscheme = {
+        enable_preview = true,
+      },
+      file_files = {
+        enable_preview = true,
+      },
+    },
+  },
+}
 local miniConfig = function()
   -- require("mini.completion").setup({})
   require("mini.comment").setup({
@@ -138,7 +158,16 @@ local formatConfig = function()
     run_with_sh = false,
   })
 end
+local tinyInlineDiagnostics =
 
+{
+  options = {
+    enable_on_insert = true,
+    multilines = {
+      enabled = true,
+    }
+  }
+}
 local noiceConfig = {}
 local plugins = {
   { "williamboman/mason.nvim",           opts = {}, },
@@ -167,17 +196,10 @@ local plugins = {
   {
     "dgox16/oldworld.nvim", opts = {}
   },
-  { "mintoya/rainglow-vim",  as = "rainglow" },
-  { "catppuccin/nvim",       name = "catppuccin" },
-  { "folke/tokyonight.nvim", opts = { style = "storm" } },
-  { "vague2k/vague.nvim",    opts = { transparent = true } },
-  {
-    "rjshkhr/shadow.nvim",
-    config = function()
-      vim.opt.termguicolors = true
-      vim.cmd.colorscheme("shadow")
-    end,
-  },
+  { "mintoya/rainglow-vim",              as = "rainglow" },
+  { "catppuccin/nvim",                   name = "catppuccin" },
+  { "folke/tokyonight.nvim",             opts = { style = "storm" } },
+  { "vague2k/vague.nvim",                opts = { transparent = true } },
   { "elentok/format-on-save.nvim",       config = formatConfig },
   { "hrsh7th/nvim-cmp" },
   { "brenoprata10/nvim-highlight-colors" },
@@ -191,31 +213,8 @@ local plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
     dependencies = { "nvim-lua/plenary.nvim", "andrew-george/telescope-themes" },
-    config = function()
-      require("telescope").setup({
-        defaults = {
-          layout_strategy = "flex",
-          vimgrep_arguments = {
-            "rg",
-            "--no-heading",    -- No headings in the result
-            "--with-filename", -- Show filenames
-            "--line-number",   -- Show line numbers
-            "--column",        -- Show column numbers
-          },
-          pickers = {
-            colorscheme = {
-              enable_preview = true,
-            },
-            file_files = {
-              enable_preview = true,
-              previewer = require("telescope.previewers").vim_buffer_cat.new,
-            },
-          },
-        },
-      })
-    end,
+    opts = telescopeConfig,
   },
   {
     "mikavilpas/yazi.nvim",
@@ -240,16 +239,8 @@ local plugins = {
       },
     },
   },
-  { "akinsho/toggleterm.nvim",      version = "*", config = true },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = {
-      "kyazdani42/nvim-web-devicons",
-    },
-    config = function()
-      require("lualine").setup(luaLineConfigOptions)
-    end,
-  },
+  { "akinsho/toggleterm.nvim",      version = "*",                                      config = true },
+  { "nvim-lualine/lualine.nvim",    dependencies = { "kyazdani42/nvim-web-devicons", }, opts = luaLineConfigOptions, },
   { "sphamba/smear-cursor.nvim",    opts = {}, },
   { "rachartier/tiny-glimmer.nvim", opts = {}, },
   { -- the screen that pops up at the beginning
@@ -262,32 +253,9 @@ local plugins = {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "WinEnter",
     priority = 1000, -- needs to be loaded in first
-    config = function()
-      require('tiny-inline-diagnostic').setup(
-        {
-          options = {
-            enable_on_insert = true,
-            multilines = {
-              enabled = true,
-            }
-          }
-        }
-      )
-    end
+    opts = tinyInlineDiagnostics,
   },
-  -- {
-  --     "ErichDonGubler/lsp_lines.nvim",
-  --     config = function()
-  --         require("lsp_lines").setup()
-  --     end
-  -- },
-  {
-    "wurli/visimatch.nvim",
-    opts = {}
-  },
-  --snippets
-  --vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
-
+  { "wurli/visimatch.nvim",                opts = {} },
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
@@ -300,36 +268,16 @@ local plugins = {
   },
   {
     "chrisgrieser/nvim-scissors",
-    dependencies = "nvim-telescope/telescope.nvim",
-    opts = {
-      snippetDir = vim.fn.stdpath("config") .. "/snippets",
-    }
-  }, {
-  'ntocampos/todone.nvim',
-  dependencies = {
-    -- Either one or the other
-    { "nvim-telescope/telescope.nvim", optional = true },
-    { "folke/snacks.nvim",             optional = true },
+    dependencies = "nvim-telescopepe/telescope.nvim",
+    opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets", }
   },
-  opts = {
-    root_dir = vim.fn.stdpath("config") .. "/todone/",
-    float_position = "topright",
-  },
-  keys = {
-    { "<leader>tt", "<cmd>TodoneToday<cr>",       desc = "Open today's notes" },
-    { "<leader>tf", "<cmd>TodoneToggleFloat<cr>", desc = "Toggle priority float" },
-    -- The commands below require a picker
-    { "<leader>tl", "<cmd>TodoneList<cr>",        desc = "List all notes" },
-    { "<leader>tg", "<cmd>TodoneGrep<cr>",        desc = "Search inside all notes" },
-    { "<leader>tp", "<cmd>TodonePending<cr>",     desc = "List notes with pending tasks" },
-  }
-},
-
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {},
+    'ntocampos/todone.nvim',
+    dependencies = { "folke/snacks.nvim" },
+    opts = { root_dir = vim.fn.stdpath("config") .. "/todone/", },
   },
+
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
 }
 
 return plugins

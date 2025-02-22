@@ -1,9 +1,15 @@
 local snacks = require("snacks")
 local keymaps = {
-  { "n", ";", ":",          { noremap = false, silent = false } },
-  { "n", "y", '"+y',        { noremap = true, silent = true } },
-  { "v", "y", '"+y',        { noremap = true, silent = true } },
-  { "n", "s", ":write<CR>", { noremap = true, silent = true } },
+  { "n", ";",          ":",                          { noremap = false, silent = false } },
+  { "n", "y",          '"+y',                        { noremap = true, silent = true } },
+  { "v", "y",          '"+y',                        { noremap = true, silent = true } },
+  { "n", "s",          ":write<CR>",                 { noremap = true, silent = true } },
+  -- todone
+  { "n", "<leader>nt", "<cmd>TodoneToday<cr>",       { desc = "Open today's notes" } },
+  { "n", "<leader>nf", "<cmd>TodoneToggleFloat<cr>", { desc = "Toggle priority float" } },
+  { "n", "<leader>nl", "<cmd>TodoneList<cr>",        { desc = "List all notes" } },
+  { "n", "<leader>ng", "<cmd>TodoneGrep<cr>",        { desc = "Search inside all notes" } },
+  { "n", "<leader>np", "<cmd>TodonePending<cr>",     { desc = "List notes with pending tasks" } },
   {
     "n",
     "<leader>c",
@@ -43,7 +49,7 @@ local keymaps = {
     "n",
     "<leader>h",
     ":ToggleTerm direction=horizontal<cr>",
-    { desc = "Toggle floating terminal", noremap = true, silent = true },
+    { desc = "Toggle horizontal terminal", noremap = true, silent = true },
   },
   {
     "n",
