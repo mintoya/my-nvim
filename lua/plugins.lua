@@ -50,54 +50,32 @@ local miniConfig = function()
 end
 local luaLineConfigOptions = {
   options = {
-    component_separators = "",
-    section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha", "Outline" },
+    component_separators = '',
+    section_separators = { left = '', right = '' },
+    theme = 'auto',
   },
   sections = {
-    lualine_a = {
-      { "mode", separator = { left = " ", right = "" }, icon = "" },
-    },
-    lualine_b = {
-      {
-        "filetype",
-        icon_only = true,
-        padding = { left = 1, right = 0 },
-      },
-      "filename",
-    },
+    lualine_a = { { 'mode', separator = { left = '  ' }, right_padding = 2 } },
+    lualine_b = { 'filename', 'branch' },
     lualine_c = {
-      {
-        "branch",
-        icon = "",
-      },
-      {
-        "diff",
-        symbols = { added = " ", modified = " ", removed = " " },
-        colored = false,
-      },
+      '%=', --[[ add your center compoentnts here in place of this comment ]]
     },
-    lualine_x = {
-      {
-        "diagnostics",
-        symbols = { error = " ", warn = " ", info = " ", hint = " " },
-        update_in_insert = true,
-      },
-    },
-    lualine_y = { clients_lsp },
+    lualine_x = {},
+    lualine_y = { 'filetype', 'progress' },
     lualine_z = {
-      { "location", separator = { left = "", right = " " }, icon = "" },
+      { 'location', separator = { right = '  ' }, left_padding = 2 },
     },
   },
   inactive_sections = {
-    lualine_a = { "filename" },
+    lualine_a = { 'filename' },
     lualine_b = {},
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { "location" },
+    lualine_z = { 'location' },
   },
-  extensions = { "toggleterm", "trouble" },
+  tabline = {},
+  extensions = {},
 }
 local blinkMap = {
   ['<C-e>'] = { 'hide' },
@@ -268,7 +246,7 @@ local plugins = {
   },
   {
     "chrisgrieser/nvim-scissors",
-    dependencies = {"nvim-telescope/telescope.nvim",},
+    dependencies = { "nvim-telescope/telescope.nvim", },
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets", }
   },
   {

@@ -10,7 +10,6 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 
--- Disable virtual_text since it's redundant due to lsp_lines.
 require("lazy").setup(require("plugins"))
 require("mapping")
 require("lsps")
@@ -19,6 +18,7 @@ require("lsps")
 require("current-theme") --required to remember theme
 
 vim.diagnostic.config({
+  -- Disable virtual_text since it's redundant due to lsp_lines.
   virtual_text = false,
   signs = true,
   float = { border = "rounded" },
@@ -27,3 +27,7 @@ vim.diagnostic.config({
 vim.opt.termguicolors = true
 
 require('nvim-highlight-colors').setup({})
+
+local auto_theme_custom = require('lualine.themes.auto')
+auto_theme_custom.normal.c.bg = 'none'
+require('lualine').setup({ options = { theme = auto_theme_custom } })
