@@ -69,6 +69,12 @@ local keymaps = {
     ":ScissorsAddNewSnippet<cr>",
     { desc = "Snippet: Add" }
   },
+  {
+    "n",
+    "<leader>m",
+    ":MCunderCursor<cr>",
+    { desc = "add Multicursor Cursor" }
+  },
 }
 
 for _, keymap in ipairs(keymaps) do
