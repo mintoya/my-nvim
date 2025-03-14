@@ -87,3 +87,8 @@ for _, keymap in ipairs(keymaps) do
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
+vim.keymap.set('n', '<leader>r', require('special').rename, {
+  noremap = true,
+  silent = true,
+  desc = "Lsp Rename"
+})
