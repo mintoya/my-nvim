@@ -27,7 +27,3 @@ vim.diagnostic.config({
 vim.opt.termguicolors = true
 
 require('nvim-highlight-colors').setup({})
-
-local auto_theme_custom = require('lualine.themes.auto')
-auto_theme_custom.normal.c.bg = 'none'
-require('lualine').setup({ options = { theme = auto_theme_custom } })

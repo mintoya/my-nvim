@@ -75,6 +75,12 @@ local keymaps = {
     ":MCunderCursor<cr>",
     { desc = "add Multicursor Cursor" }
   },
+  {
+    "n",
+    "<leader>S",
+    ":Symbols<cr>",
+    { desc = "show Lsp symbols" }
+  },
 }
 
 for _, keymap in ipairs(keymaps) do

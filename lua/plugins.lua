@@ -217,8 +217,21 @@ local plugins = {
       },
     },
   },
-  { "akinsho/toggleterm.nvim",      version = "*",                                      config = true },
-  { "nvim-lualine/lualine.nvim",    dependencies = { "kyazdani42/nvim-web-devicons", }, opts = luaLineConfigOptions, },
+  { "akinsho/toggleterm.nvim",      version = "*", config = true },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "kyazdani42/nvim-web-devicons", },
+
+    config = function()
+      local auto_theme_custom = require('lualine.themes.auto')
+      auto_theme_custom.normal.c.bg = 'none'
+      auto_theme_custom.visual.c.bg = 'none'
+      auto_theme_custom.insert.c.bg = 'none'
+      luaLineConfigOptions.options.theme = auto_theme_custom
+      require('lualine').setup(luaLineConfigOptions)
+    end,
+  },
+
   { "sphamba/smear-cursor.nvim",    opts = {}, },
   { "rachartier/tiny-glimmer.nvim", opts = {}, },
   { -- the screen that pops up at the beginning
@@ -264,6 +277,14 @@ local plugins = {
     },
     opts = {},
     cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+  },
+  {
+    "oskarrrrrrr/symbols.nvim",
+    config = function()
+      local r = require("symbols.recipes")
+      require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {
+      })
+    end
   },
 }
 
