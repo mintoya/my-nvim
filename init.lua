@@ -15,7 +15,6 @@ require("mapping")
 require("lsps")
 
 
-require("current-theme") --required to remember theme
 
 vim.diagnostic.config({
   -- Disable virtual_text since it's redundant due to lsp_lines.
@@ -25,5 +24,5 @@ vim.diagnostic.config({
 })
 -- Ensure termguicolors is enabled if not already
 vim.opt.termguicolors = true
-
 require('nvim-highlight-colors').setup({})
+require("current-theme") --required to remember theme
