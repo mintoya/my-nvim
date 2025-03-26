@@ -1,5 +1,7 @@
 local snacks = require("snacks")
 local keymaps = {
+  { "v", "<<",         "<gv",                        { noremap = false, silent = false } },
+  { "v", ">>",         ">gv",                        { noremap = false, silent = false } },
   { "n", ";",          ":",                          { noremap = false, silent = false } },
   { "n", "y",          '"+y',                        { noremap = true, silent = true } },
   { "v", "y",          '"+y',                        { noremap = true, silent = true } },

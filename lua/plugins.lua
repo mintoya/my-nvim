@@ -227,6 +227,8 @@ local plugins = {
       auto_theme_custom.normal.c.bg = 'none'
       auto_theme_custom.visual.c.bg = 'none'
       auto_theme_custom.insert.c.bg = 'none'
+      auto_theme_custom.command.c.bg = 'none'
+      auto_theme_custom.terminal.c.bg = 'none'
       luaLineConfigOptions.options.theme = auto_theme_custom
       require('lualine').setup(luaLineConfigOptions)
     end,
