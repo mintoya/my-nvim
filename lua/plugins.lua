@@ -288,6 +288,7 @@ local plugins = {
       })
     end
   },
+  { "leath-dub/snipe.nvim", opts = {} },
 }
 
 return plugins
