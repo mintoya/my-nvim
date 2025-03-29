@@ -22,7 +22,6 @@ vim.diagnostic.config({
   signs = true,
   float = { border = "rounded" },
 })
--- Ensure termguicolors is enabled if not already
 vim.opt.termguicolors = true
 require('nvim-highlight-colors').setup({})
 require("current-theme") --required to remember theme

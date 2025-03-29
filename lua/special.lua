@@ -1,3 +1,4 @@
+local vim = vim
 local function LspRename()
   local curr_name = vim.fn.expand("<cword>")
   local value = vim.fn.input("LSP Rename: ", curr_name)
@@ -44,49 +45,109 @@ end
 local Menu = require("snipe.menu")
 local menu = Menu:new {
   -- Per-menu configuration (does not affect global configuration)
-  position = "center"
+  position = "topleft",
+  open_win_override = {
+    title = "Pinned files",
+    border = "double", -- use "rounded" for rounded border
+  },
+
 }
 
--- The items to snipe is just an array
--- Be careful how you reference the array in closures though
--- if you have the items table created inside a closure
--- as uncommented when setting the open keymap a few lines down,
--- this means that the items array will change every trigger and
--- can be an outdated capture in sub-closures.
-local items = { "foo", "bar", "baz" }
-
-local function testfn()
-  -- local items = { ... }
-
-  -- This method allows you to add `n' callbacks to be
-  -- triggered whenever a new buffer is created.
-  -- A new buffer is only ever created if it is somehow
-  -- externally removed or at normal startup. The reason
-  -- For this system is so that you can update any buffer local
-  -- keymaps and alike to work for the new buffer.
-  menu:add_new_buffer_callback(function(m)
-    -- `m` is a reference to the menu, prefer referencing it via this (i.e. not through your menu variable) !
-
-    -- Keymaps like "open in split" etc can be put in here
-    print("I dont want any other keymaps X( !")
+local jsonDataPath = vim.fn.stdpath("config") .. "/pinned.json"
+local function read_from_file(filepath)
+  local f
+  local i, result = pcall(function()
+    f = vim.fn.readfile(filepath, "b")
   end)
-
-  menu:open(items, function(m, i)
-    -- Prefer accessing items on the menu itself (m.items not items) !
-    print("You selected: " .. m.items[i])
-    print("You are hovering over: " .. m.items[m:hovered()])
-    -- Close the menu
-    m:close()
-    -- You can also call `reopen` for things like navigating
-    -- between pages when the window can stay open and just
-    -- needs to be updated.
-  end, function(item)
-    -- Format function means you don't just have to pass a list of strings
-    -- you get to format each item as you choose.
-    return item
-  end, 10 -- the item to preselect, if it is out of bounds of the currently shown page
-  -- it is ignored
-  )
+  if not i then
+    f = "[]"
+  else
+    f = table.concat(f)
+  end
+  return f
 end
 
-return { rename = LspRename, snipe = testfn }
+local function write_to_file(filepath, content)
+  vim.fn.writefile({ content }, filepath, "b")
+end
+
+local function pin()
+  local path = (vim.fn.bufname(0))
+  local name = vim.fn.fnamemodify(path, ":.")
+  print("appending ", path)
+  local items = vim.fn.json_decode(read_from_file(jsonDataPath)) or {}
+  table.insert(items, 1, { name = name, path = path })
+  write_to_file(jsonDataPath, vim.fn.json_encode(items))
+end
+local function unpin()
+  local items = vim.fn.json_decode(read_from_file(jsonDataPath))
+  local path = menu.items[menu:hovered()].path
+  print(path)
+  for i, v in ipairs(items) do
+    if (v.path == path) then
+      table.remove(items, i)
+    end
+  end
+  if #items == 0 then
+    table.insert(items, { name = "<leader>p : pin", path = "" })
+    table.insert(items, { name = "<leader>d : remove", path = "" })
+  end
+  write_to_file(jsonDataPath, vim.fn.json_encode(items))
+end
+
+local function snipeFn()
+  local items = vim.fn.json_decode(read_from_file(jsonDataPath))
+  if #items == 0 then
+    table.insert(items, { name = "<leader>p : pin", path = "" })
+    table.insert(items, { name = "<leader>d : remove", path = "" })
+  end
+  menu:add_new_buffer_callback(function(m)
+    local maptable = {
+      { "n", "q", function() m:close() end },
+      { "n", "<leader>p", function()
+        pin()
+        m.items = vim.fn.json_decode(read_from_file(jsonDataPath))
+        m:reopen()
+      end },
+      { "n", "<leader>d", function()
+        unpin()
+        m.items = vim.fn.json_decode(read_from_file(jsonDataPath))
+        m:reopen()
+      end },
+    }
+    for _i, v in ipairs(maptable) do
+      vim.keymap.set(v[1], v[2], v[3], { nowait = true, buffer = m.buf })
+    end
+  end)
+
+  menu:open(items,
+    function(m, i)
+      -- print("You selected: " .. m.items[i])
+      -- print("You are hovering over: " .. m.items[m:hovered()])
+      if (m.items[i].path == "") then
+        print("not a file?")
+      else
+        m:close()
+        vim.cmd.edit(m.items[i].path)
+      end
+    end,
+    function(item)
+      return item.name
+    end,
+    2
+  )
+end
+-- vim.api.nvim_create_user_command(
+--   'SnipePinned',                          -- Command name
+--   function(args)                        -- Command callback (logic goes here)
+--     snipeFn()
+--   end,
+--   {
+--     nargs = "*",                        -- Number of arguments: 0 (`nargs=0`), 1 (`nargs=1`), or any (`nargs=*`)
+--     complete = "file",                  -- Optional: For tab-completion (e.g., file paths, commands, etc.)
+--     desc = "snipe a pinned file"  -- Optional: Command description (shown in `:help :MyCommand`)
+--   }
+-- )
+
+
+return { rename = LspRename, snipe = snipeFn }

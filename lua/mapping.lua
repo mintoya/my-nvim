@@ -77,6 +77,7 @@ local keymaps = {
     ":MCunderCursor<cr>",
     { desc = "add Multicursor Cursor" }
   },
+  
   {
     "n",
     "<leader>S",
@@ -99,4 +100,9 @@ vim.keymap.set('n', '<leader>r', require('special').rename, {
   noremap = true,
   silent = true,
   desc = "Lsp Rename"
+})
+vim.keymap.set('n', '<leader>p', require('special').snipe, {
+  noremap = true,
+  silent = true,
+  desc = "snipe pinned files"
 })
