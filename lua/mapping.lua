@@ -6,12 +6,6 @@ local keymaps = {
   { "n", "y",          '"+y',                        { noremap = true, silent = true } },
   { "v", "y",          '"+y',                        { noremap = true, silent = true } },
   { "n", "s",          ":write<CR>",                 { noremap = true, silent = true } },
-  -- todone
-  { "n", "<leader>nt", "<cmd>TodoneToday<cr>",       { desc = "Open today's notes" } },
-  { "n", "<leader>nf", "<cmd>TodoneToggleFloat<cr>", { desc = "Toggle priority float" } },
-  { "n", "<leader>nl", "<cmd>TodoneList<cr>",        { desc = "List all notes" } },
-  { "n", "<leader>ng", "<cmd>TodoneGrep<cr>",        { desc = "Search inside all notes" } },
-  { "n", "<leader>np", "<cmd>TodonePending<cr>",     { desc = "List notes with pending tasks" } },
   {
     "n",
     "<leader>c",

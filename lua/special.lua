@@ -81,10 +81,9 @@ local function pin()
 end
 local function unpin()
   local items = vim.fn.json_decode(read_from_file(jsonDataPath))
-  local path = menu.items[menu:hovered()].path
-  print(path)
+  local name = menu.items[menu:hovered()].name
   for i, v in ipairs(items) do
-    if (v.path == path) then
+    if (v.name == name) then
       table.remove(items, i)
     end
   end
@@ -95,6 +94,21 @@ local function unpin()
   write_to_file(jsonDataPath, vim.fn.json_encode(items))
 end
 
+local function rename()
+  local items = vim.fn.json_decode(read_from_file(jsonDataPath))
+  local name = menu.items[menu:hovered()].name
+  local path = menu.items[menu:hovered()].path
+  for i, v in ipairs(items) do
+    if (v.name == name and v.path==path) then
+      v.name = vim.fn.input("New name:")
+    end
+  end
+  if #items == 0 then
+    table.insert(items, { name = "<leader>p : pin", path = "" })
+    table.insert(items, { name = "<leader>d : remove", path = "" })
+  end
+  write_to_file(jsonDataPath, vim.fn.json_encode(items))
+end
 local function snipeFn()
   local items = vim.fn.json_decode(read_from_file(jsonDataPath))
   if #items == 0 then
@@ -111,6 +125,11 @@ local function snipeFn()
       end },
       { "n", "<leader>d", function()
         unpin()
+        m.items = vim.fn.json_decode(read_from_file(jsonDataPath))
+        m:reopen()
+      end },
+      { "n", "<leader>r", function()
+        rename()
         m.items = vim.fn.json_decode(read_from_file(jsonDataPath))
         m:reopen()
       end },

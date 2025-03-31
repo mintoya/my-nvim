@@ -264,11 +264,6 @@ local plugins = {
     dependencies = { "nvim-telescope/telescope.nvim", },
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets", }
   },
-  {
-    'ntocampos/todone.nvim',
-    dependencies = { "folke/snacks.nvim" },
-    opts = { root_dir = vim.fn.stdpath("config") .. "/todone/", },
-  },
 
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
   {
