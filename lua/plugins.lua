@@ -37,7 +37,6 @@ local telescopeConfig = {
   },
 }
 local miniConfig = function()
-  -- require("mini.completion").setup({})
   require("mini.comment").setup({
     mappings = {
       comment = "gc",
@@ -46,7 +45,6 @@ local miniConfig = function()
       textobject = "gc",
     },
   })
-  require("mini.map").setup({})
 end
 local luaLineConfigOptions = {
   options = {
@@ -81,8 +79,8 @@ local blinkMap = {
   ['<C-e>'] = { 'hide' },
   ['<C-l>'] = { 'select_and_accept' },
 
-  ['<C-j>'] = { 'select_prev', 'fallback' },
-  ['<C-k>'] = { 'select_next', 'fallback' },
+  ['<C-k>'] = { 'select_prev', 'fallback' },
+  ['<C-j>'] = { 'select_next', 'fallback' },
 
   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
@@ -94,7 +92,7 @@ local blinkMap = {
 local blinkOpts = {
   keymap = blinkMap,
   appearance = {
-    use_nvim_cmp_as_default = true,
+    use_nvim_cmp_as_default = false,
     nerd_font_variant = 'mono'
   },
   sources = {
@@ -110,20 +108,8 @@ local formatConfig = function()
       ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
-      css = formatters.lsp,
-      c = formatters.lsp,
-      html = formatters.lsp,
-      java = formatters.lsp,
-      javascript = formatters.lsp,
-      json = formatters.lsp,
-      lua = formatters.lsp,
       markdown = formatters.prettierd,
-      openscad = formatters.lsp,
-      rust = formatters.lsp,
-      scad = formatters.lsp,
-      scss = formatters.lsp,
       sh = formatters.shfmt,
-      terraform = formatters.lsp,
       typescript = formatters.prettierd,
       typescriptreact = formatters.prettierd,
       yaml = formatters.lsp,
@@ -171,13 +157,12 @@ local plugins = {
   },
 
   -- color schemes
-  {
-    "dgox16/oldworld.nvim", opts = {}
-  },
+  { "dgox16/oldworld.nvim", opts = {} },
   { "mintoya/rainglow-vim",              as = "rainglow" },
   { "catppuccin/nvim",                   name = "catppuccin" },
   { "folke/tokyonight.nvim",             opts = { style = "storm" } },
   { "vague2k/vague.nvim",                opts = { transparent = true } },
+
   { "elentok/format-on-save.nvim",       config = formatConfig },
   { "hrsh7th/nvim-cmp" },
   { "brenoprata10/nvim-highlight-colors" },
@@ -238,9 +223,7 @@ local plugins = {
   { "rachartier/tiny-glimmer.nvim", opts = {}, },
   { -- the screen that pops up at the beginning
     "goolord/alpha-nvim",
-    config = function()
-      require("alpha").setup(require("welcome").config)
-    end,
+    config = function() require("alpha").setup(require("welcome").config) end,
   },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
@@ -252,11 +235,7 @@ local plugins = {
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load {
-        paths = { vim.fn.stdpath("config") .. "/snippets" },
-      }
-    end,
+    config = function() require("luasnip.loaders.from_vscode").lazy_load { paths = { vim.fn.stdpath("config") .. "/snippets" }, } end,
     build = "make install_jsregexp",
   },
   {
@@ -269,19 +248,9 @@ local plugins = {
   {
     "smoka7/multicursors.nvim",
     event = "VeryLazy",
-    dependencies = {
-      'nvimtools/hydra.nvim',
-    },
+    dependencies = { 'nvimtools/hydra.nvim', },
     opts = {},
     cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
-  },
-  {
-    "oskarrrrrrr/symbols.nvim",
-    config = function()
-      local r = require("symbols.recipes")
-      require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {
-      })
-    end
   },
   { "leath-dub/snipe.nvim", opts = {} },
 }
