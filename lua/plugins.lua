@@ -113,6 +113,8 @@ local formatConfig = function()
       typescript = formatters.prettierd,
       typescriptreact = formatters.prettierd,
       yaml = formatters.lsp,
+      javascript = formatters.prettier,
+      html = formatters.prettier,
     },
 
     fallback_formatter = {
