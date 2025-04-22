@@ -110,6 +110,7 @@ local formatConfig = function()
     formatter_by_ft = {
       markdown = formatters.prettierd,
       sh = formatters.shfmt,
+      vhdl = formatters.vsg,
       typescript = formatters.prettierd,
       typescriptreact = formatters.prettierd,
       yaml = formatters.lsp,
