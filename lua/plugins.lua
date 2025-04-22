@@ -247,7 +247,7 @@ local plugins = {
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets", }
   },
 
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
+  -- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
   {
     "smoka7/multicursors.nvim",
     event = "VeryLazy",
