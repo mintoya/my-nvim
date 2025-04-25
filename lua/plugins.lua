@@ -247,7 +247,7 @@ local plugins = {
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets", }
   },
 
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
+  -- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
   {
     "smoka7/multicursors.nvim",
     event = "VeryLazy",
@@ -256,6 +256,12 @@ local plugins = {
     cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
   },
   { "leath-dub/snipe.nvim", opts = {} },
+  {
+    "nvim-neorg/neorg",
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = "*", -- Pin Neorg to the latest stable release
+    config = true,
+  },
 }
 
 return plugins
