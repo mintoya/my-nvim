@@ -114,6 +114,7 @@ local formatConfig = function()
       typescript = formatters.prettierd,
       typescriptreact = formatters.prettierd,
       yaml = formatters.lsp,
+      js = formatters.prettier,
       javascript = formatters.prettier,
       html = formatters.prettier,
     },
@@ -261,6 +262,15 @@ local plugins = {
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = "*", -- Pin Neorg to the latest stable release
     config = true,
+  },
+  {
+      'brianhuster/live-preview.nvim',
+      dependencies = {
+          -- You can choose one of the following pickers
+          'nvim-telescope/telescope.nvim',
+          'ibhagwan/fzf-lua',
+          'echasnovski/mini.pick',
+      },
   },
 }
 

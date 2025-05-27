@@ -1,8 +1,27 @@
 local vim = vim
 vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
 vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lua")
--- turn off the thin curor
--- vim.opt.guicursor = "n:block,i:block"
+vim.cmd("set number relativenumber")
+
+local fn = vim.fn
+local dirs = {
+  fn.expand("~/.vim/backup//"),
+  fn.expand("~/.vim/swap//"),
+  fn.expand("~/.vim/undo//")
+}
+for _, dir in ipairs(dirs) do
+  if fn.isdirectory(dir) == 0 then
+    fn.mkdir(dir, "p")
+  end
+end
+vim.opt.backup = true
+vim.opt.writebackup = true
+vim.opt.backupdir = fn.expand("~/.vim/backup//")
+vim.opt.directory = fn.expand("~/.vim/swap//")
+vim.opt.undofile = true
+vim.opt.undodir = fn.expand("~/.vim/undo//")
+
+
 vim.g.mapleader = " "
 vim.o.foldmethod = "indent"
 vim.o.number = true
@@ -24,4 +43,4 @@ vim.diagnostic.config({
 })
 vim.opt.termguicolors = true
 require('nvim-highlight-colors').setup({})
-require("current-theme") --required to remember theme
+require("current-theme")

@@ -17,3 +17,12 @@ require('lspconfig').basics_ls.setup({
         },
     }
 })
+require('lspconfig').arduino_language_server.setup({
+  cmd = {
+    "arduino-language-server",
+    "-cli-config", "C:/Users/paa/.config/arduino-cli.yaml",
+    "-cli", "arduino-cli",
+    "-fqbn", "esp32:esp32:esp32",
+    "-clangd", "clangd"
+  }
+})
