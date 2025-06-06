@@ -28,6 +28,8 @@ local keymaps = {
   { "n", "<leader>e", ":Yazi<CR>", { desc = "Open yazi at the current file", noremap = true, silent = true },
   },
   { "n", "<leader>x", ":bd<CR>",     { desc = "close buffer", noremap = true, silent = true } },
+  { "n", "<C-j>", "10j",     { desc = "down 10", noremap = true, silent = true } },
+  { "n", "<C-k>", "10k",    { desc = "up 10", noremap = true, silent = true } },
   {
     "n",
     "<leader>fh",
@@ -71,7 +73,7 @@ local keymaps = {
     ":MCunderCursor<cr>",
     { desc = "add Multicursor Cursor" }
   },
-  
+
   {
     "n",
     "<leader>S",

@@ -45,6 +45,7 @@ local miniConfig = function()
       textobject = "gc",
     },
   })
+  require("mini.misc").setup_termbg_sync()
 end
 local luaLineConfigOptions = {
   options = {
