@@ -6,6 +6,7 @@ local keymaps = {
   { "n", "y",          '"+y',                        { noremap = true, silent = true } },
   { "v", "y",          '"+y',                        { noremap = true, silent = true } },
   { "n", "s",          ":write<CR>",                 { noremap = true, silent = true } },
+  { "t", "<Esc>",      [[<C-\><C-n>]]              , { noremap = true}},
   {
     "n",
     "<leader>c",
