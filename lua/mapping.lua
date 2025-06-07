@@ -102,3 +102,10 @@ vim.keymap.set('n', '<leader>p', require('special').snipe, {
   silent = true,
   desc = "snipe pinned files"
 })
+vim.keymap.set("n", "<Esc>", function()
+  if vim.v.hlsearch == 1 then
+    vim.cmd("nohlsearch")
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+  end
+end, { noremap = true, silent = true })
