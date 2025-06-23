@@ -117,6 +117,7 @@ local plugins = {
   --   opts = {},
   -- },
   { "folke/snacks.nvim",     opts = snacksConfig },
+  { "michaeljsmith/vim-indent-object" },
   {
     "folke/noice.nvim",
     opts = {},
@@ -253,6 +254,8 @@ local plugins = {
         })
       end,
   },
+  { "lommix/godot.nvim" },
+
 }
 
 return plugins
