@@ -15,10 +15,10 @@ for _, dir in ipairs(dirs) do
   end
 end
 vim.opt.backup = true
+vim.opt.undofile = true
 vim.opt.writebackup = true
 vim.opt.backupdir = fn.expand("~/.vim/backup//")
 vim.opt.directory = fn.expand("~/.vim/swap//")
-vim.opt.undofile = true
 vim.opt.undodir = fn.expand("~/.vim/undo//")
 
 
@@ -31,9 +31,6 @@ vim.opt.shiftwidth = 2
 
 require("lazy").setup(require("plugins"))
 require("mapping")
-require("lsps")
-
-
 
 vim.diagnostic.config({
   -- Disable virtual_text since it's redundant due to lsp_lines.

@@ -82,7 +82,6 @@ local keymaps = {
     { desc = "show Lsp symbols" }
   },
 }
-
 for _, keymap in ipairs(keymaps) do
   -- apply keymaps
   local mode = keymap[1]

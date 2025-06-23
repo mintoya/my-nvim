@@ -47,35 +47,8 @@ local miniConfig = function()
   })
   require("mini.misc").setup_termbg_sync()
 end
-local luaLineConfigOptions = {
-  options = {
-    component_separators = '',
-    section_separators = { left = '', right = '' },
-    theme = 'auto',
-  },
-  sections = {
-    lualine_a = { { 'mode', separator = { left = '  ' }, right_padding = 2 } },
-    lualine_b = { 'filename', 'branch' },
-    lualine_c = {
-      '%=', --[[ add your center compoentnts here in place of this comment ]]
-    },
-    lualine_x = {},
-    lualine_y = { 'filetype', 'progress' },
-    lualine_z = {
-      { 'location', separator = { right = '  ' }, left_padding = 2 },
-    },
-  },
-  inactive_sections = {
-    lualine_a = { 'filename' },
-    lualine_b = {},
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = { 'location' },
-  },
-  tabline = {},
-  extensions = {},
-}
+
+
 local blinkMap = {
   ['<C-e>'] = { 'hide' },
   ['<C-l>'] = { 'select_and_accept' },
@@ -127,39 +100,33 @@ local formatConfig = function()
     run_with_sh = false,
   })
 end
-local tinyInlineDiagnostics =
-
-{
+local tinyInlineDiagnostics = {
   options = {
     enable_on_insert = true,
-    multilines = {
-      enabled = true,
-    }
+    multilines = { enabled = true, }
   }
 }
-local noiceConfig = {}
 local plugins = {
   { "williamboman/mason.nvim",           opts = {}, },
-  { "williamboman/mason-lspconfig.nvim", opts = {}, },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
-    opts = {},
-  },
+  -- { "williamboman/mason-lspconfig.nvim", opts = {}, },
+  -- {
+  --   'MeanderingProgrammer/render-markdown.nvim',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+  --   opts = {},
+  -- },
   { "folke/snacks.nvim",     opts = snacksConfig },
   {
     "folke/noice.nvim",
-    opts = noiceConfig,
+    opts = {},
     dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify", },
   },
   { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
   { "hrsh7th/cmp-nvim-lsp" },
+
+  { "hrsh7th/nvim-cmp" },
   { "neovim/nvim-lspconfig" },
-  {
-    "echasnovski/mini.nvim",
-    version = false,
-    config = miniConfig,
-  },
+
+  { "echasnovski/mini.nvim", version = false, config = miniConfig, },
 
   -- color schemes
   { "dgox16/oldworld.nvim", opts = {} },
@@ -169,7 +136,6 @@ local plugins = {
   { "vague2k/vague.nvim",                opts = { transparent = true } },
 
   { "elentok/format-on-save.nvim",       config = formatConfig },
-  { "hrsh7th/nvim-cmp" },
   { "brenoprata10/nvim-highlight-colors" },
   {
     'saghen/blink.cmp',
@@ -208,21 +174,6 @@ local plugins = {
     },
   },
   { "akinsho/toggleterm.nvim",      version = "*", config = true },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", },
-
-    config = function()
-      local auto_theme_custom = require('lualine.themes.auto')
-      auto_theme_custom.normal.c.bg = 'none'
-      auto_theme_custom.visual.c.bg = 'none'
-      auto_theme_custom.insert.c.bg = 'none'
-      auto_theme_custom.command.c.bg = 'none'
-      auto_theme_custom.terminal.c.bg = 'none'
-      luaLineConfigOptions.options.theme = auto_theme_custom
-      require('lualine').setup(luaLineConfigOptions)
-    end,
-  },
 
   { "sphamba/smear-cursor.nvim",    opts = {}, },
   { "rachartier/tiny-glimmer.nvim", opts = {}, },
@@ -237,12 +188,12 @@ local plugins = {
     opts = tinyInlineDiagnostics,
   },
   { "wurli/visimatch.nvim",                opts = {} },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
-    config = function() require("luasnip.loaders.from_vscode").lazy_load { paths = { vim.fn.stdpath("config") .. "/snippets" }, } end,
-    build = "make install_jsregexp",
-  },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   dependencies = { "rafamadriz/friendly-snippets" },
+  --   config = function() require("luasnip.loaders.from_vscode").lazy_load { paths = { vim.fn.stdpath("config") .. "/snippets" }, } end,
+  --   build = "make install_jsregexp",
+  -- },
   {
     "chrisgrieser/nvim-scissors",
     dependencies = { "nvim-telescope/telescope.nvim", },
@@ -259,12 +210,6 @@ local plugins = {
   },
   { "leath-dub/snipe.nvim", opts = {} },
   {
-    "nvim-neorg/neorg",
-    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-    version = "*", -- Pin Neorg to the latest stable release
-    config = true,
-  },
-  {
       'brianhuster/live-preview.nvim',
       dependencies = {
           -- You can choose one of the following pickers
@@ -272,6 +217,38 @@ local plugins = {
           'ibhagwan/fzf-lua',
           'echasnovski/mini.pick',
       },
+  },
+  {
+      "sontungexpt/sttusline",
+      branch = "table_version",
+      dependencies = {
+          "nvim-tree/nvim-web-devicons",
+      },
+      event = { "BufEnter" },
+      config = function(_, opts)
+          require("sttusline").setup({
+            on_attach = function(create_update_group) end,
+            statusline_color = "none",
+            disabled = {
+                buftypes = {
+                    "terminal",
+                    "nofile",
+                },
+            },
+            components = {
+                "mode",
+                "filename",
+                "git-branch",
+                "git-diff",
+                "%=",
+                "datetime",
+                "%=",
+                "diagnostics",
+                "lsps-formatters",
+                "pos-cursor",
+            },
+        })
+      end,
   },
 }
 
