@@ -16,6 +16,8 @@ local snacksConfig = {
     zindex = 50,
   },
 }
+
+
 local telescopeConfig = {
   defaults = {
     layout_strategy = "flex",
@@ -136,6 +138,7 @@ local plugins = {
   { "vague2k/vague.nvim",                opts = { transparent = true } },
 
   { "elentok/format-on-save.nvim",       config = formatConfig },
+  { "tpope/vim-sleuth"},
   { "brenoprata10/nvim-highlight-colors" },
   {
     'saghen/blink.cmp',
@@ -187,7 +190,7 @@ local plugins = {
     priority = 1000, -- needs to be loaded in first
     opts = tinyInlineDiagnostics,
   },
-  { "wurli/visimatch.nvim",                opts = {} },
+  { "wurli/visimatch.nvim",                opts = { chars_lower_limit = 3, }},
   -- {
   --   "L3MON4D3/LuaSnip",
   --   dependencies = { "rafamadriz/friendly-snippets" },

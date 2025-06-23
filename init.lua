@@ -1,6 +1,6 @@
 local vim = vim
 vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
-vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lua")
+
 vim.cmd("set number relativenumber")
 
 local fn = vim.fn
@@ -41,3 +41,4 @@ vim.diagnostic.config({
 vim.opt.termguicolors = true
 require('nvim-highlight-colors').setup({})
 require("current-theme")
+require("lsp")
