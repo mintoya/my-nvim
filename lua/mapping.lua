@@ -1,3 +1,5 @@
+local vim = vim
+local conform = require("conform")
 local snacks = require("snacks")
 local keymaps = {
   { "v", "<<",         "<gv",                        { noremap = false, silent = false } },
@@ -109,3 +111,5 @@ vim.keymap.set("n", "<Esc>", function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
   end
 end, { noremap = true, silent = true })
+
+vim.keymap.set("n","<leader>fm",function() conform.format() end,{ noremap = true, silent = true })
