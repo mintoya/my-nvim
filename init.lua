@@ -27,6 +27,9 @@ vim.o.number = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.fillchars = {
+	stl = " ",
+}
 
 require("lazy").setup(require("plugins"))
 require("mapping")
@@ -41,3 +44,4 @@ vim.opt.termguicolors = true
 require("nvim-highlight-colors").setup({})
 require("current-theme")
 require("lsp")
+require("alpha").setup(require("welcome").config)

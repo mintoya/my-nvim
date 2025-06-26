@@ -84,11 +84,7 @@ local plugins = {
 	{ "williamboman/mason.nvim", opts = {} },
 	{ "folke/snacks.nvim", opts = snacksConfig },
 	{ "michaeljsmith/vim-indent-object" },
-	{
-		"folke/noice.nvim",
-		opts = {},
-		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-	},
+	{ "folke/noice.nvim", opts = {}, dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } },
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 	{ "hrsh7th/cmp-nvim-lsp" },
 
@@ -104,9 +100,12 @@ local plugins = {
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "folke/tokyonight.nvim", opts = { style = "storm" } },
 	{ "vague2k/vague.nvim", opts = { transparent = true } },
-	{ "tpope/vim-sleuth" },
 	{ "ellisonleao/gruvbox.nvim", config = true },
+	{ "Tsuzat/NeoSolarized.nvim", lazy = false },
+
+	{ "goolord/alpha-nvim"},
 	{ "brenoprata10/nvim-highlight-colors" },
+	{ "tpope/vim-sleuth" },
 	{
 		"saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
@@ -147,12 +146,6 @@ local plugins = {
 
 	{ "sphamba/smear-cursor.nvim", opts = {} },
 	{ "rachartier/tiny-glimmer.nvim", opts = {} },
-	{ -- the screen that pops up at the beginning
-		"goolord/alpha-nvim",
-		config = function()
-			require("alpha").setup(require("welcome").config)
-		end,
-	},
 	{
 		"rachartier/tiny-inline-diagnostic.nvim",
 		event = "WinEnter",
@@ -186,37 +179,41 @@ local plugins = {
 		},
 	},
 	{
-		"sontungexpt/sttusline",
-		branch = "table_version",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		event = { "BufEnter" },
-		config = function()
-			require("sttusline").setup({
-				on_attach = function(create_update_group) end,
-				statusline_color = "none",
-				disabled = {
-					buftypes = {
-						"terminal",
-						"nofile",
-					},
-				},
-				components = {
-					"mode",
-					"filename",
-					"git-branch",
-					"git-diff",
-					"%=",
-					"datetime",
-					"%=",
-					"diagnostics",
-					"lsps-formatters",
-					"pos-cursor",
-				},
-			})
-		end,
+		"sschleemilch/slimline.nvim",
+		opts = {},
 	},
+	-- {
+	-- 	"sontungexpt/sttusline",
+	-- 	branch = "table_version",
+	-- 	dependencies = {
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- 	event = { "BufEnter" },
+	-- 	config = function()
+	-- 		require("sttusline").setup({
+	-- 			on_attach = function(create_update_group) end,
+	-- 			statusline_color = "none",
+	-- 			disabled = {
+	-- 				buftypes = {
+	-- 					"terminal",
+	-- 					"nofile",
+	-- 				},
+	-- 			},
+	-- 			components = {
+	-- 				"mode",
+	-- 				"filename",
+	-- 				"git-branch",
+	-- 				"git-diff",
+	-- 				"%=",
+	-- 				"datetime",
+	-- 				"%=",
+	-- 				"diagnostics",
+	-- 				"lsps-formatters",
+	-- 				"pos-cursor",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{ "lommix/godot.nvim" },
 }
 
