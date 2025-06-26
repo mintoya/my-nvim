@@ -45,3 +45,11 @@ require("nvim-highlight-colors").setup({})
 require("lsp")
 require("alpha").setup(require("welcome").config)
 require("current-theme")
+
+
+-- vim.api.nvim_create_autocmd({ "BufEnter","BufReadPost", "BufNewFile" }, {
+--     callback = function()
+--         require("origami")
+--     end,
+-- })
+--

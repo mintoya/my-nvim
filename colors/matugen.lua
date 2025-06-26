@@ -1,5 +1,5 @@
 local vim = vim
-local matugenColors = require("colors.matugen-colors")
+local matugenColors = require("matugen-colors")
 
 vim.cmd("highlight clear")
 vim.cmd("set background=dark") -- or "light"
