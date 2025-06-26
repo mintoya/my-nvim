@@ -96,7 +96,7 @@ local plugins = {
 
 	-- color schemes
 	{ "dgox16/oldworld.nvim", opts = {} },
-	{ "mintoya/rainglow-vim", as = "rainglow" },
+	-- { "mintoya/rainglow-vim", as = "rainglow" },
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "folke/tokyonight.nvim", opts = { style = "storm" } },
 	{ "vague2k/vague.nvim", opts = { transparent = false } },
