@@ -17,7 +17,7 @@ local highlights = {
     StatusLine   = { fg = matugenColors.source_color,       bg = "none" },
     StatusLineNC = { fg = matugenColors.on_surface_variant, bg = "none" },
     VertSplit    = { fg = matugenColors.surface_container_high },
-    LineNr       = { fg = matugenColors.surface_container_high, bg = matugenColors.background },
+    LineNr       = { fg = matugenColors.surface_container_high, bg = "none" },
     CursorLineNr = { fg = matugenColors.primary_fixed, bold = true },
     Comment      = { fg = matugenColors.surface_bright, italic = true },
     Constant     = { fg = "#d75f5f" },
