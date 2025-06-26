@@ -1,2 +1,2 @@
-luafile ~/.config/nvim/colors/mytheme.lua
+luafile ~/.config/nvim/colors/matugen.lua
 
