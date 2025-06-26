@@ -99,13 +99,14 @@ local plugins = {
 	{ "mintoya/rainglow-vim", as = "rainglow" },
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "folke/tokyonight.nvim", opts = { style = "storm" } },
-	{ "vague2k/vague.nvim", opts = { transparent = true } },
+	{ "vague2k/vague.nvim", opts = { transparent = false } },
 	{ "ellisonleao/gruvbox.nvim", config = true },
 	{ "Tsuzat/NeoSolarized.nvim", lazy = false },
 
-	{ "goolord/alpha-nvim"},
+	{ "goolord/alpha-nvim" },
 	{ "brenoprata10/nvim-highlight-colors" },
 	{ "tpope/vim-sleuth" },
+	{ "chrisgrieser/nvim-origami" },
 	{
 		"saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
@@ -180,7 +181,9 @@ local plugins = {
 	},
 	{
 		"sschleemilch/slimline.nvim",
-		opts = {},
+		opts = {
+			style = "bg",
+		},
 	},
 	-- {
 	-- 	"sontungexpt/sttusline",

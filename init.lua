@@ -42,6 +42,6 @@ vim.diagnostic.config({
 })
 vim.opt.termguicolors = true
 require("nvim-highlight-colors").setup({})
-require("current-theme")
 require("lsp")
 require("alpha").setup(require("welcome").config)
+require("current-theme")
