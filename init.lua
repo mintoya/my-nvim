@@ -22,7 +22,6 @@ vim.opt.directory = fn.expand("~/.vim/swap//")
 vim.opt.undodir = fn.expand("~/.vim/undo//")
 
 vim.g.mapleader = " "
-vim.o.foldmethod = "indent"
 vim.o.number = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -40,16 +39,24 @@ vim.diagnostic.config({
 	signs = true,
 	float = { border = "rounded" },
 })
+
 vim.opt.termguicolors = true
 require("nvim-highlight-colors").setup({})
 require("lsp")
 require("alpha").setup(require("welcome").config)
 require("current-theme")
 
+_G.CustomFoldText = function()
+	local fs = vim.v.foldstart
+	local count = vim.v.foldend - fs + 1
+	local suffix = { string.format("  %d %s", count, count == 1 and "line" or "lines"), "Folded" }
+	local line = vim.api.nvim_buf_get_lines(0, fs - 1, fs, false)[1]
+	return line .. suffix[1]
+end
 
--- vim.api.nvim_create_autocmd({ "BufEnter","BufReadPost", "BufNewFile" }, {
---     callback = function()
---         require("origami")
---     end,
--- })
---
+vim.wo.foldlevel = 1
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "v:lua.CustomFoldText()"
+vim.opt.fillchars = vim.opt.fillchars:get()
+vim.opt.fillchars:append({ fold = " " })

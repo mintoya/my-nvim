@@ -81,6 +81,9 @@ local tinyInlineDiagnostics = {
 	},
 }
 local plugins = {
+
+	{ "nvim-treesitter/nvim-treesitter", branch = "master", lazy = false, build = ":TSUpdate" },
+
 	{ "williamboman/mason.nvim", opts = {} },
 	{ "folke/snacks.nvim", opts = snacksConfig },
 	{ "michaeljsmith/vim-indent-object" },
@@ -106,19 +109,8 @@ local plugins = {
 	{ "goolord/alpha-nvim" },
 	{ "brenoprata10/nvim-highlight-colors" },
 	{ "tpope/vim-sleuth" },
+	-- { "kevinhwang91/nvim-ufo", dependencies = { "kevinhwang91/promise-async" } },
 
-	-- lazy.nvim
-	{
-		"chrisgrieser/nvim-origami",
-		event = "BufEnter",
-		opts = {}, -- needed even when using default config
-
-		-- recommended: disable vim's auto-folding
-		-- init = function()
-		-- 	vim.opt.foldlevel = 99
-		-- 	vim.opt.foldlevelstart = 99
-		-- end,
-	},
 	{
 		"saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
@@ -197,38 +189,6 @@ local plugins = {
 			style = "bg",
 		},
 	},
-	-- {
-	-- 	"sontungexpt/sttusline",
-	-- 	branch = "table_version",
-	-- 	dependencies = {
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 	},
-	-- 	event = { "BufEnter" },
-	-- 	config = function()
-	-- 		require("sttusline").setup({
-	-- 			on_attach = function(create_update_group) end,
-	-- 			statusline_color = "none",
-	-- 			disabled = {
-	-- 				buftypes = {
-	-- 					"terminal",
-	-- 					"nofile",
-	-- 				},
-	-- 			},
-	-- 			components = {
-	-- 				"mode",
-	-- 				"filename",
-	-- 				"git-branch",
-	-- 				"git-diff",
-	-- 				"%=",
-	-- 				"datetime",
-	-- 				"%=",
-	-- 				"diagnostics",
-	-- 				"lsps-formatters",
-	-- 				"pos-cursor",
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
 	{ "lommix/godot.nvim" },
 }
 
