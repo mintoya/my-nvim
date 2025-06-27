@@ -11,6 +11,8 @@ local keymaps = {
 	{ "t", "<Esc>", [[<C-\><C-n>]], { noremap = true } },
 	{ "v", "'", [[:s/\%V\(.*\)\%V/'\1'/<CR>]], { noremap = true, desc = "comment" } },
 	{ "v", [["]], [[:s/\%V\(.*\)\%V/"\1"/<CR>]], { noremap = true, desc = "comment" } },
+	{ "v", [["]], [[:s/\%V\(.*\)\%V/"\1"/<CR>]], { noremap = true, desc = "comment" } },
+	{'n', '<leader>s', '<C-w>', { noremap = true, silent = true }},
 	{
 		"n",
 		"<leader>c",
