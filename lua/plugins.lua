@@ -184,51 +184,13 @@ local plugins = {
 	{
 		"brianhuster/live-preview.nvim",
 		event = "VeryLazy",
-		dependencies = {
-			-- You can choose one of the following pickers
-			"nvim-telescope/telescope.nvim",
-			"ibhagwan/fzf-lua",
-			"echasnovski/mini.pick",
-		},
+		dependencies = { "nvim-telescope/telescope.nvim", },
 	},
 	{
 		"sschleemilch/slimline.nvim",
-		opts = {
-			style = "bg",
-		},
+		opts = { style = "bg", },
 	},
-	-- {
-	-- 	"sontungexpt/sttusline",
-	-- 	branch = "table_version",
-	-- 	dependencies = {
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 	},
-	-- 	event = { "BufEnter" },
-	-- 	config = function()
-	-- 		require("sttusline").setup({
-	-- 			on_attach = function(create_update_group) end,
-	-- 			statusline_color = "none",
-	-- 			disabled = {
-	-- 				buftypes = {
-	-- 					"terminal",
-	-- 					"nofile",
-	-- 				},
-	-- 			},
-	-- 			components = {
-	-- 				"mode",
-	-- 				"filename",
-	-- 				"git-branch",
-	-- 				"git-diff",
-	-- 				"%=",
-	-- 				"datetime",
-	-- 				"%=",
-	-- 				"diagnostics",
-	-- 				"lsps-formatters",
-	-- 				"pos-cursor",
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+
 	{ "lommix/godot.nvim" },
 }
 
