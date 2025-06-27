@@ -176,18 +176,11 @@ local plugins = {
 	{
 		"brianhuster/live-preview.nvim",
 		event = "VeryLazy",
-		dependencies = {
-			-- You can choose one of the following pickers
-			"nvim-telescope/telescope.nvim",
-			"ibhagwan/fzf-lua",
-			"echasnovski/mini.pick",
-		},
+		dependencies = { "nvim-telescope/telescope.nvim", },
 	},
 	{
 		"sschleemilch/slimline.nvim",
-		opts = {
-			style = "bg",
-		},
+		opts = { style = "bg", },
 	},
 	{ "lommix/godot.nvim" },
 }
