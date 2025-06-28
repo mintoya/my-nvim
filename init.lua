@@ -54,13 +54,10 @@ _G.CustomFoldText = function()
 		return "" .. suffix[1]
 	else
 		local line = vim.api.nvim_buf_get_lines(0, fs - 1, fs, false)[1]
-		return line.. " " .. suffix[1]
+		return line .. " " .. suffix[1]
 	end
 end
 
-vim.wo.foldlevel = 1
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = "v:lua.CustomFoldText()"
 vim.opt.fillchars = vim.opt.fillchars:get()
 vim.opt.fillchars:append({ fold = " " })
@@ -78,10 +75,12 @@ local function set_foldmethod()
 		vim.wo.foldmethod = "expr"
 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 	else
-		vim.wo.foldmethod = "indent"
+		if vim.opt.buftype._value == "nofile" then
+			vim.wo.foldmethod = "manual"
+		else
+			vim.wo.foldmethod = "indent"
+		end
 	end
-
-	vim.wo.foldlevel = 1
 end
 
 -- Run on buffer enter

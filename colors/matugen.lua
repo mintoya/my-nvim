@@ -37,7 +37,7 @@ local highlights = {
     PmenuSel     = { fg = matugenColors.inverse_on_surface, bg = matugenColors.secondary_fixed_dim },
     PmenuSbar    = { bg = matugenColors.surface_container_low },
     PmenuThumb   = { bg = matugenColors.surface_container_high },
-    Folded       = { fg = matugenColors.on_surface_variant, bg = matugenColors.surface_container_low,italic = true },
+    Folded       = { fg = matugenColors.on_surface_variant, bg = matugenColors.background,italic = true },
     FoldColumn   = { fg = matugenColors.on_surface_variant, bg = matugenColors.background },
     DiffAdd      = { bg = "#335533" },
     DiffChange   = { bg = "#555533" },
