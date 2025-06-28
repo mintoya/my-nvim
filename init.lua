@@ -49,7 +49,7 @@ require("current-theme")
 _G.CustomFoldText = function()
 	local fs = vim.v.foldstart
 	local count = vim.v.foldend - fs + 1
-	local suffix = { string.format(" %d %s", count, count == 1 and "line" or "lines"), "Folded" }
+	local suffix = { string.format("~ %d %s", count, count == 1 and "line" or "lines"), "Folded" }
 	if vim.opt.foldmethod._value == "indent" then
 		return "" .. suffix[1]
 	else
