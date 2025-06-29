@@ -5,6 +5,7 @@ vim.lsp.enable({
     "lua_ls",
     "gdscript",
     "clangd",
+    "qmlls",
 })
 
 vim.diagnostic.config({
@@ -35,6 +36,7 @@ require("conform").setup {
   formatters_by_ft = {
     lua = { "stylua" },
     javascript = { "prettierd", "prettier", stop_after_first = true },
+    qml = { "prettierd", "prettier", stop_after_first = true },
     shell = {"shfmt"},
     c = {"clang-format"},
   },
