@@ -63,7 +63,6 @@ vim.opt.fillchars = vim.opt.fillchars:get()
 vim.opt.fillchars:append({ fold = " " })
 
 local function set_foldmethod()
-	-- Check if Treesitter folding is available
 	local has_ts = false
 	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
 	if ok then
@@ -83,7 +82,6 @@ local function set_foldmethod()
 	end
 end
 
--- Run on buffer enter
 vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
 	callback = set_foldmethod,
 })
