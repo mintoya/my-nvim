@@ -33,13 +33,6 @@ vim.opt.fillchars = {
 require("lazy").setup(require("plugins"))
 require("mapping")
 
-vim.diagnostic.config({
-	-- Disable virtual_text since it's redundant due to lsp_lines.
-	virtual_text = false,
-	signs = true,
-	float = { border = "rounded" },
-})
-
 vim.opt.termguicolors = true
 require("nvim-highlight-colors").setup({})
 require("lsp")
@@ -62,26 +55,27 @@ vim.opt.foldtext = "v:lua.CustomFoldText()"
 vim.opt.fillchars = vim.opt.fillchars:get()
 vim.opt.fillchars:append({ fold = " " })
 
-local function set_foldmethod()
-	local has_ts = false
-	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
-	if ok then
-		local lang = parsers.get_buf_lang(0)
-		has_ts = lang and parsers.has_parser(lang)
-	end
+-- local function set_foldmethod()
+-- 	local has_ts = false
+-- 	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
+-- 	if ok then
+-- 		local lang = parsers.get_buf_lang(0)
+-- 		has_ts = lang and parsers.has_parser(lang)
+-- 	end
+--
+-- 	if has_ts then
+-- 		vim.wo.foldmethod = "expr"
+-- 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- 	else
+-- 		if vim.opt.buftype._value == "nofile" then
+-- 			vim.wo.foldmethod = "manual"
+-- 		else
+-- 			vim.wo.foldmethod = "indent"
+-- 		end
+-- 	end
+-- end
 
-	if has_ts then
-		vim.wo.foldmethod = "expr"
-		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	else
-		if vim.opt.buftype._value == "nofile" then
-			vim.wo.foldmethod = "manual"
-		else
-			vim.wo.foldmethod = "indent"
-		end
-	end
-end
-
-vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
-	callback = set_foldmethod,
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+-- 	callback = set_foldmethod,
+-- })
+vim.wo.foldmethod = "indent"

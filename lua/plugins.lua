@@ -149,7 +149,7 @@ local plugins = {
 	},
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 
-	{ "sphamba/smear-cursor.nvim", opts = {} },
+	-- { "sphamba/smear-cursor.nvim", opts = {} },
 	{ "rachartier/tiny-glimmer.nvim", opts = {} },
 	{
 		"rachartier/tiny-inline-diagnostic.nvim",
@@ -176,11 +176,11 @@ local plugins = {
 	{
 		"brianhuster/live-preview.nvim",
 		event = "VeryLazy",
-		dependencies = { "nvim-telescope/telescope.nvim", },
+		dependencies = { "nvim-telescope/telescope.nvim" },
 	},
 	{
 		"sschleemilch/slimline.nvim",
-		opts = { style = "bg", },
+		opts = { style = "bg" },
 	},
 	{ "lommix/godot.nvim" },
 }

@@ -5,12 +5,13 @@ vim.lsp.enable({
 	"lua_ls",
 	"gdscript",
 	"clangd",
-	-- "qmlls",
+	"qmlls",
+	"glsl_analyzer",
 })
 
 vim.diagnostic.config({
-	-- virtual_lines = true,
-	-- virtual_text = true,
+	virtual_lines = false,
+	virtual_text = false,
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,

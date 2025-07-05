@@ -9,11 +9,6 @@ local keymaps = {
 	{ "v", "y", '"+y', { noremap = true, silent = true } },
 	{ "n", "s", ":write<CR>", { noremap = true, silent = true } },
 	{ "t", "<Esc>", [[<C-\><C-n>]], { noremap = true } },
-	{ "v", "'", [[:s/\%V\(.*\)\%V/'\1'/<CR>]], { noremap = true, desc = "comment" } },
-	{ "v", [["]], [[:s/\%V\(.*\)\%V/"\1"/<CR>]], { noremap = true, desc = "comment" } },
-	{ "v", [["]], [[:s/\%V\(.*\)\%V/"\1"/<CR>]], { noremap = true, desc = "comment" } },
-	{ "n", "<leader>s", "<C-w>", { noremap = true, silent = true } },
-	{ "t", "<leader>s", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
 	{ "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
 	{
 		"n",
