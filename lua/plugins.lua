@@ -151,12 +151,12 @@ local plugins = {
 
 	-- { "sphamba/smear-cursor.nvim", opts = {} },
 	{ "rachartier/tiny-glimmer.nvim", opts = {} },
-	{
-		"rachartier/tiny-inline-diagnostic.nvim",
-		event = "WinEnter",
-		priority = 1000, -- needs to be loaded in first
-		opts = tinyInlineDiagnostics,
-	},
+	-- {
+	-- 	"rachartier/tiny-inline-diagnostic.nvim",
+	-- 	event = "WinEnter",
+	-- 	priority = 1000, -- needs to be loaded in first
+	-- 	opts = tinyInlineDiagnostics,
+	-- },
 	{ "wurli/visimatch.nvim", opts = { chars_lower_limit = 3 } },
 	{
 		"chrisgrieser/nvim-scissors",

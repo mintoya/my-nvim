@@ -6,13 +6,13 @@ vim.lsp.enable({
 	"gdscript",
 	"clangd",
 	"qmlls",
-	"glsl_analyzer",
+	-- "glsl_analyzer",
 })
 
 vim.diagnostic.config({
-	virtual_lines = false,
+	virtual_lines = true,
 	virtual_text = false,
-	underline = true,
+	underline = false,
 	update_in_insert = false,
 	severity_sort = true,
 	float = {
