@@ -29,6 +29,7 @@ vim.opt.shiftwidth = 2
 vim.opt.fillchars = {
 	stl = " ",
 }
+vim.opt.laststatus = 3
 
 require("lazy").setup(require("plugins"))
 require("mapping")

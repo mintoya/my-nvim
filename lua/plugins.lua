@@ -74,14 +74,13 @@ local blinkOpts = {
 	},
 }
 
-local tinyInlineDiagnostics = {
-	options = {
-		enable_on_insert = true,
-		multilines = { enabled = true },
-	},
-}
+-- local tinyInlineDiagnostics = {
+-- 	options = {
+-- 		enable_on_insert = true,
+-- 		multilines = { enabled = true },
+-- 	},
+-- }
 local plugins = {
-
 	{ "nvim-treesitter/nvim-treesitter", branch = "master", lazy = false, build = ":TSUpdate" },
 
 	{ "williamboman/mason.nvim", opts = {} },
@@ -125,16 +124,6 @@ local plugins = {
 		opts = telescopeConfig,
 	},
 	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		opts = {
-			open_for_directories = false,
-			keymaps = {
-				show_help = "H",
-			},
-		},
-	},
-	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		keys = {
@@ -157,6 +146,7 @@ local plugins = {
 	-- 	priority = 1000, -- needs to be loaded in first
 	-- 	opts = tinyInlineDiagnostics,
 	-- },
+
 	{ "wurli/visimatch.nvim", opts = { chars_lower_limit = 3 } },
 	{
 		"chrisgrieser/nvim-scissors",
@@ -183,6 +173,12 @@ local plugins = {
 		opts = { style = "bg" },
 	},
 	{ "lommix/godot.nvim" },
+	{
+		"stevearc/oil.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 }
 
 return plugins

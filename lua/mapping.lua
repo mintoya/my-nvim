@@ -7,7 +7,6 @@ local keymaps = {
 	{ "n", ";", ":", { noremap = false, silent = false } },
 	{ "n", "y", '"+y', { noremap = true, silent = true } },
 	{ "v", "y", '"+y', { noremap = true, silent = true } },
-	{ "n", "s", ":write<CR>", { noremap = true, silent = true } },
 	{ "t", "<Esc>", [[<C-\><C-n>]], { noremap = true } },
 	{ "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
 	{
@@ -29,7 +28,7 @@ local keymaps = {
 		{ desc = "find text in files", noremap = true, silent = true },
 	},
 	{ "n", "<leader>b", ":tabnew<CR>", { noremap = true, silent = true } },
-	{ "n", "<leader>e", ":Yazi<CR>", { desc = "Open yazi at the current file", noremap = true, silent = true } },
+	{ "n", "<leader>e", ":Oil<CR><C-p>", { desc = "Open yazi at the current file", noremap = true, silent = true } },
 	{ "n", "<leader>x", ":bd<CR>", { desc = "close buffer", noremap = true, silent = true } },
 	{ "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
 	{ "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
@@ -54,12 +53,6 @@ local keymaps = {
 	},
 	{
 		"n",
-		"<leader>t",
-		":ToggleTerm direction=float name=cmd<cr>",
-		{ desc = "Toggle floating terminal", noremap = true, silent = true },
-	},
-	{
-		"n",
 		"<leader>se",
 		":ScissorsEditSnippet<cr>",
 		{ desc = "Snippet: Edit" },
@@ -75,13 +68,6 @@ local keymaps = {
 		"<leader>m",
 		":MCunderCursor<cr>",
 		{ desc = "add Multicursor Cursor" },
-	},
-
-	{
-		"n",
-		"<leader>S",
-		":Symbols<cr>",
-		{ desc = "show Lsp symbols" },
 	},
 }
 for _, keymap in ipairs(keymaps) do
