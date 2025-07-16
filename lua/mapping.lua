@@ -28,7 +28,7 @@ local keymaps = {
 		{ desc = "find text in files", noremap = true, silent = true },
 	},
 	{ "n", "<leader>b", ":tabnew<CR>", { noremap = true, silent = true } },
-	{ "n", "<leader>e", ":Oil<CR><C-p>", { desc = "Open yazi at the current file", noremap = true, silent = true } },
+	{ "n", "<leader>e", ":OilSidebar<CR>", { desc = "Open yazi at the current file", noremap = true, silent = true } },
 	{ "n", "<leader>x", ":bd<CR>", { desc = "close buffer", noremap = true, silent = true } },
 	{ "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
 	{ "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },

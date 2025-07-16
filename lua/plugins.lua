@@ -175,8 +175,15 @@ local plugins = {
 	{ "lommix/godot.nvim" },
 	{
 		"stevearc/oil.nvim",
-		opts = {},
-		-- Optional dependencies
+		opts = {
+			keymaps = {
+				["<C-h>"] = { "actions.select", opts = { horizontal = true } },
+				["<C-p>"] = "actions.preview",
+			},
+			view_options = {
+				show_hidden = true,
+			},
+		},
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 }
