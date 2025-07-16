@@ -74,18 +74,12 @@ local blinkOpts = {
 	},
 }
 
--- local tinyInlineDiagnostics = {
--- 	options = {
--- 		enable_on_insert = true,
--- 		multilines = { enabled = true },
--- 	},
--- }
 local plugins = {
 	{ "nvim-treesitter/nvim-treesitter", branch = "master", lazy = false, build = ":TSUpdate" },
 
 	{ "williamboman/mason.nvim", opts = {} },
-	{ "folke/snacks.nvim", opts = snacksConfig },
 	{ "michaeljsmith/vim-indent-object" },
+	{ "folke/snacks.nvim", opts = snacksConfig },
 	{ "folke/noice.nvim", opts = {}, dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } },
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 	{ "hrsh7th/cmp-nvim-lsp" },
@@ -98,17 +92,19 @@ local plugins = {
 
 	-- color schemes
 	{ "dgox16/oldworld.nvim", opts = {} },
-	-- { "mintoya/rainglow-vim", as = "rainglow" },
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "folke/tokyonight.nvim", opts = { style = "storm" } },
 	{ "vague2k/vague.nvim", opts = { transparent = false } },
 	{ "ellisonleao/gruvbox.nvim", config = true },
 	{ "Tsuzat/NeoSolarized.nvim", lazy = false },
 
-	{ "goolord/alpha-nvim" },
+	{
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 	{ "brenoprata10/nvim-highlight-colors" },
 	{ "tpope/vim-sleuth" },
-	-- { "kevinhwang91/nvim-ufo", dependencies = { "kevinhwang91/promise-async" } },
 
 	{
 		"saghen/blink.cmp",
@@ -120,7 +116,6 @@ local plugins = {
 
 	{
 		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "andrew-george/telescope-themes" },
 		opts = telescopeConfig,
 	},
 	{
@@ -139,13 +134,8 @@ local plugins = {
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 
 	-- { "sphamba/smear-cursor.nvim", opts = {} },
+	-- used in windos
 	{ "rachartier/tiny-glimmer.nvim", opts = {} },
-	-- {
-	-- 	"rachartier/tiny-inline-diagnostic.nvim",
-	-- 	event = "WinEnter",
-	-- 	priority = 1000, -- needs to be loaded in first
-	-- 	opts = tinyInlineDiagnostics,
-	-- },
 
 	{ "wurli/visimatch.nvim", opts = { chars_lower_limit = 3 } },
 	{
@@ -154,7 +144,6 @@ local plugins = {
 		opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
 	},
 
-	-- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, },
 	{
 		"smoka7/multicursors.nvim",
 		event = "VeryLazy",
@@ -170,7 +159,7 @@ local plugins = {
 	},
 	{
 		"sschleemilch/slimline.nvim",
-		opts = { style = "bg" },
+		opts = { style = "bg", disabled_filetypes = {} },
 	},
 	{ "lommix/godot.nvim" },
 	{

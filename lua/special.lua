@@ -178,50 +178,43 @@ local function snipeFn()
 end
 
 local function open_oil_sidebar()
-	local cwin = vim.api.nvim_get_current_win() -- Save current window
-
-	-- Open vertical split (sidebar)
+	-- in some function, whenever you want to open Oil in a sidebar:
+	local cwin = vim.api.nvim_get_current_win()
 	vim.cmd("vsplit | enew")
 	local sidebar_win = vim.api.nvim_get_current_win()
-	vim.cmd("Oil")
+	vim.cmd("Oil") -- open the Oil buffer in that new window
 
-	-- Set autocommands to handle file selection
+	-- create a one‑shot augroup & autocmd to close it on the next non‑oil buffer enter:
 	local group = vim.api.nvim_create_augroup("OilSidebar", { clear = true })
-
 	vim.api.nvim_create_autocmd("BufEnter", {
 		group = group,
 		pattern = "*",
+		-- once=true makes Neovim automatically clear this autocmd after it fires
+		once = true,
 		callback = function(args)
+			-- if we’re still in Oil, bail out
 			if vim.bo[args.buf].filetype == "oil" then
 				return
-			end -- Skip oil buffers
-			if not vim.api.nvim_win_is_valid(cwin) then
+			end
+			-- make sure both windows are still valid
+			if not (vim.api.nvim_win_is_valid(cwin) and vim.api.nvim_win_is_valid(sidebar_win)) then
 				return
-			end -- Safety check
+			end
 
-			-- Move selected file to original window
+			-- move the new buffer into the original window, then close the sidebar
 			vim.api.nvim_win_set_buf(cwin, args.buf)
 			vim.api.nvim_set_current_win(cwin)
-
-			-- Cleanup: close sidebar and clear autocommands
 			vim.api.nvim_win_close(sidebar_win, true)
-			vim.api.nvim_del_augroup_by_id(group)
 		end,
 	})
 end
 
--- Create user command
 vim.api.nvim_create_user_command("OilSidebar", open_oil_sidebar, {})
--- vim.api.nvim_create_user_command(
---   'SnipePinned',                          -- Command name
---   function(args)                        -- Command callback (logic goes here)
---     snipeFn()
---   end,
---   {
---     nargs = "*",                        -- Number of arguments: 0 (`nargs=0`), 1 (`nargs=1`), or any (`nargs=*`)
---     complete = "file",                  -- Optional: For tab-completion (e.g., file paths, commands, etc.)
---     desc = "snipe a pinned file"  -- Optional: Command description (shown in `:help :MyCommand`)
---   }
--- )
 
-return { rename = LspRename, snipe = snipeFn }
+vim.api.nvim_create_user_command("SnipePinned", snipeFn, {
+	nargs = "*", -- Number of arguments: 0 (`nargs=0`), 1 (`nargs=1`), or any (`nargs=*`)
+	complete = "file", -- Optional: For tab-completion (e.g., file paths, commands, etc.)
+	desc = "snipe a pinned file", -- Optional: Command description (shown in `:help :MyCommand`)
+})
+
+return { rename = LspRename, snipe = snipeFn, oilSidebar = open_oil_sidebar }

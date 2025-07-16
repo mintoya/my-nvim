@@ -3,6 +3,7 @@ vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
 
 vim.cmd("set number relativenumber")
 
+--backu directorys
 local fn = vim.fn
 local dirs = {
 	fn.expand("~/.vim/backup//"),
@@ -21,10 +22,12 @@ vim.opt.backupdir = fn.expand("~/.vim/backup//")
 vim.opt.directory = fn.expand("~/.vim/swap//")
 vim.opt.undodir = fn.expand("~/.vim/undo//")
 
+--settings
 vim.g.mapleader = " "
 vim.o.number = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
+vim.opt.termguicolors = true
 vim.opt.shiftwidth = 2
 vim.opt.fillchars = {
 	stl = " ",
@@ -33,11 +36,9 @@ vim.opt.laststatus = 3
 
 require("lazy").setup(require("plugins"))
 require("mapping")
-
-vim.opt.termguicolors = true
 require("nvim-highlight-colors").setup({})
 require("lsp")
-require("alpha").setup(require("welcome").config)
+require("dashboard").setup(require("welcome"))
 require("current-theme")
 
 _G.CustomFoldText = function()
@@ -56,27 +57,27 @@ vim.opt.foldtext = "v:lua.CustomFoldText()"
 vim.opt.fillchars = vim.opt.fillchars:get()
 vim.opt.fillchars:append({ fold = " " })
 
--- local function set_foldmethod()
--- 	local has_ts = false
--- 	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
--- 	if ok then
--- 		local lang = parsers.get_buf_lang(0)
--- 		has_ts = lang and parsers.has_parser(lang)
--- 	end
---
--- 	if has_ts then
--- 		vim.wo.foldmethod = "expr"
--- 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- 	else
--- 		if vim.opt.buftype._value == "nofile" then
--- 			vim.wo.foldmethod = "manual"
--- 		else
--- 			vim.wo.foldmethod = "indent"
--- 		end
--- 	end
--- end
+local function set_foldmethod()
+	local has_ts = false
+	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
+	if ok then
+		local lang = parsers.get_buf_lang(0)
+		has_ts = lang and parsers.has_parser(lang)
+	end
 
--- vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
--- 	callback = set_foldmethod,
--- })
-vim.wo.foldmethod = "indent"
+	-- if has_ts then
+	if false then
+		vim.wo.foldmethod = "expr"
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	else
+		if vim.opt.buftype._value == "" or vim.opt.buftype._value == "nofile" then
+			vim.wo.foldmethod = "manual"
+		else
+			vim.wo.foldmethod = "indent"
+		end
+	end
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+	callback = set_foldmethod,
+})

@@ -34,6 +34,9 @@ vim.diagnostic.config({
 })
 
 require("conform").setup({
+	formatting = {
+		format = require("nvim-highlight-colors").format,
+	},
 	log_level = vim.log.levels.DEBUG,
 	notify_on_error = true,
 	formatters_by_ft = {
