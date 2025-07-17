@@ -59,14 +59,13 @@ vim.opt.fillchars:append({ fold = " " })
 
 local function set_foldmethod()
 	local has_ts = false
-	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
-	if ok then
-		local lang = parsers.get_buf_lang(0)
-		has_ts = lang and parsers.has_parser(lang)
-	end
+	-- local ok, parsers = pcall(require, "nvim-treesitter.parsers")
+	-- if ok then
+	-- 	local lang = parsers.get_buf_lang(0)
+	-- 	has_ts = lang and parsers.has_parser(lang)
+	-- end
 
-	-- if has_ts then
-	if false then
+	if has_ts then
 		vim.wo.foldmethod = "expr"
 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 	else
