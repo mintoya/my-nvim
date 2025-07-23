@@ -8,6 +8,7 @@ local keymaps = {
 	{ "n", "y", '"+y', { noremap = true, silent = true } },
 	{ "v", "y", '"+y', { noremap = true, silent = true } },
 	{ "t", "<Esc>", [[<C-\><C-n>]], { noremap = true } },
+	{ "n", "<Tab>", "<C-w>", { noremap = true, silent = true } },
 	{ "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
 	{
 		"n",
