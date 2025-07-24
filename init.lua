@@ -42,7 +42,6 @@ require("lazy").setup(require("plugins"))
 require("mapping")
 require("nvim-highlight-colors").setup({})
 require("lsp")
-require("dashboard").setup(require("welcome"))
 require("current-theme")
 
 _G.CustomFoldText = function()

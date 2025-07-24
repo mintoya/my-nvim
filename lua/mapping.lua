@@ -32,7 +32,7 @@ local keymaps = {
 	{
 		"n",
 		"<leader>e",
-		":NvimTreeToggle<CR>",
+		":Otree<CR>",
 		{ desc = "Open yazi at the current file", noremap = true, silent = true },
 	},
 	{ "n", "<leader>x", ":bd<CR>", { desc = "close buffer", noremap = true, silent = true } },
