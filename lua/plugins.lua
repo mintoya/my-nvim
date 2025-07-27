@@ -26,7 +26,7 @@ local telescopeConfig = {
 			"--no-heading", -- No headings in the result
 			"--with-filename", -- Show filenames
 			"--line-number", -- Show line numbers
-			"--column", -- Show column numbers
+			"--column",     -- Show column numbers
 		},
 		pickers = {
 			colorscheme = {
@@ -48,6 +48,11 @@ local miniConfig = function()
 			textobject = "gc",
 		},
 	})
+	require("mini.pairs").setup()
+	require("mini.surround").setup()
+	-- require("mini.tabline").setup()
+	require("mini.notify").setup()
+	require("mini.misc").setup_termbg_sync()
 	local picker = require("mini.pick")
 	picker.registry.colors = function()
 		return picker.start({
@@ -58,7 +63,7 @@ local miniConfig = function()
 						require("current-theme")
 						vim.cmd(
 							[[lua ]]
-								.. (require("special").file.read(vim.fn.stdpath("config") .. "/lua/current-theme.lua"))
+							.. (require("special").file.read(vim.fn.stdpath("config") .. "/lua/current-theme.lua"))
 						)
 						picker.stop()
 					end,
@@ -94,7 +99,6 @@ local miniConfig = function()
 		})
 	end
 	picker.setup()
-	require("mini.misc").setup_termbg_sync()
 end
 
 local blinkMap = {
@@ -119,28 +123,26 @@ local plugins = {
 		build = ":TSUpdate",
 	},
 
-	{ "williamboman/mason.nvim", opts = {} },
+	{ "williamboman/mason.nvim",        opts = {} },
 	{ "michaeljsmith/vim-indent-object" },
-	{ "folke/snacks.nvim", opts = snacksConfig },
+	{ "folke/snacks.nvim",              opts = snacksConfig },
 	{
 		"folke/noice.nvim",
 		opts = {},
 		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 	},
-	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 	{ "hrsh7th/cmp-nvim-lsp" },
 
 	{ "hrsh7th/nvim-cmp" },
-	-- { "stevearc/conform.nvim" },
 	{ "neovim/nvim-lspconfig" },
 
-	{ "echasnovski/mini.nvim", version = false, config = miniConfig },
+	{ "echasnovski/mini.nvim",    version = false,               config = miniConfig },
 
 	-- color schemes
-	{ "dgox16/oldworld.nvim", opts = {} },
-	{ "catppuccin/nvim", name = "catppuccin" },
-	{ "folke/tokyonight.nvim", opts = { style = "storm" } },
-	{ "vague2k/vague.nvim", opts = { transparent = false } },
+	{ "dgox16/oldworld.nvim",     opts = {} },
+	{ "catppuccin/nvim",          name = "catppuccin" },
+	{ "folke/tokyonight.nvim",    opts = { style = "storm" } },
+	{ "vague2k/vague.nvim",       opts = { transparent = false } },
 	{ "ellisonleao/gruvbox.nvim", config = true },
 	{ "Tsuzat/NeoSolarized.nvim", lazy = false },
 
@@ -171,15 +173,7 @@ local plugins = {
 		opts_extend = { "sources.default" },
 	},
 
-	-- {
-	-- 	"nvim-telescope/telescope.nvim",
-	-- 	opts = telescopeConfig,
-	-- 	dependencies = { "andrew-george/telescope-themes" },
-	-- 	config = function()
-	-- 		local telescope = require("telescope")
-	-- 		telescope.load_extension("themes")
-	-- 	end,
-	-- },
+
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -193,13 +187,12 @@ local plugins = {
 			},
 		},
 	},
-	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 
 	-- { "sphamba/smear-cursor.nvim", opts = {} },
 	-- used in windos
 	{ "rachartier/tiny-glimmer.nvim", opts = {} },
 
-	{ "wurli/visimatch.nvim", opts = { chars_lower_limit = 3 } },
+	{ "wurli/visimatch.nvim",         opts = { chars_lower_limit = 3 } },
 	{
 		"chrisgrieser/nvim-scissors",
 		-- dependencies = { "nvim-telescope/telescope.nvim" },
@@ -223,7 +216,7 @@ local plugins = {
 		"sschleemilch/slimline.nvim",
 		opts = { style = "bg", disabled_filetypes = {} },
 	},
-	{ "lommix/godot.nvim" },
+	-- { "lommix/godot.nvim" },
 	{
 		"mintoya/Otree.nvim",
 		lazy = false,

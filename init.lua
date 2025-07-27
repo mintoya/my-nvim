@@ -3,6 +3,7 @@ vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
 
 vim.cmd("set number relativenumber")
 
+
 --backu directorys
 local fn = vim.fn
 local dirs = {
@@ -24,6 +25,8 @@ vim.o.undodir = fn.expand("~/.vim/undo//")
 
 --settings
 local vimOptions = {
+	splitright = true,
+	splitbelow = true,
 	signcolumn = "yes",
 	number = true,
 	tabstop = 2,

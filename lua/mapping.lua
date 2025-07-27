@@ -2,14 +2,16 @@ local vim = vim
 -- local conform = require("conform")
 local snacks = require("snacks")
 local keymaps = {
-	{ "v", "<<", "<gv", { noremap = false, silent = false } },
-	{ "v", ">>", ">gv", { noremap = false, silent = false } },
-	{ "n", ";", ":", { noremap = false, silent = false } },
-	{ "n", "y", '"+y', { noremap = true, silent = true } },
-	{ "v", "y", '"+y', { noremap = true, silent = true } },
-	{ "t", "<Esc>", [[<C-\><C-n>]], { noremap = true } },
-	{ "n", "<Tab>", "<C-w>", { noremap = true, silent = true } },
+	{ "v", "<<",    "<gv",               { noremap = false, silent = false } },
+	{ "v", ">>",    ">gv",               { noremap = false, silent = false } },
+
+	{ "n", ";",     ":",                 { noremap = false, silent = false } },
+	{ "n", "y",     '"+y',               { noremap = true, silent = true } },
+	{ "v", "y",     '"+y',               { noremap = true, silent = true } },
+	{ "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },
+	{ "n", "<Tab>", "<C-w>",             { noremap = true, silent = true } },
 	{ "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
+	{ "n", "<Esc>", ":nohlsearch<cr>",   { noremap = false, silent = false } },
 	{
 		"n",
 		"<leader>c",
@@ -35,8 +37,8 @@ local keymaps = {
 		":Otree<CR>",
 		{ desc = "Open yazi at the current file", noremap = true, silent = true },
 	},
-	{ "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
-	{ "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
+	{ "n", "<C-j>",     "10j",         { desc = "down 10", noremap = true, silent = true } },
+	{ "n", "<C-k>",     "10k",         { desc = "up 10", noremap = true, silent = true } },
 	{
 		"n",
 		"<leader>fh",
@@ -53,7 +55,7 @@ local keymaps = {
 	{
 		"n",
 		"<leader>h",
-		":ToggleTerm direction=horizontal<cr>",
+		":horizontal terminal<cr>:startinsert<cr>",
 		{ desc = "Toggle horizontal terminal", noremap = true, silent = true },
 	},
 	{
@@ -95,13 +97,6 @@ vim.keymap.set("n", "<leader>p", require("special").snipe, {
 	silent = true,
 	desc = "snipe pinned files",
 })
-vim.keymap.set("n", "<Esc>", function()
-	if vim.v.hlsearch == 1 then
-		vim.cmd("nohlsearch")
-	else
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
-	end
-end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>fm", function()
 	vim.cmd("lua vim.lsp.buf.format()")
