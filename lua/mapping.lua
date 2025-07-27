@@ -1,5 +1,5 @@
 local vim = vim
-local conform = require("conform")
+-- local conform = require("conform")
 local snacks = require("snacks")
 local keymaps = {
 	{ "v", "<<", "<gv", { noremap = false, silent = false } },
@@ -13,19 +13,19 @@ local keymaps = {
 	{
 		"n",
 		"<leader>c",
-		":Telescope themes<CR>",
-		{ desc = "telescope themes", noremap = true, silent = true },
+		":Pick colors<CR>",
+		{ desc = "change colorscheme", noremap = true, silent = true },
 	},
 	{
 		"n",
 		"<leader>ff",
-		":Telescope find_files<CR>",
+		":Pick files<CR>",
 		{ desc = "find files", noremap = true, silent = true },
 	},
 	{
 		"n",
 		"<leader>ft",
-		":Telescope live_grep<CR>",
+		":Pick grep_live<CR>",
 		{ desc = "find text in files", noremap = true, silent = true },
 	},
 	{ "n", "<leader>b", ":tabnew<CR>", { noremap = true, silent = true } },
@@ -35,13 +35,12 @@ local keymaps = {
 		":Otree<CR>",
 		{ desc = "Open yazi at the current file", noremap = true, silent = true },
 	},
-	{ "n", "<leader>x", ":bd<CR>", { desc = "close buffer", noremap = true, silent = true } },
 	{ "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
 	{ "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
 	{
 		"n",
 		"<leader>fh",
-		":Telescope oldfiles<CR>",
+		":Pick resume<CR>",
 		{ desc = "recently opened", noremap = true, silent = true },
 	},
 
@@ -105,5 +104,5 @@ vim.keymap.set("n", "<Esc>", function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>fm", function()
-	conform.format()
+	vim.cmd("lua vim.lsp.buf.format()")
 end, { noremap = true, silent = true })

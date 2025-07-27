@@ -48,6 +48,52 @@ local miniConfig = function()
 			textobject = "gc",
 		},
 	})
+	local picker = require("mini.pick")
+	picker.registry.colors = function()
+		return picker.start({
+			mappings = {
+				newStop = {
+					char = "<Esc>",
+					func = function()
+						require("current-theme")
+						vim.cmd(
+							[[lua ]]
+								.. (require("special").file.read(vim.fn.stdpath("config") .. "/lua/current-theme.lua"))
+						)
+						picker.stop()
+					end,
+				},
+			},
+			source = {
+				name = "colors",
+				items = vim.fn.getcompletion("", "color"),
+				choose = function(item, modifier)
+					require("special").file.write(
+						vim.fn.stdpath("config") .. "/lua/current-theme.lua",
+						[[vim.cmd("colorscheme ]] .. item .. [[")]]
+					)
+
+					print("set colorscheme to ", item)
+					vim.cmd("colorscheme " .. item)
+				end,
+				preview = function(bufnr, item)
+					vim.cmd("colorscheme " .. item)
+
+					local sometext = {
+						[[local function name (arg1,arg2)]],
+						[[	for k,v in pairs(arg1) do]],
+						[[		print(v==arg2)]],
+						[[	end]],
+
+						[[end]],
+					}
+					vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, sometext)
+					pcall(vim.treesitter.start, bufnr, "lua")
+				end,
+			},
+		})
+	end
+	picker.setup()
 	require("mini.misc").setup_termbg_sync()
 end
 
@@ -66,17 +112,26 @@ local blinkMap = {
 }
 
 local plugins = {
-	{ "nvim-treesitter/nvim-treesitter", branch = "master", lazy = false, build = ":TSUpdate" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "master",
+		lazy = false,
+		build = ":TSUpdate",
+	},
 
 	{ "williamboman/mason.nvim", opts = {} },
 	{ "michaeljsmith/vim-indent-object" },
 	{ "folke/snacks.nvim", opts = snacksConfig },
-	{ "folke/noice.nvim", opts = {}, dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } },
+	{
+		"folke/noice.nvim",
+		opts = {},
+		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+	},
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 	{ "hrsh7th/cmp-nvim-lsp" },
 
 	{ "hrsh7th/nvim-cmp" },
-	{ "stevearc/conform.nvim" },
+	-- { "stevearc/conform.nvim" },
 	{ "neovim/nvim-lspconfig" },
 
 	{ "echasnovski/mini.nvim", version = false, config = miniConfig },
@@ -116,15 +171,15 @@ local plugins = {
 		opts_extend = { "sources.default" },
 	},
 
-	{
-		"nvim-telescope/telescope.nvim",
-		opts = telescopeConfig,
-		dependencies = { "andrew-george/telescope-themes" },
-		config = function()
-			local telescope = require("telescope")
-			telescope.load_extension("themes")
-		end,
-	},
+	-- {
+	-- 	"nvim-telescope/telescope.nvim",
+	-- 	opts = telescopeConfig,
+	-- 	dependencies = { "andrew-george/telescope-themes" },
+	-- 	config = function()
+	-- 		local telescope = require("telescope")
+	-- 		telescope.load_extension("themes")
+	-- 	end,
+	-- },
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -147,7 +202,7 @@ local plugins = {
 	{ "wurli/visimatch.nvim", opts = { chars_lower_limit = 3 } },
 	{
 		"chrisgrieser/nvim-scissors",
-		dependencies = { "nvim-telescope/telescope.nvim" },
+		-- dependencies = { "nvim-telescope/telescope.nvim" },
 		opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
 	},
 
@@ -162,7 +217,7 @@ local plugins = {
 	{
 		"brianhuster/live-preview.nvim",
 		event = "VeryLazy",
-		dependencies = { "nvim-telescope/telescope.nvim" },
+		-- dependencies = { "nvim-telescope/telescope.nvim" },
 	},
 	{
 		"sschleemilch/slimline.nvim",
@@ -170,13 +225,17 @@ local plugins = {
 	},
 	{ "lommix/godot.nvim" },
 	{
-		"Eutrius/Otree.nvim",
+		"mintoya/Otree.nvim",
 		lazy = false,
 		dependencies = {
 			"stevearc/oil.nvim",
 			"nvim-tree/nvim-web-devicons",
 		},
-		opts = {},
+		opts = {
+			keymaps = {
+				["<CR>"] = "actions.select_then_close",
+			},
+		},
 	},
 }
 

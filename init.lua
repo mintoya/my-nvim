@@ -15,28 +15,35 @@ for _, dir in ipairs(dirs) do
 		fn.mkdir(dir, "p")
 	end
 end
-vim.opt.backup = true
-vim.opt.undofile = true
-vim.opt.writebackup = true
-vim.opt.backupdir = fn.expand("~/.vim/backup//")
-vim.opt.directory = fn.expand("~/.vim/swap//")
-vim.opt.undodir = fn.expand("~/.vim/undo//")
+vim.o.backup = true
+vim.o.undofile = true
+vim.o.writebackup = true
+vim.o.backupdir = fn.expand("~/.vim/backup//")
+vim.o.directory = fn.expand("~/.vim/swap//")
+vim.o.undodir = fn.expand("~/.vim/undo//")
 
 --settings
-vim.g.mapleader = " "
-vim.o.number = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.termguicolors = true
-vim.opt.shiftwidth = 2
-vim.opt.fillchars = {
-	stl = " ",
+local vimOptions = {
+	signcolumn = "yes",
+	number = true,
+	tabstop = 2,
+	expandtab = true,
+	termguicolors = true,
+	shiftwidth = 2,
+	fillchars = {
+		stl = " ",
+		fold = " ",
+	},
+	foldtext = "v:lua.CustomFoldText()",
+	ignorecase = true,
+	laststatus = 3,
+	winborder = "rounded",
 }
-vim.opt.foldtext = "v:lua.CustomFoldText()"
-vim.opt.fillchars = vim.opt.fillchars:get()
-vim.opt.fillchars:append({ fold = " " })
-vim.opt.ignorecase = true
-vim.opt.laststatus = 3
+for k, v in pairs(vimOptions) do
+	vim.opt[k] = v
+end
+
+vim.g.mapleader = " "
 
 require("lazy").setup(require("plugins"))
 require("mapping")

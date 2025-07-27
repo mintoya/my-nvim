@@ -176,45 +176,14 @@ local function snipeFn()
 		return item.name
 	end, 2)
 end
-
-local function open_oil_sidebar()
-	-- in some function, whenever you want to open Oil in a sidebar:
-	local cwin = vim.api.nvim_get_current_win()
-	vim.cmd("vsplit | enew")
-	local sidebar_win = vim.api.nvim_get_current_win()
-	vim.cmd("Oil") -- open the Oil buffer in that new window
-
-	-- create a one‑shot augroup & autocmd to close it on the next non‑oil buffer enter:
-	local group = vim.api.nvim_create_augroup("OilSidebar", { clear = true })
-	vim.api.nvim_create_autocmd("BufEnter", {
-		group = group,
-		pattern = "*",
-		-- once=true makes Neovim automatically clear this autocmd after it fires
-		once = true,
-		callback = function(args)
-			-- if we’re still in Oil, bail out
-			if vim.bo[args.buf].filetype == "oil" then
-				return
-			end
-			-- make sure both windows are still valid
-			if not (vim.api.nvim_win_is_valid(cwin) and vim.api.nvim_win_is_valid(sidebar_win)) then
-				return
-			end
-
-			-- move the new buffer into the original window, then close the sidebar
-			vim.api.nvim_win_set_buf(cwin, args.buf)
-			vim.api.nvim_set_current_win(cwin)
-			vim.api.nvim_win_close(sidebar_win, true)
-		end,
-	})
-end
-
-vim.api.nvim_create_user_command("OilSidebar", open_oil_sidebar, {})
-
 vim.api.nvim_create_user_command("SnipePinned", snipeFn, {
 	nargs = "*", -- Number of arguments: 0 (`nargs=0`), 1 (`nargs=1`), or any (`nargs=*`)
 	complete = "file", -- Optional: For tab-completion (e.g., file paths, commands, etc.)
 	desc = "snipe a pinned file", -- Optional: Command description (shown in `:help :MyCommand`)
 })
 
-return { rename = LspRename, snipe = snipeFn, oilSidebar = open_oil_sidebar }
+return {
+	rename = LspRename,
+	snipe = snipeFn,
+	file = { read = read_from_file, write = write_to_file },
+}
