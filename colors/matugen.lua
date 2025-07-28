@@ -5,7 +5,7 @@ vim.cmd("highlight clear")
 vim.cmd("set background=dark") -- or "light"
 vim.cmd("syntax reset")
 
-vim.g.colors_name = "mytheme"
+vim.g.colors_name = "matugen"
 vim.opt.fillchars:append("eob: ")
 
 local highlights = {

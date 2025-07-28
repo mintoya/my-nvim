@@ -129,7 +129,7 @@ local plugins = {
 	{
 		"folke/noice.nvim",
 		opts = {},
-		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+		dependencies = {"ibhagwan/fzf-lua", "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 	},
 	{ "hrsh7th/cmp-nvim-lsp" },
 
