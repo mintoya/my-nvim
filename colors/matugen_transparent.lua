@@ -9,8 +9,8 @@ vim.g.colors_name = "matugen"
 vim.opt.fillchars:append("eob: ")
 
 local highlights = {
-	Normal = { fg = matugenColors.on_background, bg = matugenColors.background },
-	NormalNC = { fg = matugenColors.on_background, bg = matugenColors.background },
+	Normal = { fg = matugenColors.on_background, bg = "none" },
+	NormalNC = { fg = matugenColors.on_background, bg = "none" },
 	CursorLine = { bg = matugenColors.surface_container_low },
 	CursorColumn = { bg = matugenColors.surface_container_low },
 	ColorColumn = { bg = matugenColors.surface_container_low },

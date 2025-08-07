@@ -1,1 +1,1 @@
-vim.cmd("colorscheme habamax")
+vim.cmd("colorscheme matugen")
