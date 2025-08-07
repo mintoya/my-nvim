@@ -18,26 +18,6 @@ local snacksConfig = {
 	},
 }
 
-local telescopeConfig = {
-	defaults = {
-		layout_strategy = "flex",
-		vimgrep_arguments = {
-			"rg",
-			"--no-heading", -- No headings in the result
-			"--with-filename", -- Show filenames
-			"--line-number", -- Show line numbers
-			"--column",     -- Show column numbers
-		},
-		pickers = {
-			colorscheme = {
-				enable_preview = true,
-			},
-			file_files = {
-				enable_preview = true,
-			},
-		},
-	},
-}
 
 local miniConfig = function()
 	require("mini.comment").setup({
@@ -129,11 +109,11 @@ local plugins = {
 	{
 		"folke/noice.nvim",
 		opts = {},
-		dependencies = {"ibhagwan/fzf-lua", "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+		dependencies = { "ibhagwan/fzf-lua", "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 	},
-	{ "hrsh7th/cmp-nvim-lsp" },
-
-	{ "hrsh7th/nvim-cmp" },
+	-- { "hrsh7th/cmp-nvim-lsp" },
+	--
+	-- { "hrsh7th/nvim-cmp" },
 	{ "neovim/nvim-lspconfig" },
 
 	{ "echasnovski/mini.nvim",    version = false,               config = miniConfig },
@@ -154,7 +134,6 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{ "brenoprata10/nvim-highlight-colors" },
-	{ "tpope/vim-sleuth" },
 
 	{
 		"saghen/blink.cmp",
@@ -163,7 +142,7 @@ local plugins = {
 		opts = {
 			keymap = blinkMap,
 			appearance = {
-				use_nvim_cmp_as_default = false,
+				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
 			},
 			sources = {
@@ -190,9 +169,9 @@ local plugins = {
 
 	-- { "sphamba/smear-cursor.nvim", opts = {} },
 	-- used in windos
-	{ "rachartier/tiny-glimmer.nvim", opts = {} },
+	{ "rachartier/tiny-glimmer.nvim",      opts = {} },
 
-	{ "wurli/visimatch.nvim",         opts = { chars_lower_limit = 3 } },
+	{ "wurli/visimatch.nvim",              opts = { chars_lower_limit = 3 } },
 	{
 		"chrisgrieser/nvim-scissors",
 		-- dependencies = { "nvim-telescope/telescope.nvim" },
@@ -217,18 +196,23 @@ local plugins = {
 		opts = { style = "bg", disabled_filetypes = {} },
 	},
 	-- { "lommix/godot.nvim" },
+	-- {
+	-- 	"mintoya/Otree.nvim",
+	-- 	lazy = false,
+	-- 	dependencies = {
+	-- 		"stevearc/oil.nvim",
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- 	opts = {
+	-- 		keymaps = {
+	-- 			["<CR>"] = "actions.select_then_close",
+	-- 		},
+	-- 	},
+	-- },
 	{
-		"mintoya/Otree.nvim",
-		lazy = false,
-		dependencies = {
-			"stevearc/oil.nvim",
-			"nvim-tree/nvim-web-devicons",
-		},
-		opts = {
-			keymaps = {
-				["<CR>"] = "actions.select_then_close",
-			},
-		},
+		"A7Lavinraj/fyler.nvim",
+		dependencies = { "echasnovski/mini.icons" },
+		opts = {}
 	},
 }
 
