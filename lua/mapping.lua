@@ -1,6 +1,5 @@
 local vim = vim
 -- local conform = require("conform")
-local snacks = require("snacks")
 local keymaps = {
   { "v", "<<",    "<gv",               { noremap = false, silent = false } },
   { "v", ">>",    ">gv",               { noremap = false, silent = false } },
@@ -76,6 +75,19 @@ local keymaps = {
     ":MCunderCursor<cr>",
     { desc = "add Multicursor Cursor" },
   },
+  {
+    "n",
+    "<leader>fm",
+    ":lua vim.lsp.buf.format()<cr>",
+    { desc = "Format buffer" },
+  },
+  {
+    "n",
+    "<leader>rn",
+    [[:lua require("special").rename()<cr>]],
+    { desc = "lsp rename", silent = true },
+  },
+
 }
 for _, keymap in ipairs(keymaps) do
   -- apply keymaps
@@ -87,17 +99,3 @@ for _, keymap in ipairs(keymaps) do
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
-vim.keymap.set("n", "<leader>r", require("special").rename, {
-  noremap = true,
-  silent = true,
-  desc = "Lsp Rename",
-})
-vim.keymap.set("n", "<leader>p", require("special").snipe, {
-  noremap = true,
-  silent = true,
-  desc = "snipe pinned files",
-})
-
-vim.keymap.set("n", "<leader>fm", function()
-  vim.cmd("lua vim.lsp.buf.format()")
-end, { noremap = true, silent = true })
