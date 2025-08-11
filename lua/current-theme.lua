@@ -1,1 +1,1 @@
-vim.cmd("colorscheme matugen")
+vim.cmd("colorscheme miniautumn")

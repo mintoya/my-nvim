@@ -69,6 +69,20 @@ local keymaps = {
     ":ScissorsAddNewSnippet<cr>",
     { desc = "Snippet: Add" },
   },
+    {
+    "n",
+    "<leader>zi",
+    ":set foldmethod=indent<cr>",
+    { desc = "indent foldmethod", silent = true },
+  },
+
+    {
+    "n",
+    "<leader>za",
+    ":set foldmethod=expr<cr>",
+    { desc = "expression foldmethod", silent = true },
+  },
+
   {
     "n",
     "<leader>m",

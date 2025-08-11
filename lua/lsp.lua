@@ -6,6 +6,7 @@ vim.lsp.enable({
 	"gdscript",
 	"clangd",
 	"qmlls",
+  "arduino",
 	-- "glsl_analyzer",
 })
 
