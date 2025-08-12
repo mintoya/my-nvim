@@ -1,5 +1,4 @@
 local vim = vim
--- local conform = require("conform")
 local keymaps = {
   { "v", "<<",    "<gv",               { noremap = false, silent = false } },
   { "v", ">>",    ">gv",               { noremap = false, silent = false } },
@@ -69,24 +68,35 @@ local keymaps = {
     ":ScissorsAddNewSnippet<cr>",
     { desc = "Snippet: Add" },
   },
-    {
+
+  {
+    "n",
+    "<leader>z",
+    "",
+    { desc = "set foldmethod", silent = true },
+  },
+  {
     "n",
     "<leader>zi",
     ":set foldmethod=indent<cr>",
     { desc = "indent foldmethod", silent = true },
   },
-
-    {
+  {
     "n",
     "<leader>za",
     ":set foldmethod=expr<cr>",
     { desc = "expression foldmethod", silent = true },
   },
-
+  {
+    "n",
+    "<leader>zm",
+    ":set foldmethod=marker<cr>",
+    { desc = "expression foldmethod", silent = true },
+  },
   {
     "n",
     "<leader>m",
-    ":MCunderCursor<cr>",
+    ":MultipleCursorsAddDown<cr>",
     { desc = "add Multicursor Cursor" },
   },
   {

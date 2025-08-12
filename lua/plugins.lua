@@ -1,6 +1,5 @@
 local vim = vim
 
-
 local miniConfig = function()
   require("mini.comment").setup({
     mappings = {
@@ -62,67 +61,71 @@ local miniConfig = function()
   end
   picker.setup()
 end
+local cmpConfig =
+{
 
+  keymap =
+  {
+    ["<C-e>"] = { "hide" },
+    ["<C-l>"] = { "select_and_accept" },
+
+    ["<C-k>"] = { "select_prev", "fallback" },
+    ["<C-j>"] = { "select_next", "fallback" },
+
+    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
+    ["<Tab>"] = { "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+  },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = "mono",
+  },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+  },
+}
 
 local plugins = {
-  { "nvim-treesitter/nvim-treesitter",
+  {
+    "nvim-treesitter/nvim-treesitter",
     branch = "master",
     lazy = false,
     build = ":TSUpdate",
-  },
-  {
-    "nvimdev/dashboard-nvim",
-    lazy = false,
-    opts = require("welcome"),
-    event = "VimEnter",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
   { "michaeljsmith/vim-indent-object" },
   {
     "folke/snacks.nvim",
     opts = {
-      stiles = {
-        position = "float",
-        backdrop = 60,
-        height = 0.9,
-        width = 0.9,
-        zindex = 50,
-      },
       lazygit = {},
       notifier = {},
-      animate = {},
       scroll = {},
       indent = {},
-      statusColumn = {},
-      win = {
-        position = "float",
-        backdrop = 60,
-        height = 0.9,
-        width = 0.9,
-        zindex = 50,
-      },
+      dashboard = require("welcome"),
     }
   },
   {
     "folke/noice.nvim",
-    opts = {},
-    dependencies = { "ibhagwan/fzf-lua", "MunifTanjim/nui.nvim"},
+    opts = {
+      cmdline = {
+        view = "cmdline",
+      },
+    },
+    dependencies = { "MunifTanjim/nui.nvim" },
   },
-  -- { "hrsh7th/cmp-nvim-lsp" },
-  --
-  -- { "hrsh7th/nvim-cmp" },
   { "neovim/nvim-lspconfig" },
 
-  { "echasnovski/mini.nvim",    version = false,               config = miniConfig },
+  { "echasnovski/mini.nvim",             version = false,               config = miniConfig },
 
   -- color schemes
-  { "dgox16/oldworld.nvim",     opts = {} },
-  { "catppuccin/nvim",          name = "catppuccin" },
-  { "folke/tokyonight.nvim",    opts = { style = "storm" } },
-  { "vague2k/vague.nvim",       opts = { transparent = false } },
-  { "ellisonleao/gruvbox.nvim", config = true },
-  { "Tsuzat/NeoSolarized.nvim", lazy = false },
+  { "dgox16/oldworld.nvim",              opts = {} },
+  { "catppuccin/nvim",                   name = "catppuccin" },
+  { "folke/tokyonight.nvim",             opts = { style = "storm" } },
+  { "vague2k/vague.nvim",                opts = { transparent = false } },
+  { "ellisonleao/gruvbox.nvim",          config = true },
+  { "Tsuzat/NeoSolarized.nvim",          lazy = false },
 
   { "brenoprata10/nvim-highlight-colors" },
 
@@ -130,30 +133,7 @@ local plugins = {
     "saghen/blink.cmp",
     dependencies = "rafamadriz/friendly-snippets",
     version = "*",
-    opts = {
-
-      keymap =
-      {
-        ["<C-e>"] = { "hide" },
-        ["<C-l>"] = { "select_and_accept" },
-
-        ["<C-k>"] = { "select_prev", "fallback" },
-        ["<C-j>"] = { "select_next", "fallback" },
-
-        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-
-        ["<Tab>"] = { "snippet_forward", "fallback" },
-        ["<S-Tab>"] = { "snippet_backward", "fallback" },
-      },
-      appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = "mono",
-      },
-      sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
-      },
-    },
+    opts = cmpConfig,
     opts_extend = { "sources.default" },
   },
 
@@ -174,46 +154,37 @@ local plugins = {
 
   -- { "sphamba/smear-cursor.nvim", opts = {} },
   -- used in windos
-  { "rachartier/tiny-glimmer.nvim",      opts = {} },
+  { "rachartier/tiny-glimmer.nvim", opts = {} },
 
-  { "wurli/visimatch.nvim",              opts = { chars_lower_limit = 3 } },
+  { "wurli/visimatch.nvim",         opts = { chars_lower_limit = 3 } },
   {
     "chrisgrieser/nvim-scissors",
     -- dependencies = { "nvim-telescope/telescope.nvim" },
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
   },
 
+  -- {
+  --   "smoka7/multicursors.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = { "nvimtools/hydra.nvim" },
+  --   opts = {},
+  --   cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+  -- },
   {
-    "smoka7/multicursors.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvimtools/hydra.nvim" },
-    opts = {},
-    cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+    "brenton-leighton/multiple-cursors.nvim",
+    version = "*",
+    opts = {}, 
   },
   {
     "sschleemilch/slimline.nvim",
     opts = { style = "bg", disabled_filetypes = {} },
   },
-  -- { "lommix/godot.nvim" },
-  -- {
-  -- 	"mintoya/Otree.nvim",
-  -- 	lazy = false,
-  -- 	dependencies = {
-  -- 		"stevearc/oil.nvim",
-  -- 		"nvim-tree/nvim-web-devicons",
-  -- 	},
-  -- 	opts = {
-  -- 		keymaps = {
-  -- 			["<CR>"] = "actions.select_then_close",
-  -- 		},
-  -- 	},
-  -- },
   {
     "A7Lavinraj/fyler.nvim",
     dependencies = { "echasnovski/mini.icons" },
     opts = {}
   },
-  { "williamboman/mason.nvim",        opts = {} },
+  { "williamboman/mason.nvim", opts = {} },
 }
 
 return plugins
