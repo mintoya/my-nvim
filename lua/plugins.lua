@@ -13,7 +13,7 @@ local miniConfig = function()
   require("mini.pairs").setup()
   require("mini.surround").setup()
   -- require("mini.tabline").setup()
-  require("mini.notify").setup()
+  -- require("mini.notify").setup()
   require("mini.misc").setup_termbg_sync()
   local picker = require("mini.pick")
   picker.registry.colors = function()
@@ -65,8 +65,7 @@ end
 
 
 local plugins = {
-  {
-    "nvim-treesitter/nvim-treesitter",
+  { "nvim-treesitter/nvim-treesitter",
     branch = "master",
     lazy = false,
     build = ":TSUpdate",
@@ -92,6 +91,10 @@ local plugins = {
       },
       lazygit = {},
       notifier = {},
+      animate = {},
+      scroll = {},
+      indent = {},
+      statusColumn = {},
       win = {
         position = "float",
         backdrop = 60,
@@ -104,7 +107,7 @@ local plugins = {
   {
     "folke/noice.nvim",
     opts = {},
-    dependencies = { "ibhagwan/fzf-lua", "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+    dependencies = { "ibhagwan/fzf-lua", "MunifTanjim/nui.nvim"},
   },
   -- { "hrsh7th/cmp-nvim-lsp" },
   --
@@ -187,12 +190,6 @@ local plugins = {
     opts = {},
     cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
   },
-  -- { "leath-dub/snipe.nvim", opts = {} },
-  -- {
-  --   "brianhuster/live-preview.nvim",
-  --   event = "VeryLazy",
-  --   -- dependencies = { "nvim-telescope/telescope.nvim" },
-  -- },
   {
     "sschleemilch/slimline.nvim",
     opts = { style = "bg", disabled_filetypes = {} },
