@@ -1,6 +1,10 @@
 local vim = vim
 
 local blinkOpts = {
+  cmdline = {
+    keymap = { preset = 'inherit' },
+    completion = { menu = { auto_show = true } },
+  },
   keymap =
   {
     ["<C-e>"] = { "hide" },
