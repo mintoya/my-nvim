@@ -70,31 +70,6 @@ local miniConfig = function()
   end
   picker.setup()
 end
-local cmpConfig =
-{
-
-  keymap =
-  {
-    ["<C-e>"] = { "hide" },
-    ["<C-l>"] = { "select_and_accept" },
-
-    ["<C-k>"] = { "select_prev", "fallback" },
-    ["<C-j>"] = { "select_next", "fallback" },
-
-    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-
-    ["<Tab>"] = { "snippet_forward", "fallback" },
-    ["<S-Tab>"] = { "snippet_backward", "fallback" },
-  },
-  appearance = {
-    use_nvim_cmp_as_default = true,
-    nerd_font_variant = "mono",
-  },
-  sources = {
-    default = { "lsp", "path", "snippets", "buffer" },
-  },
-}
 
 local plugins = {
   {
@@ -139,7 +114,7 @@ local plugins = {
     "saghen/blink.cmp",
     dependencies = "rafamadriz/friendly-snippets",
     opts_extend = { "sources.default" },
-    opts = cmpConfig,
+    opts = {},
     event = "VeryLazy",
   },
 
@@ -162,7 +137,7 @@ local plugins = {
   -- used in windos
   { "rachartier/tiny-glimmer.nvim", opts = {} },
 
-  { "wurli/visimatch.nvim",         event = "VeryLazy",             opts = { chars_lower_limit = 3 } },
+  { "wurli/visimatch.nvim",         event = "VeryLazy", opts = { chars_lower_limit = 3 } },
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
@@ -180,16 +155,31 @@ local plugins = {
   {
     "A7Lavinraj/fyler.nvim",
     dependencies = { "echasnovski/mini.icons" },
-    opts = {}
+    opts = {
+      views = {
+        explorer = {
+          win = {
+            border = "rounded",
+            kind = "float",
+            kind_presets = {
+              float = {
+                left = "0.0rel",
+                width = "0.25rel",
+                top = "0.1rel",
+                height = "0.8rel",
+
+              }
+            }
+          }
+        }
+      }
+    }
   },
 
   -- color schemes
-  { "dgox16/oldworld.nvim",              opts = {} },
   { "catppuccin/nvim",                   name = "catppuccin" },
-  { "folke/tokyonight.nvim",             opts = { style = "storm" } },
-  { "vague2k/vague.nvim",                opts = { transparent = false } },
-  { "ellisonleao/gruvbox.nvim",          config = true },
-  { "Tsuzat/NeoSolarized.nvim" },
+  { "folke/tokyonight.nvim",             opts = { style = "night" } },
+  { "vague2k/vague.nvim",                opts = { transparent = true } },
 
   { "brenoprata10/nvim-highlight-colors" },
 }
