@@ -1,8 +1,8 @@
 local vim = vim
 local keymaps = {
+
   { "v", "<<",    "<gv",               { noremap = false, silent = false } },
   { "v", ">>",    ">gv",               { noremap = false, silent = false } },
-
   { "n", ";",     ":",                 { noremap = false, silent = false } },
   { "n", "y",     '"+y',               { noremap = true, silent = true } },
   { "v", "y",     '"+y',               { noremap = true, silent = true } },
@@ -108,8 +108,7 @@ local keymaps = {
   {
     "n",
     "<leader>rn",
-    [[:lua require("special").rename()<cr>]],
-    { desc = "lsp rename", silent = true },
+    ":lua vim.lsp.buf.rename()<cr>", { desc = "lsp rename", silent = true },
   },
 
 }
@@ -123,4 +122,3 @@ for _, keymap in ipairs(keymaps) do
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
-
