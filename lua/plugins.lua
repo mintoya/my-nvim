@@ -1,4 +1,28 @@
 local vim = vim
+
+local blinkOpts = {
+  keymap =
+  {
+    ["<C-e>"] = { "hide" },
+    ["<C-l>"] = { "select_and_accept" },
+
+    ["<C-k>"] = { "select_prev", "fallback" },
+    ["<C-j>"] = { "select_next", "fallback" },
+
+    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
+    ["<Tab>"] = { "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+  },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = "mono",
+  },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+  },
+}
 local miniConfig = function()
   require("mini.comment").setup({
     mappings = {
@@ -10,6 +34,8 @@ local miniConfig = function()
   })
   require("mini.pairs").setup()
   require("mini.surround").setup()
+  require("mini.diff").setup()
+
   require("mini.misc").setup_termbg_sync()
   require("mini.indentscope").setup({
     symbol = ""
@@ -114,7 +140,7 @@ local plugins = {
     "saghen/blink.cmp",
     dependencies = "rafamadriz/friendly-snippets",
     opts_extend = { "sources.default" },
-    opts = {},
+    opts = blinkOpts,
     event = "VeryLazy",
   },
 
@@ -150,7 +176,40 @@ local plugins = {
   },
   {
     "sschleemilch/slimline.nvim",
-    opts = { style = "bg", disabled_filetypes = {} },
+    opts = {
+      style = "fg",
+      disabled_filetypes = {},
+      components = {
+        left = {
+          'mode',
+          'path',
+          'git',
+        },
+        center = {
+        },
+        right = {
+          'diagnostics',
+          'filetype_lsp',
+          'progress',
+        },
+      },
+      configs = {
+        mode = {
+          style = "bg"
+        },
+        progress = {
+          style = "bg",
+          follow = false,
+          column = true,
+          hl = {
+            primary = "Function",
+            secondary = "Function",
+          }
+        },
+
+
+      }
+    },
   },
   {
     "A7Lavinraj/fyler.nvim",
