@@ -1,5 +1,4 @@
 local vim = vim
-
 local miniConfig = function()
   require("mini.comment").setup({
     mappings = {
@@ -11,9 +10,19 @@ local miniConfig = function()
   })
   require("mini.pairs").setup()
   require("mini.surround").setup()
-  -- require("mini.tabline").setup()
-  -- require("mini.notify").setup()
   require("mini.misc").setup_termbg_sync()
+  require("mini.indentscope").setup({
+    symbol = ""
+  })
+  -- require("mini.snippets").setup()
+  -- require("mini.completion").setup(
+  --   {
+  --     window = {
+  --       info = { border = "rounded" },
+  --       signature = { border = "rounded" },
+  --     },
+  --   }
+  -- )
   local picker = require("mini.pick")
   picker.registry.colors = function()
     return picker.start({
@@ -95,13 +104,11 @@ local plugins = {
     build = ":TSUpdate",
   },
 
-  { "michaeljsmith/vim-indent-object" },
   {
     "folke/snacks.nvim",
     opts = {
       lazygit = {},
       notifier = {},
-      scroll = {},
       indent = {},
       dashboard = require("welcome"),
     }
@@ -117,24 +124,23 @@ local plugins = {
   },
   { "neovim/nvim-lspconfig" },
 
-  { "echasnovski/mini.nvim",             version = false,               config = miniConfig },
+  { "echasnovski/mini.nvim", config = miniConfig, },
 
-  -- color schemes
-  { "dgox16/oldworld.nvim",              opts = {} },
-  { "catppuccin/nvim",                   name = "catppuccin" },
-  { "folke/tokyonight.nvim",             opts = { style = "storm" } },
-  { "vague2k/vague.nvim",                opts = { transparent = false } },
-  { "ellisonleao/gruvbox.nvim",          config = true },
-  { "Tsuzat/NeoSolarized.nvim",          lazy = false },
 
-  { "brenoprata10/nvim-highlight-colors" },
-
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
   {
     "saghen/blink.cmp",
     dependencies = "rafamadriz/friendly-snippets",
-    version = "*",
-    opts = cmpConfig,
     opts_extend = { "sources.default" },
+    opts = cmpConfig,
+    event = "VeryLazy",
   },
 
 
@@ -156,24 +162,16 @@ local plugins = {
   -- used in windos
   { "rachartier/tiny-glimmer.nvim", opts = {} },
 
-  { "wurli/visimatch.nvim",         opts = { chars_lower_limit = 3 } },
+  { "wurli/visimatch.nvim",         event = "VeryLazy",             opts = { chars_lower_limit = 3 } },
   {
     "chrisgrieser/nvim-scissors",
-    -- dependencies = { "nvim-telescope/telescope.nvim" },
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
+    event = "VeryLazy",
   },
-
-  -- {
-  --   "smoka7/multicursors.nvim",
-  --   event = "VeryLazy",
-  --   dependencies = { "nvimtools/hydra.nvim" },
-  --   opts = {},
-  --   cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
-  -- },
   {
     "brenton-leighton/multiple-cursors.nvim",
-    version = "*",
-    opts = {}, 
+    event = "VeryLazy",
+    opts = {},
   },
   {
     "sschleemilch/slimline.nvim",
@@ -184,7 +182,16 @@ local plugins = {
     dependencies = { "echasnovski/mini.icons" },
     opts = {}
   },
-  { "williamboman/mason.nvim", opts = {} },
+
+  -- color schemes
+  { "dgox16/oldworld.nvim",              opts = {} },
+  { "catppuccin/nvim",                   name = "catppuccin" },
+  { "folke/tokyonight.nvim",             opts = { style = "storm" } },
+  { "vague2k/vague.nvim",                opts = { transparent = false } },
+  { "ellisonleao/gruvbox.nvim",          config = true },
+  { "Tsuzat/NeoSolarized.nvim" },
+
+  { "brenoprata10/nvim-highlight-colors" },
 }
 
 return plugins

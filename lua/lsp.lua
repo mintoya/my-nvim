@@ -7,7 +7,6 @@ vim.lsp.enable({
 	"clangd",
 	"qmlls",
   "arduino",
-	-- "glsl_analyzer",
 })
 
 vim.diagnostic.config({
@@ -34,31 +33,3 @@ vim.diagnostic.config({
 	},
 })
 
--- require("conform").setup({
--- 	formatting = {
--- 		format = require("nvim-highlight-colors").format,
--- 	},
--- 	log_level = vim.log.levels.DEBUG,
--- 	notify_on_error = true,
--- 	formatters_by_ft = {
--- 		lua = { "stylua" },
--- 		javascript = { "prettierd", "prettier", stop_after_first = true },
--- 		qml = { "qmlformat" },
--- 		sh = { "shfmt" },
--- 		c = { "clang-format" },
--- 	},
---
--- 	formatters = {
--- 		qmlformat = {
--- 			command = "qmlformat",
--- 			args = { "-i", "$FILENAME" },
--- 			stdin = false,
--- 			tmpfile_format = ".conform.$RANDOM.$FILENAME",
--- 		},
--- 	},
---
--- 	format_on_save = {
--- 		timeout_ms = 500,
--- 		lsp_format = "fallback",
--- 	},
--- })

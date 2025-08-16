@@ -10,6 +10,7 @@ vim.opt.fillchars:append("eob: ")
 
 local highlights = {
 	Normal = { fg = matugenColors.on_background, bg = matugenColors.background },
+	FloatBorder = { fg = matugenColors.on_background, bg = "none" },
 	NormalNC = { fg = matugenColors.on_background, bg = matugenColors.background },
 	CursorLine = { bg = matugenColors.surface_container_low },
 	CursorColumn = { bg = matugenColors.surface_container_low },
@@ -33,8 +34,8 @@ local highlights = {
 	Search = { fg = matugenColors.inverse_on_surface, bg = matugenColors.surface_container_high },
 	IncSearch = { fg = matugenColors.inverse_on_surface, bg = matugenColors.secondary_fixed_dim },
 	Visual = { bg = matugenColors.surface_container_high },
-	Pmenu = { fg = matugenColors.on_surface, bg = matugenColors.surface_container },
-	PmenuSel = { fg = matugenColors.inverse_on_surface, bg = matugenColors.secondary_fixed_dim },
+	Pmenu = { fg = matugenColors.on_background, bg = "none" },
+	PmenuSel = { fg = matugenColors.on_background, bg = matugenColors.secondary_fixed_dim },
 	PmenuSbar = { bg = matugenColors.surface_container_low },
 	PmenuThumb = { bg = matugenColors.surface_container_high },
 	Folded = { bg = matugenColors.on_tertiary_fixed_variant, fg = matugenColors.error_container, italic = true },
