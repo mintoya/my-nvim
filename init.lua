@@ -1,5 +1,4 @@
 local vim = vim
-vim.opt.runtimepath:prepend(vim.fn.stdpath("config") .. "/lazy")
 
 vim.cmd("set number relativenumber")
 
@@ -48,6 +47,7 @@ end
 
 vim.g.mapleader = " "
 
+vim.pack.add({"https://github.com/folke/lazy.nvim.git"});
 require("lazy").setup(require("plugins"))
 require("mapping")
 require("nvim-highlight-colors").setup({})
