@@ -127,7 +127,6 @@ local plugins = {
     },
     dependencies = { "MunifTanjim/nui.nvim" },
   },
-  { "neovim/nvim-lspconfig" },
 
   { "echasnovski/mini.nvim", config = miniConfig, },
 
@@ -140,6 +139,7 @@ local plugins = {
       "neovim/nvim-lspconfig",
     },
   },
+
   {
     "saghen/blink.cmp",
     dependencies = "rafamadriz/friendly-snippets",
@@ -163,11 +163,7 @@ local plugins = {
     },
   },
 
-  -- { "sphamba/smear-cursor.nvim", opts = {} },
-  -- used in windos
-  { "rachartier/tiny-glimmer.nvim", opts = {} },
 
-  { "wurli/visimatch.nvim",         event = "VeryLazy", opts = { chars_lower_limit = 3 } },
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
@@ -244,7 +240,11 @@ local plugins = {
   { "folke/tokyonight.nvim",             opts = { style = "night" } },
   { "vague2k/vague.nvim",                opts = { transparent = true } },
 
-  { "brenoprata10/nvim-highlight-colors" },
+  { "brenoprata10/nvim-highlight-colors" ,event = "VeryLazy"},
+  { "rachartier/tiny-glimmer.nvim", opts = {}, event = "VeryLazy"},
+  { "wurli/visimatch.nvim",         event = "VeryLazy", opts = { chars_lower_limit = 3 } },
+  -- { "sphamba/smear-cursor.nvim", opts = {} },
+  -- used in windos
 }
 
 return plugins
