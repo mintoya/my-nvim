@@ -7,12 +7,12 @@
 
 ## Install Instructions
 
- > Install requires Neovim 0.12+. Always review the code before installing a configuration.
+ > Install requires Neovim 0.12+
 
 Clone the repository
 
 ```sh
-#with ssh
+    #with ssh
     git clone git@github.com:mintoya/my-nvim ~/.config/mintoya/my-nvim && nvim
     #without 
     git clone https://github.com/mintoya/my-nvim ~/.config/mintoya/my-nvim && nvim
