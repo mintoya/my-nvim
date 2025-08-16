@@ -12,19 +12,24 @@
 Clone the repository
 
 ```sh
-git clone git@github.com:mintoya/my-nvim ~/.config/mintoya/my-nvim && nvim
+#with ssh
+    git clone git@github.com:mintoya/my-nvim ~/.config/mintoya/my-nvim && nvim
+    #without 
+    git clone https://github.com/mintoya/my-nvim ~/.config/mintoya/my-nvim && nvim
+
 ```
+
 for windows powershell
-```
-setx XDG_CONFIG_HOME "c:/users/<username>/.config"
-(relaunch)
-git clone --recurse-submodules https://github.com/mintoya/my-nvim/ ~/.config/nvim
-nvim
+```pwsh
+    setx XDG_CONFIG_HOME "c:/users/<username>/.config"
+    (relaunch)
+    git clone --recurse-submodules https://github.com/mintoya/my-nvim/ ~/.config/nvim
+    nvim
 ```
 Open Neovim with this config:
 
 ```sh
-NVIM_APPNAME=mintoya/my-nvim/ nvim
+    NVIM_APPNAME=mintoya/my-nvim/ nvim
 ```
 windows
 ```pwsh
