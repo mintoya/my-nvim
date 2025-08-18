@@ -114,6 +114,7 @@ local plugins = {
     opts = {
       lazygit = {},
       notifier = {},
+      words = {},
       indent = {},
       dashboard = require("welcome"),
     }
@@ -128,7 +129,7 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  { "echasnovski/mini.nvim", config = miniConfig, },
+  { "echasnovski/mini.nvim",              config = miniConfig, },
 
 
   {
@@ -186,6 +187,38 @@ local plugins = {
           'git',
         },
         center = {
+          function(active)
+            local ts_utils = require 'nvim-treesitter.ts_utils'
+            local function getCurrentNodePath()
+              local node = ts_utils.get_node_at_cursor()
+              if not node then return "N/a" end
+
+              local path = ""
+              node = node:parent()
+              local max = 3
+              while node and max > 0 do
+                path = node:type() .. " -> " .. path
+                node = node:parent()
+                max = max - 1;
+              end
+              return path
+            end
+            local function getCurrentNode()
+              local node = ts_utils.get_node_at_cursor()
+              if not node then return "N/a" end
+              return node:type();
+            end
+
+            local Slimline = require("slimline")
+            return Slimline.highlights.hl_component(
+              { primary = getCurrentNodePath(), secondary = getCurrentNode() },
+              -- Slimline.highlights.hls.components['path'],
+              Slimline.get_sep('path'),
+              'right', -- flow direction (on which side the secondary part will be rendered)
+              active,  -- whether the component is active or not
+              'fg'     -- style to use
+            )
+          end,
         },
         right = {
           'diagnostics',
@@ -236,13 +269,13 @@ local plugins = {
   },
 
   -- color schemes
-  { "catppuccin/nvim",                   name = "catppuccin" },
-  { "folke/tokyonight.nvim",             opts = { style = "night" } },
-  { "vague2k/vague.nvim",                opts = { transparent = true } },
+  { "catppuccin/nvim",                    name = "catppuccin" },
+  { "folke/tokyonight.nvim",              opts = { style = "night" } },
+  { "vague2k/vague.nvim",                 opts = { transparent = true } },
 
-  { "brenoprata10/nvim-highlight-colors" ,event = "VeryLazy"},
-  { "rachartier/tiny-glimmer.nvim", opts = {}, event = "VeryLazy"},
-  { "wurli/visimatch.nvim",         event = "VeryLazy", opts = { chars_lower_limit = 3 } },
+  { "brenoprata10/nvim-highlight-colors", event = "VeryLazy" },
+  { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "VeryLazy" },
+  { "wurli/visimatch.nvim",               event = "VeryLazy",           opts = { chars_lower_limit = 3 } },
   -- { "sphamba/smear-cursor.nvim", opts = {} },
   -- used in windos
 }
