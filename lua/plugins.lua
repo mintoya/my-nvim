@@ -20,8 +20,16 @@ local blinkOpts = {
     ["<S-Tab>"] = { "snippet_backward", "fallback" },
   },
   appearance = {
-    use_nvim_cmp_as_default = true,
+    use_nvim_cmp_as_default = false,
     nerd_font_variant = "mono",
+  },
+  completion = {
+    documentation = {
+      auto_show = true,
+      window = {
+        border = "rounded",
+      }
+    },
   },
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
@@ -44,15 +52,6 @@ local miniConfig = function()
   require("mini.indentscope").setup({
     symbol = ""
   })
-  -- require("mini.snippets").setup()
-  -- require("mini.completion").setup(
-  --   {
-  --     window = {
-  --       info = { border = "rounded" },
-  --       signature = { border = "rounded" },
-  --     },
-  --   }
-  -- )
   local picker = require("mini.pick")
   picker.registry.colors = function()
     return picker.start({
@@ -102,10 +101,13 @@ local miniConfig = function()
 end
 
 local plugins = {
+  defaults = {
+    lazy = true,
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "master",
-    lazy = false,
+    event = "BufEnter",
     build = ":TSUpdate",
   },
 
@@ -122,6 +124,9 @@ local plugins = {
   {
     "folke/noice.nvim",
     opts = {
+      presets = {
+        lsp_doc_border = true,
+      },
       cmdline = {
         view = "cmdline",
       },
@@ -129,7 +134,7 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  { "echasnovski/mini.nvim",              config = miniConfig, },
+  { "mintoya/mini.nvim",                  config = miniConfig, },
 
 
   {
@@ -139,6 +144,7 @@ local plugins = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
+    event = "BufEnter"
   },
 
   {
@@ -241,7 +247,8 @@ local plugins = {
         },
 
 
-      }
+      },
+      event = "BufEnter"
     },
   },
   {

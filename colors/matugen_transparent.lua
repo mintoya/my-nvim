@@ -2,14 +2,15 @@ local vim = vim
 local matugenColors = require("matugen-colors")
 
 vim.cmd("highlight clear")
-vim.cmd("set background=dark") -- or "light"
 vim.cmd("syntax reset")
+vim.cmd("set background=dark")
 
-vim.g.colors_name = "matugen"
+vim.g.colors_name = "matugen-transparent"
 vim.opt.fillchars:append("eob: ")
 
 local highlights = {
   Normal = { fg = matugenColors.on_background, bg = "none" },
+  NormalFloat = { fg = matugenColors.on_background, bg = "none" },
   MiniPickNormal = { fg = matugenColors.on_background, bg = "none" },
   FloatBorder = { fg = matugenColors.on_background, bg = "none" },
   NormalNC = { fg = matugenColors.on_background, bg = "none" },
@@ -51,7 +52,6 @@ local highlights = {
   SpellLocal = { undercurl = true, sp = matugenColors.secondary_fixed_dim },
 }
 
-vim.api.nvim_set_hl(0, "Normal", { fg = "#000000", bg = "#000000" })
 
 for group, opts in pairs(highlights) do
   vim.api.nvim_set_hl(0, group, opts)
