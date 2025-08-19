@@ -134,7 +134,7 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  { "mintoya/mini.nvim",                  config = miniConfig, },
+  { "echasnovski/mini.nvim",                  config = miniConfig, },
 
 
   {
