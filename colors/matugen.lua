@@ -11,7 +11,7 @@ vim.opt.fillchars:append("eob: ")
 local highlights = {
   Normal = { fg = matugenColors.on_background, bg = matugenColors.background },
   MiniPickNormal = { fg = matugenColors.on_background, bg = matugenColors.background },
-  FloatBorder = { fg = matugenColors.on_background, bg = "none" },
+  FloatBorder = { fg = matugenColors.secondary_container, bg = "none" },
   Pick = { fg = matugenColors.on_background, bg = "none" },
   NormalNC = { fg = matugenColors.on_background, bg = matugenColors.background },
   CursorLine = { bg = matugenColors.surface_container_low },

@@ -134,8 +134,9 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  { "mintoya/mini.nvim",                  config = miniConfig, },
+  -- { "mintoya/mini.nvim",                  config = miniConfig, },
 
+  { dir = "~/Github/mini.nvim",           config = miniConfig, },
 
   {
     "mason-org/mason-lspconfig.nvim",
@@ -187,45 +188,45 @@ local plugins = {
       style = "fg",
       disabled_filetypes = {},
       components = {
-        left = {
-          'mode',
-          'path',
-          'git',
-        },
-        center = {
-          function(active)
-            local ts_utils = require 'nvim-treesitter.ts_utils'
-            local function getCurrentNodePath()
-              local node = ts_utils.get_node_at_cursor()
-              if not node then return "N/a" end
-
-              local path = ""
-              node = node:parent()
-              local max = 3
-              while node and max > 0 do
-                path = node:type() .. " -> " .. path
-                node = node:parent()
-                max = max - 1;
-              end
-              return path
-            end
-            local function getCurrentNode()
-              local node = ts_utils.get_node_at_cursor()
-              if not node then return "N/a" end
-              return node:type();
-            end
-
-            local Slimline = require("slimline")
-            return Slimline.highlights.hl_component(
-              { primary = getCurrentNodePath(), secondary = getCurrentNode() },
-              -- Slimline.highlights.hls.components['path'],
-              Slimline.get_sep('path'),
-              'right', -- flow direction (on which side the secondary part will be rendered)
-              active,  -- whether the component is active or not
-              'fg'     -- style to use
-            )
-          end,
-        },
+      left = {
+      'mode',
+      'path',
+      'git',
+      },
+      --   center = {
+      --     function(active)
+      --       local ts_utils = require 'nvim-treesitter.ts_utils'
+      --       local function getCurrentNodePath()
+      --         local node = ts_utils.get_node_at_cursor()
+      --         if not node then return "N/a" end
+      --
+      --         local path = ""
+      --         node = node:parent()
+      --         local max = 3
+      --         while node and max > 0 do
+      --           path = node:type() .. " -> " .. path
+      --           node = node:parent()
+      --           max = max - 1;
+      --         end
+      --         return path
+      --       end
+      --       local function getCurrentNode()
+      --         local node = ts_utils.get_node_at_cursor()
+      --         if not node then return "N/a" end
+      --         return node:type();
+      --       end
+      --
+      --       local Slimline = require("slimline")
+      --       return Slimline.highlights.hl_component(
+      --         { primary = getCurrentNodePath(), secondary = getCurrentNode() },
+      --         -- Slimline.highlights.hls.components['path'],
+      --         Slimline.get_sep('path'),
+      --         'right', -- flow direction (on which side the secondary part will be rendered)
+      --         active,  -- whether the component is active or not
+      --         'fg'     -- style to use
+      --       )
+      --     end,
+      --   },
         right = {
           'diagnostics',
           'filetype_lsp',
@@ -238,7 +239,7 @@ local plugins = {
         },
         progress = {
           style = "bg",
-          follow = false,
+          follow = "mode",
           column = true,
           hl = {
             primary = "Function",

@@ -12,7 +12,7 @@ local highlights = {
   Normal = { fg = matugenColors.on_background, bg = "none" },
   NormalFloat = { fg = matugenColors.on_background, bg = "none" },
   MiniPickNormal = { fg = matugenColors.on_background, bg = "none" },
-  FloatBorder = { fg = matugenColors.on_background, bg = "none" },
+  FloatBorder = { fg = matugenColors.secondary_container, bg = "none" },
   NormalNC = { fg = matugenColors.on_background, bg = "none" },
   CursorLine = { bg = matugenColors.surface_container_low },
   CursorColumn = { bg = matugenColors.surface_container_low },
