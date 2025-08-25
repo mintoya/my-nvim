@@ -1,1 +1,1 @@
-vim.cmd("colorscheme matugen_transparent")
+vim.cmd("colorscheme matugen")
