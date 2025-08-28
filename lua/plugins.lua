@@ -47,6 +47,7 @@ local miniConfig = function()
   require("mini.pairs").setup()
   require("mini.surround").setup()
   require("mini.diff").setup()
+  -- require("mini.notify").setup()
 
   require("mini.misc").setup_termbg_sync()
   require("mini.indentscope").setup({
@@ -148,7 +149,7 @@ local plugins = {
     dependencies = "rafamadriz/friendly-snippets",
     opts_extend = { "sources.default" },
     opts = blinkOpts,
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
 
 
