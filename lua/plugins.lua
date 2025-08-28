@@ -134,9 +134,9 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  { "echasnovski/mini.nvim",                  config = miniConfig, },
+  {"nvim-mini/mini.nvim",                  config = miniConfig, },
 
-  { dir = "~/Github/mini.nvim",           config = miniConfig, },
+  
 
   {
     "mason-org/mason-lspconfig.nvim",
