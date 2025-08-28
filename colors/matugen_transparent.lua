@@ -1,4 +1,5 @@
 local vim = vim
+package.loaded["matugen-colors"] = nil
 local matugenColors = require("matugen-colors")
 
 vim.cmd("highlight clear")
@@ -13,6 +14,7 @@ local highlights = {
   NormalFloat = { fg = matugenColors.on_background, bg = "none" },
   MiniPickNormal = { fg = matugenColors.on_background, bg = "none" },
   FloatBorder = { fg = matugenColors.secondary_container, bg = "none" },
+  TabLineFill = { fg = "none", bg = "none" },
   NormalNC = { fg = matugenColors.on_background, bg = "none" },
   CursorLine = { bg = matugenColors.surface_container_low },
   CursorColumn = { bg = matugenColors.surface_container_low },

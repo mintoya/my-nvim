@@ -1,4 +1,5 @@
 local vim = vim
+package.loaded["matugen-colors"] = nil
 local matugenColors = require("matugen-colors")
 
 vim.cmd("highlight clear")
@@ -55,20 +56,3 @@ local highlights = {
 for group, opts in pairs(highlights) do
   vim.api.nvim_set_hl(0, group, opts)
 end
--- maybe to be added later
---- * `MiniPickBorder` - window border.
---- * `MiniPickBorderBusy` - window border while picker is busy processing.
---- * `MiniPickBorderText` - non-prompt on border.
---- * `MiniPickCursor` - cursor during active picker (hidden by default).
---- * `MiniPickIconDirectory` - default icon for directory.
---- * `MiniPickIconFile` - default icon for file.
---- * `MiniPickHeader` - headers in info buffer and previews.
---- * `MiniPickMatchCurrent` - current matched item.
---- * `MiniPickMatchMarked` - marked matched items.
---- * `MiniPickMatchRanges` - ranges matching query elements.
---- * `MiniPickNormal` - basic foreground/background highlighting.
---- * `MiniPickPreviewLine` - target line in preview.
---- * `MiniPickPreviewRegion` - target region in preview.
---- * `MiniPickPrompt` - prompt.
---- * `MiniPickPromptCaret` - caret in prompt.
---- * `MiniPickPromptPrefix` - prefix of the prompt.

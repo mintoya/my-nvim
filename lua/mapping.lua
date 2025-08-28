@@ -3,7 +3,7 @@ local keymaps = {
   { "n", ";",     ":",                 { noremap = false, silent = false } },
   { "v", "<<",    "<gv",               { noremap = false, silent = false } },
   { "v", ">>",    ">gv",               { noremap = false, silent = false } },
-  { "n", "<Esc>",     ":nohlsearch<cr>",{ noremap = false, silent = false } },
+  { "n", "<Esc>",     ":nohlsearch<cr>",{ noremap = false, silent = true } },
   { "n", "y",     '"+y',               { noremap = true, silent = true } },
   { "v", "y",     '"+y',               { noremap = true, silent = true } },
   { "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },

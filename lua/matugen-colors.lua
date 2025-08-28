@@ -5,7 +5,7 @@
 
 local Colors = {
   
-      background = "#1a110f",
+      background = "#121318",
   
       error = "#ffece9",
   
@@ -13,11 +13,11 @@ local Colors = {
   
       inverse_on_surface = "#000000",
   
-      inverse_primary = "#733622",
+      inverse_primary = "#35457a",
   
-      inverse_surface = "#f1dfda",
+      inverse_surface = "#e3e1e9",
   
-      on_background = "#f1dfda",
+      on_background = "#e3e1e9",
   
       on_error = "#000000",
   
@@ -29,7 +29,7 @@ local Colors = {
   
       on_primary_fixed = "#000000",
   
-      on_primary_fixed_variant = "#280500",
+      on_primary_fixed_variant = "#000d36",
   
       on_secondary = "#000000",
   
@@ -37,7 +37,7 @@ local Colors = {
   
       on_secondary_fixed = "#000000",
   
-      on_secondary_fixed_variant = "#200b05",
+      on_secondary_fixed_variant = "#0b1021",
   
       on_surface = "#ffffff",
   
@@ -49,61 +49,61 @@ local Colors = {
   
       on_tertiary_fixed = "#000000",
   
-      on_tertiary_fixed_variant = "#161100",
+      on_tertiary_fixed_variant = "#20071f",
   
-      outline = "#ffece7",
+      outline = "#efeffa",
   
-      outline_variant = "#d4beb8",
+      outline_variant = "#c2c2cc",
   
-      primary = "#ffece7",
+      primary = "#eeefff",
   
-      primary_container = "#ffaf97",
+      primary_container = "#b0c0fd",
   
-      primary_fixed = "#ffdbd0",
+      primary_fixed = "#dce1ff",
   
-      primary_fixed_dim = "#ffb59e",
+      primary_fixed_dim = "#b5c4ff",
   
       scrim = "#000000",
   
-      secondary = "#ffece7",
+      secondary = "#eeefff",
   
-      secondary_container = "#e3b9ad",
+      secondary_container = "#bdc1d9",
   
-      secondary_fixed = "#ffdbd0",
+      secondary_fixed = "#dde1f9",
   
-      secondary_fixed_dim = "#e7bdb1",
+      secondary_fixed_dim = "#c1c5dd",
   
       shadow = "#000000",
   
-      source_color = "#e05728",
+      source_color = "#517af3",
   
-      surface = "#1a110f",
+      surface = "#121318",
   
-      surface_bright = "#5a4d4a",
+      surface_bright = "#4f5056",
   
-      surface_container = "#392e2b",
+      surface_container = "#2f3036",
   
-      surface_container_high = "#443936",
+      surface_container_high = "#3a3b41",
   
-      surface_container_highest = "#504441",
+      surface_container_highest = "#46464c",
   
-      surface_container_low = "#271d1b",
+      surface_container_low = "#1e1f25",
   
       surface_container_lowest = "#000000",
   
-      surface_dim = "#1a110f",
+      surface_dim = "#121318",
   
-      surface_tint = "#ffb59e",
+      surface_tint = "#b5c4ff",
   
-      surface_variant = "#53433f",
+      surface_variant = "#45464f",
   
-      tertiary = "#ffefc1",
+      tertiary = "#ffeaf8",
   
-      tertiary_container = "#d3c28a",
+      tertiary_container = "#deb7d7",
   
-      tertiary_fixed = "#f4e2a7",
+      tertiary_fixed = "#ffd7f7",
   
-      tertiary_fixed_dim = "#d7c68d",
+      tertiary_fixed_dim = "#e3badb",
   
 }
 
