@@ -47,6 +47,7 @@ local miniConfig = function()
   require("mini.pairs").setup()
   require("mini.surround").setup()
   require("mini.diff").setup()
+  -- require("mini.notify").setup()
 
   require("mini.misc").setup_termbg_sync()
   require("mini.indentscope").setup({
@@ -60,10 +61,7 @@ local miniConfig = function()
           char = "<Esc>",
           func = function()
             require("current-theme")
-            vim.cmd(
-              [[lua ]]
-              .. (require("special").file.read(vim.fn.stdpath("config") .. "/lua/current-theme.lua"))
-            )
+            dofile(vim.fn.stdpath("config") .. "/lua/current-theme.lua")
             picker.stop()
           end,
         },
@@ -106,9 +104,7 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
-    event = "BufEnter",
-    build = ":TSUpdate",
+    event = "InsertEnter",
   },
 
   {
@@ -119,7 +115,14 @@ local plugins = {
       words = {},
       indent = {},
       dashboard = require("welcome"),
-    }
+    },
+    lazy = false
+  },
+  { "hiattp/splitwise.nvim", 
+    config = 
+      function() 
+        require("splitwise").setup({create_default_keymaps=false})
+      end
   },
   {
     "folke/noice.nvim",
@@ -136,7 +139,6 @@ local plugins = {
 
   {"nvim-mini/mini.nvim",                  config = miniConfig, },
 
-  
 
   {
     "mason-org/mason-lspconfig.nvim",
@@ -145,7 +147,7 @@ local plugins = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
-    event = "BufEnter"
+    event = "InsertEnter"
   },
 
   {
@@ -153,13 +155,12 @@ local plugins = {
     dependencies = "rafamadriz/friendly-snippets",
     opts_extend = { "sources.default" },
     opts = blinkOpts,
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
 
 
   {
     "folke/which-key.nvim",
-    event = "VeryLazy",
     keys = {
       {
         "<leader>?",
@@ -169,13 +170,14 @@ local plugins = {
         desc = "Buffer Local Keymaps (which-key)",
       },
     },
+    event = "VeryLazy"
   },
 
 
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
   {
     "brenton-leighton/multiple-cursors.nvim",
@@ -280,12 +282,14 @@ local plugins = {
   { "catppuccin/nvim",                    name = "catppuccin" },
   { "folke/tokyonight.nvim",              opts = { style = "night" } },
   { "vague2k/vague.nvim",                 opts = { transparent = true } },
+  { "NvChad/base46",                 },
 
-  { "brenoprata10/nvim-highlight-colors", event = "VeryLazy" },
-  { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "VeryLazy" },
-  { "wurli/visimatch.nvim",               event = "VeryLazy",           opts = { chars_lower_limit = 3 } },
-  -- { "sphamba/smear-cursor.nvim", opts = {} },
+
+  { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
+  { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "InsertEnter" },
+  { "wurli/visimatch.nvim",               event = "InsertEnter",           opts = { chars_lower_limit = 3 } },
   -- used in windos
+  -- { "sphamba/smear-cursor.nvim", opts = {} },
 }
 
 return plugins

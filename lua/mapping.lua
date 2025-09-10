@@ -1,5 +1,25 @@
 local vim = vim
 local keymaps = {
+  { "n", ";",     ":",               { noremap = false, silent = false } },
+  { "v", "<<",    "<gv",             { noremap = false, silent = false } },
+  { "v", ">>",    ">gv",             { noremap = false, silent = false } },
+  { "n", "<Esc>", ":nohlsearch<cr>", { noremap = false, silent = true } },
+  { "n", "y",     '"+y',             { noremap = true, silent = true } },
+  { "v", "y",     '"+y',             { noremap = true, silent = true } },
+  { "t", "<Esc>", [[<C-\><C-n>]],    { noremap = true } },
+  { "n", "<Tab>", "<C-w>",           { noremap = true, silent = true } },
+  { "n", "sl", [[:lua require("splitwise").move_left()<cr>]],
+    { desc = "sw - left", noremap = true, silent = true }
+  },
+  { "n", "sh", [[:lua require("splitwise").move_right()<cr>]],
+    { desc = "sw - left", noremap = true, silent = true }
+  },
+  { "n", "sk", [[:lua require("splitwise").move_up()<cr>]],
+    { desc = "sw - left", noremap = true, silent = true }
+  },
+  { "n", "sj", [[:lua require("splitwise").move_down()<cr>]],
+    { desc = "sw - left", noremap = true, silent = true }
+  },
 
   { "v", "<<",    "<gv",               { noremap = false, silent = false } },
   { "v", ">>",    ">gv",               { noremap = false, silent = false } },
@@ -34,10 +54,10 @@ local keymaps = {
     [[:lua require("fyler").open()<CR>]],
     { desc = "edit files", noremap = true, silent = true },
   },
-  { "v", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
-  { "v", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
-  { "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
-  { "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
+  { "v", "<C-j>", "10j",               { desc = "down 10", noremap = true, silent = true } },
+  { "v", "<C-k>", "10k",               { desc = "up 10", noremap = true, silent = true } },
+  { "n", "<C-j>", "10j",               { desc = "down 10", noremap = true, silent = true } },
+  { "n", "<C-k>", "10k",               { desc = "up 10", noremap = true, silent = true } },
   {
     "n",
     "<leader>fh",

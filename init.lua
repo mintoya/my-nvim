@@ -46,6 +46,7 @@ end
 
 vim.g.mapleader = " "
 
+
 vim.pack.add({ "https://github.com/folke/lazy.nvim.git" });
 require("lazy").setup(require("plugins"))
 require("mapping")
@@ -89,4 +90,3 @@ end
 
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
