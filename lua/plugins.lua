@@ -118,6 +118,12 @@ local plugins = {
     },
     lazy = false
   },
+  { "hiattp/splitwise.nvim", 
+    config = 
+      function() 
+        require("splitwise").setup({create_default_keymaps=false})
+      end
+  },
   {
     "folke/noice.nvim",
     opts = {
@@ -282,8 +288,8 @@ local plugins = {
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
   { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "InsertEnter" },
   { "wurli/visimatch.nvim",               event = "InsertEnter",           opts = { chars_lower_limit = 3 } },
-  -- { "sphamba/smear-cursor.nvim", opts = {} },
   -- used in windos
+  -- { "sphamba/smear-cursor.nvim", opts = {} },
 }
 
 return plugins
