@@ -1,6 +1,6 @@
 local vim = vim
 
-vim.cmd("set number relativenumber")
+vim.g.mapleader = " "
 
 
 --backup directorys
@@ -26,10 +26,12 @@ local vimOptions = {
   splitright = true,
   splitbelow = true,
   signcolumn = "yes",
+  relativenumber = true,
   number = true,
   tabstop = 2,
   expandtab = true,
   termguicolors = true,
+  wrap = false,
   shiftwidth = 2,
   fillchars = {
     stl = " ",
@@ -44,49 +46,15 @@ for k, v in pairs(vimOptions) do
   vim.opt[k] = v
 end
 
-vim.g.mapleader = " "
 
 
+local mappings = require("mapping")
 vim.pack.add({ "https://github.com/folke/lazy.nvim.git" });
 require("lazy").setup(require("plugins"))
-require("mapping")
 require("nvim-highlight-colors").setup({})
 require("lsp")
 require("current-theme")
+mappings()
 
-_G.CustomFoldText = function()
-  local fs = vim.v.foldstart
-  local count = vim.v.foldend - fs + 1
-  local suffix = string.format("~ %d %s", count, "lines")
-  -- if vim.opt.foldmethod._value == "indent" then
-  -- 	return "" .. suffix
-  -- else
-  -- 	local line = vim.api.nvim_buf_get_lines(0, fs - 1, fs, false)[1]
-  -- 	return line .. " " .. suffix
-  -- end
+vim.cmd("set foldmethod=indent")
 
-  local line = vim.api.nvim_buf_get_lines(0, fs - 1, fs, false)[1]
-  return line .. " " .. suffix
-end
-
--- local function set_foldmethod()
--- 	local has_ts = false
--- local ok, parsers = pcall(require, "nvim-treesitter.parsers")
--- if ok then
--- 	local lang = parsers.get_buf_lang(0)
--- 	has_ts = lang and parsers.has_parser(lang)
--- end
--- 	if has_ts then
--- 		vim.wo.foldmethod = "expr"
--- 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- 	else
--- 		if vim.opt.buftype._value == "" or vim.opt.buftype._value == "nofile" then
--- 			vim.wo.foldmethod = "manual"
--- 		else
--- 			vim.wo.foldmethod = "indent"
--- 		end
--- 	end
--- end
-
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"

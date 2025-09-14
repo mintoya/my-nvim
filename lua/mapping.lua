@@ -1,30 +1,19 @@
 local vim = vim
 local keymaps = {
-  { "n", ";",     ":",               { noremap = false, silent = false } },
-  { "v", "<<",    "<gv",             { noremap = false, silent = false } },
-  { "v", ">>",    ">gv",             { noremap = false, silent = false } },
-  { "n", "<Esc>", ":nohlsearch<cr>", { noremap = false, silent = true } },
-  { "n", "y",     '"+y',             { noremap = true, silent = true } },
-  { "v", "y",     '"+y',             { noremap = true, silent = true } },
-  { "t", "<Esc>", [[<C-\><C-n>]],    { noremap = true } },
-  { "n", "<Tab>", "<C-w>",           { noremap = true, silent = true } },
-  { "n", "sl", [[:lua require("splitwise").move_left()<cr>]],
-    { desc = "sw - left", noremap = true, silent = true }
-  },
-  { "n", "sh", [[:lua require("splitwise").move_right()<cr>]],
-    { desc = "sw - left", noremap = true, silent = true }
-  },
-  { "n", "sk", [[:lua require("splitwise").move_up()<cr>]],
-    { desc = "sw - left", noremap = true, silent = true }
-  },
-  { "n", "sj", [[:lua require("splitwise").move_down()<cr>]],
-    { desc = "sw - left", noremap = true, silent = true }
-  },
+  { "n", ";",     ":",                 { noremap = false, silent = false } },
 
   { "v", "<<",    "<gv",               { noremap = false, silent = false } },
   { "v", ">>",    ">gv",               { noremap = false, silent = false } },
-  { "n", ";",     ":",                 { noremap = false, silent = false } },
-  { "n", "<Esc>",     ":nohlsearch<cr>",{ noremap = false, silent = true } },
+  { "v", "y",     '"+y',               { noremap = true, silent = true } },
+
+  { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = false, silent = true } },
+  { "n", "y",     '"+y',               { noremap = true, silent = true } },
+  { "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },
+  { "n", "<Tab>", "<C-w>",             { noremap = true, silent = true } },
+
+  { "v", "<<",    "<gv",               { noremap = false, silent = false } },
+  { "v", ">>",    ">gv",               { noremap = false, silent = false } },
+  { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = false, silent = true } },
   { "n", "y",     '"+y',               { noremap = true, silent = true } },
   { "v", "y",     '"+y',               { noremap = true, silent = true } },
   { "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },
@@ -51,13 +40,13 @@ local keymaps = {
   {
     "n",
     "<leader>e",
-    [[:lua require("fyler").open()<CR>]],
+    [[:Fyler<cr>]],
     { desc = "edit files", noremap = true, silent = true },
   },
-  { "v", "<C-j>", "10j",               { desc = "down 10", noremap = true, silent = true } },
-  { "v", "<C-k>", "10k",               { desc = "up 10", noremap = true, silent = true } },
-  { "n", "<C-j>", "10j",               { desc = "down 10", noremap = true, silent = true } },
-  { "n", "<C-k>", "10k",               { desc = "up 10", noremap = true, silent = true } },
+  { "v", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
+  { "v", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
+  { "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
+  { "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
   {
     "n",
     "<leader>fh",
@@ -114,12 +103,12 @@ local keymaps = {
     ":set foldmethod=marker<cr>",
     { desc = "marker foldmethod", silent = true },
   },
-  {
-    "n",
-    "<leader>m",
-    ":MultipleCursorsAddDown<cr>",
-    { desc = "add Multicursor Cursor" },
-  },
+  -- {
+  --   "n",
+  --   "<leader>m",
+  --   ":MultipleCursorsAddDown<cr>",
+  --   { desc = "add Multicursor Cursor" },
+  -- },
   {
     "n",
     "<leader>fm",
@@ -142,4 +131,61 @@ for _, keymap in ipairs(keymaps) do
   -- vim.api.nvim_set_keymap(tabel.unpack(keymap));
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+end
+
+return function()
+  local mc = require("multicursor-nvim")
+  mc.setup()
+
+  local set = vim.keymap.set
+
+  -- Add or skip cursor above/below the main cursor.
+  set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end)
+  set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end)
+  set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
+  set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end)
+
+  -- Add or skip adding a new cursor by matching word/selection
+  set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
+  set({ "n", "x" }, "<leader>s", function() mc.matchSkipCursor(1) end)
+  set({ "n", "x" }, "<leader>N", function() mc.matchAddCursor(-1) end)
+  set({ "n", "x" }, "<leader>S", function() mc.matchSkipCursor(-1) end)
+
+  -- Add and remove cursors with control + left click.
+  set("n", "<c-leftmouse>", mc.handleMouse)
+  set("n", "<c-leftdrag>", mc.handleMouseDrag)
+  set("n", "<c-leftrelease>", mc.handleMouseRelease)
+
+  -- Disable and enable cursors.
+  set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+
+  -- Mappings defined in a keymap layer only apply when there are
+  -- multiple cursors. This lets you have overlapping mappings.
+  mc.addKeymapLayer(function(layerSet)
+    -- Select a different cursor as the main one.
+    layerSet({ "n", "x" }, "<left>", mc.prevCursor)
+    layerSet({ "n", "x" }, "<right>", mc.nextCursor)
+
+    -- Delete the main cursor.
+    layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
+
+    -- Enable and clear cursors using escape.
+    layerSet("n", "<esc>", function()
+      if not mc.cursorsEnabled() then
+        mc.enableCursors()
+      else
+        mc.clearCursors()
+      end
+    end)
+  end)
+
+  -- Customize how cursors look.
+  local hl = vim.api.nvim_set_hl
+  hl(0, "MultiCursorCursor", { reverse = true })
+  hl(0, "MultiCursorVisual", { link = "Visual" })
+  hl(0, "MultiCursorSign", { link = "SignColumn" })
+  hl(0, "MultiCursorMatchPreview", { link = "Search" })
+  hl(0, "MultiCursorDisabledCursor", { reverse = true })
+  hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+  hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
 end

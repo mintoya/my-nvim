@@ -118,12 +118,6 @@ local plugins = {
     },
     lazy = false
   },
-  { "hiattp/splitwise.nvim", 
-    config = 
-      function() 
-        require("splitwise").setup({create_default_keymaps=false})
-      end
-  },
   {
     "folke/noice.nvim",
     opts = {
@@ -137,7 +131,7 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  {"nvim-mini/mini.nvim",                  config = miniConfig, },
+  { "nvim-mini/mini.nvim",                config = miniConfig, },
 
 
   {
@@ -147,7 +141,6 @@ local plugins = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
-    event = "InsertEnter"
   },
 
   {
@@ -179,10 +172,14 @@ local plugins = {
     opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
     event = "InsertEnter",
   },
+  -- {
+  --   "brenton-leighton/multiple-cursors.nvim",
+  --   event = "VeryLazy",
+  --   opts = {},
+  -- },
   {
-    "brenton-leighton/multiple-cursors.nvim",
-    event = "VeryLazy",
-    opts = {},
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
   },
   {
     "sschleemilch/slimline.nvim",
@@ -190,45 +187,45 @@ local plugins = {
       style = "fg",
       disabled_filetypes = {},
       components = {
-      left = {
-      'mode',
-      'path',
-      'git',
-      },
-      --   center = {
-      --     function(active)
-      --       local ts_utils = require 'nvim-treesitter.ts_utils'
-      --       local function getCurrentNodePath()
-      --         local node = ts_utils.get_node_at_cursor()
-      --         if not node then return "N/a" end
-      --
-      --         local path = ""
-      --         node = node:parent()
-      --         local max = 3
-      --         while node and max > 0 do
-      --           path = node:type() .. " -> " .. path
-      --           node = node:parent()
-      --           max = max - 1;
-      --         end
-      --         return path
-      --       end
-      --       local function getCurrentNode()
-      --         local node = ts_utils.get_node_at_cursor()
-      --         if not node then return "N/a" end
-      --         return node:type();
-      --       end
-      --
-      --       local Slimline = require("slimline")
-      --       return Slimline.highlights.hl_component(
-      --         { primary = getCurrentNodePath(), secondary = getCurrentNode() },
-      --         -- Slimline.highlights.hls.components['path'],
-      --         Slimline.get_sep('path'),
-      --         'right', -- flow direction (on which side the secondary part will be rendered)
-      --         active,  -- whether the component is active or not
-      --         'fg'     -- style to use
-      --       )
-      --     end,
-      --   },
+        left = {
+          'mode',
+          'path',
+          'git',
+        },
+        --   center = {
+        --     function(active)
+        --       local ts_utils = require 'nvim-treesitter.ts_utils'
+        --       local function getCurrentNodePath()
+        --         local node = ts_utils.get_node_at_cursor()
+        --         if not node then return "N/a" end
+        --
+        --         local path = ""
+        --         node = node:parent()
+        --         local max = 3
+        --         while node and max > 0 do
+        --           path = node:type() .. " -> " .. path
+        --           node = node:parent()
+        --           max = max - 1;
+        --         end
+        --         return path
+        --       end
+        --       local function getCurrentNode()
+        --         local node = ts_utils.get_node_at_cursor()
+        --         if not node then return "N/a" end
+        --         return node:type();
+        --       end
+        --
+        --       local Slimline = require("slimline")
+        --       return Slimline.highlights.hl_component(
+        --         { primary = getCurrentNodePath(), secondary = getCurrentNode() },
+        --         -- Slimline.highlights.hls.components['path'],
+        --         Slimline.get_sep('path'),
+        --         'right', -- flow direction (on which side the secondary part will be rendered)
+        --         active,  -- whether the component is active or not
+        --         'fg'     -- style to use
+        --       )
+        --     end,
+        --   },
         right = {
           'diagnostics',
           'filetype_lsp',
@@ -282,14 +279,29 @@ local plugins = {
   { "catppuccin/nvim",                    name = "catppuccin" },
   { "folke/tokyonight.nvim",              opts = { style = "night" } },
   { "vague2k/vague.nvim",                 opts = { transparent = true } },
-  { "NvChad/base46",                 },
+  { "NvChad/base46", },
 
 
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
   { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "InsertEnter" },
-  { "wurli/visimatch.nvim",               event = "InsertEnter",           opts = { chars_lower_limit = 3 } },
+  { "wurli/visimatch.nvim",               event = "InsertEnter",        opts = { chars_lower_limit = 3 } },
   -- used in windos
   -- { "sphamba/smear-cursor.nvim", opts = {} },
+  -- lazy.nvim
+  {
+    "chrisgrieser/nvim-origami",
+    event = "VeryLazy",
+    opts = {
+      useLspFoldsWithTreesitterFallback = false,
+      foldtext = {
+        gitsignsCount = false,
+      },
+    },
+    -- init = function()
+    --   vim.opt.foldlevel = 99
+    --   vim.opt.foldlevelstart = 99
+    -- end,
+  },
 }
 
 return plugins
