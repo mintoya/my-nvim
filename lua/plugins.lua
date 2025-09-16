@@ -131,7 +131,7 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
   },
 
-  { "nvim-mini/mini.nvim",                config = miniConfig, },
+  { "nvim-mini/mini.nvim",   config = miniConfig, },
 
 
   {
@@ -180,6 +180,7 @@ local plugins = {
   {
     "jake-stewart/multicursor.nvim",
     branch = "1.0",
+    event = "InsertEnter",
   },
   {
     "sschleemilch/slimline.nvim",
@@ -276,15 +277,24 @@ local plugins = {
   },
 
   -- color schemes
-  { "catppuccin/nvim",                    name = "catppuccin" },
-  { "folke/tokyonight.nvim",              opts = { style = "night" } },
-  { "vague2k/vague.nvim",                 opts = { transparent = true } },
+  { "catppuccin/nvim",       name = "catppuccin" },
+  { "folke/tokyonight.nvim", opts = { style = "night" } },
+  { "vague2k/vague.nvim",    opts = { transparent = true } },
   { "NvChad/base46", },
-
-
+  -- {
+  --   'R1PeR/bounce.nvim',
+  --   opts = {
+  --       delay_time = 500,
+  --       highlight_group_name = '@text.todo',
+  --       more_jumps = false,
+  --       display_mode = "virtual_line",
+  --   },
+  --   event = "BufEnter",
+  -- },
+  { "adlrwbr/keep-split-ratio.nvim", opts = {} , lazy=false },
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
-  { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "InsertEnter" },
-  { "wurli/visimatch.nvim",               event = "InsertEnter",        opts = { chars_lower_limit = 3 } },
+  { "rachartier/tiny-glimmer.nvim",       opts = {},             event = "InsertEnter" },
+  { "wurli/visimatch.nvim",               event = "InsertEnter", opts = { chars_lower_limit = 3 } },
   -- used in windos
   -- { "sphamba/smear-cursor.nvim", opts = {} },
   -- lazy.nvim
@@ -297,10 +307,6 @@ local plugins = {
         gitsignsCount = false,
       },
     },
-    -- init = function()
-    --   vim.opt.foldlevel = 99
-    --   vim.opt.foldlevelstart = 99
-    -- end,
   },
 }
 
