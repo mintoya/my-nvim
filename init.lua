@@ -52,10 +52,8 @@ local mappings = require("mapping")
 vim.pack.add({ "https://github.com/folke/lazy.nvim.git" });
 require("lazy").setup(require("plugins"))
 require("nvim-highlight-colors").setup({})
+require("autofolds")
 
 require("lsp")
 require("current-theme")
 mappings()
-
-vim.cmd("set foldmethod=indent")
-

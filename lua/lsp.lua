@@ -1,12 +1,8 @@
 local vim = vim
 
 vim.lsp.enable({
-	-- "gopls",
 	"lua_ls",
-	"gdscript",
 	"clangd",
-	"qmlls",
-  "arduino",
 })
 
 vim.diagnostic.config({

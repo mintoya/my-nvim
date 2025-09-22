@@ -258,6 +258,10 @@ local plugins = {
     opts = {
       views = {
         explorer = {
+          default_explorer = true,
+          indentscope = {
+            enabled = false,
+          },
           win = {
             border = "rounded",
             kind = "float",
@@ -280,34 +284,35 @@ local plugins = {
   { "catppuccin/nvim",       name = "catppuccin" },
   { "folke/tokyonight.nvim", opts = { style = "night" } },
   { "vague2k/vague.nvim",    opts = { transparent = true } },
+  { "kamwitsta/vinyl.nvim" },
   { "NvChad/base46", },
   -- {
-  --   'R1PeR/bounce.nvim',
-  --   opts = {
-  --       delay_time = 500,
-  --       highlight_group_name = '@text.todo',
-  --       more_jumps = false,
-  --       display_mode = "virtual_line",
-  --   },
-  --   event = "BufEnter",
-  -- },
-  { "adlrwbr/keep-split-ratio.nvim", opts = {} , lazy=false },
-  { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
-  { "rachartier/tiny-glimmer.nvim",       opts = {},             event = "InsertEnter" },
-  { "wurli/visimatch.nvim",               event = "InsertEnter", opts = { chars_lower_limit = 3 } },
-  -- used in windos
-  -- { "sphamba/smear-cursor.nvim", opts = {} },
-  -- lazy.nvim
-  {
-    "chrisgrieser/nvim-origami",
-    event = "VeryLazy",
-    opts = {
-      useLspFoldsWithTreesitterFallback = false,
-      foldtext = {
-        gitsignsCount = false,
+    --   'R1PeR/bounce.nvim',
+    --   opts = {
+      --       delay_time = 500,
+      --       highlight_group_name = '@text.todo',
+      --       more_jumps = false,
+      --       display_mode = "virtual_line",
+      --   },
+      --   event = "BufEnter",
+      -- },
+      { "adlrwbr/keep-split-ratio.nvim", opts = {} , lazy=false },
+      { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
+      { "rachartier/tiny-glimmer.nvim",       opts = {},             event = "InsertEnter" },
+      { "wurli/visimatch.nvim",               event = "InsertEnter", opts = { chars_lower_limit = 3 } },
+      -- used in windos
+      -- { "sphamba/smear-cursor.nvim", opts = {} },
+      -- lazy.nvim
+      {
+        "chrisgrieser/nvim-origami",
+        event = "VeryLazy",
+        opts = {
+          useLspFoldsWithTreesitterFallback = false,
+          foldtext = {
+            gitsignsCount = false,
+          },
+        },
       },
-    },
-  },
-}
+    }
 
-return plugins
+    return plugins
