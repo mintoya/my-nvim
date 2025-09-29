@@ -1,7 +1,8 @@
 local foldTable = {
   snacks_dashboard = "manual",
-  fyler            = "manual",
+  Fyler            = "manual",
   lua              = "expr" ,
+  c                = "indent",
 }
 
 local fMeta = setmetatable({},{

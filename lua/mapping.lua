@@ -34,7 +34,7 @@ local keymaps = {
   {
     "n",
     "<leader>e",
-    [[:Fyler<cr>]],
+    [[:lua require("fyler").open({kind = "float"})<cr>]],
     { desc = "edit files", noremap = true, silent = true },
   },
   { "v", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },

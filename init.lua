@@ -1,4 +1,5 @@
 local vim = vim
+local special = require("special")
 
 vim.g.mapleader = " "
 
@@ -55,5 +56,35 @@ require("nvim-highlight-colors").setup({})
 require("autofolds")
 
 require("lsp")
+
+local theme = special.file.read(vim.fn.stdpath("config") .. "/lua/current-theme.lua")
+
+if theme then
+  load(theme)()
+else
+  special.file.write(vim.fn.stdpath("config") .. "/lua/current-theme.lua",
+    [[ vim.cmd("colorscheme default") ]]
+  )
+  vim.cmd("colorscheme default")
+end
+
 require("current-theme")
+
+vim.api.nvim_create_user_command(
+  "VText", -- The name of the command (must start with an uppercase letter)
+  function(args)
+    special.vtext[args.args]()
+  end,
+  {
+    nargs = 1,                           -- Number of arguments the command expects
+    desc = "diable/enable virtual text", -- Description for help
+    complete = function(_, _, _)
+      local res = {}
+      for i, _ in pairs(special.vtext) do
+        table.insert(res, i)
+      end
+      return res
+    end,
+  }
+)
 mappings()
