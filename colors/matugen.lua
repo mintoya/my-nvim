@@ -1,58 +1,62 @@
 local vim = vim
-package.loaded["matugen-colors"] = nil
-local matugenColors = require("matugen-colors")
 
-vim.cmd("highlight clear")
-vim.cmd("set background=dark") -- or "light"
-vim.cmd("syntax reset")
+local ok, matugenColors = pcall(require, "matugen-colors")
 
-vim.g.colors_name = "matugen"
-vim.opt.fillchars:append("eob: ")
+if ok then
+	vim.cmd("highlight clear")
+	vim.cmd("set background=dark") -- or "light"
+	vim.cmd("syntax reset")
 
-local highlights = {
-  Normal = { fg = matugenColors.on_background, bg = matugenColors.background },
-  MiniPickNormal = { fg = matugenColors.on_background, bg = matugenColors.background },
-  FloatBorder = { fg = matugenColors.secondary_container, bg = "none" },
-  Pick = { fg = matugenColors.on_background, bg = "none" },
-  NormalNC = { fg = matugenColors.on_background, bg = matugenColors.background },
-  CursorLine = { bg = matugenColors.surface_container_low },
-  CursorColumn = { bg = matugenColors.surface_container_low },
-  ColorColumn = { bg = matugenColors.surface_container_low },
-  StatusLine = { fg = matugenColors.source_color, bg = "none" },
-  StatusLineNC = { fg = matugenColors.on_surface_variant, bg = "none" },
-  VertSplit = { fg = matugenColors.surface_container_high },
-  LineNr = { fg = matugenColors.surface_container_high, bg = "none" },
-  CursorLineNr = { fg = matugenColors.primary_fixed, bold = true },
-  Comment = { fg = matugenColors.surface_bright, italic = true },
-  Constant = { fg = "#d75f5f" },
-  Identifier = { fg = "#d7af87" },
-  Statement = { fg = "#87afaf", italic = true, bold = true },
-  PreProc = { fg = "#d7875f" },
-  Type = { fg = matugenColors.primary_fixed },
-  Special = { fg = "#d7afaf" },
-  Underlined = { underline = true },
-  Todo = { fg = "#d75f5f", bold = true },
-  Error = { fg = matugenColors.on_error, bg = matugenColors.error_container, bold = true },
-  WarningMsg = { fg = matugenColors.error_container },
-  Search = { fg = matugenColors.inverse_on_surface, bg = matugenColors.surface_container_high },
-  IncSearch = { fg = matugenColors.inverse_on_surface, bg = matugenColors.secondary_fixed_dim },
-  Visual = { bg = matugenColors.surface_container_high },
-  Pmenu = { fg = matugenColors.on_background, bg = "none" },
-  PmenuSel = { fg = matugenColors.on_background, bg = matugenColors.secondary_fixed_dim },
-  PmenuSbar = { bg = matugenColors.surface_container_low },
-  PmenuThumb = { bg = matugenColors.surface_container_high },
-  Folded = { bg = matugenColors.on_tertiary_fixed_variant, fg = matugenColors.error_container, italic = true },
-  FoldColumn = { bg = matugenColors.on_tertiary_fixed_variant, fg = matugenColors.error_container, italic = true },
-  DiffAdd = { bg = "#335533" },
-  DiffChange = { bg = "#555533" },
-  DiffDelete = { bg = "#553333" },
-  DiffText = { bg = "#777733" },
-  SpellBad = { undercurl = true, sp = matugenColors.error_container },
-  SpellCap = { undercurl = true, sp = matugenColors.primary_fixed_dim },
-  SpellRare = { undercurl = true, sp = matugenColors.tertiary_fixed_dim },
-  SpellLocal = { undercurl = true, sp = matugenColors.secondary_fixed_dim },
-}
+	vim.g.colors_name = "matugen"
+	vim.opt.fillchars:append("eob: ")
 
-for group, opts in pairs(highlights) do
-  vim.api.nvim_set_hl(0, group, opts)
+	local highlights = {
+		Normal = { fg = matugenColors.on_background, bg = matugenColors.background },
+		MiniPickNormal = { fg = matugenColors.on_background, bg = matugenColors.background },
+		FloatBorder = { fg = matugenColors.secondary_container, bg = "none" },
+		Pick = { fg = matugenColors.on_background, bg = "none" },
+		NormalNC = { fg = matugenColors.on_background, bg = matugenColors.background },
+		CursorLine = { bg = matugenColors.surface_container_low },
+		CursorColumn = { bg = matugenColors.surface_container_low },
+		ColorColumn = { bg = matugenColors.surface_container_low },
+		StatusLine = { fg = matugenColors.source_color, bg = "none" },
+		StatusLineNC = { fg = matugenColors.on_surface_variant, bg = "none" },
+		VertSplit = { fg = matugenColors.surface_container_high },
+		LineNr = { fg = matugenColors.surface_container_high, bg = "none" },
+		CursorLineNr = { fg = matugenColors.primary_fixed, bold = true },
+		Comment = { fg = matugenColors.surface_bright, italic = true },
+		Constant = { fg = "#d75f5f" },
+		Identifier = { fg = "#d7af87" },
+		Statement = { fg = "#87afaf", italic = true, bold = true },
+		PreProc = { fg = "#d7875f" },
+		Type = { fg = matugenColors.primary_fixed },
+		Special = { fg = "#d7afaf" },
+		Underlined = { underline = true },
+		Todo = { fg = "#d75f5f", bold = true },
+		Error = { fg = matugenColors.on_error, bg = matugenColors.error_container, bold = true },
+		WarningMsg = { fg = matugenColors.error_container },
+		Search = { fg = matugenColors.inverse_on_surface, bg = matugenColors.surface_container_high },
+		IncSearch = { fg = matugenColors.inverse_on_surface, bg = matugenColors.secondary_fixed_dim },
+		Visual = { bg = matugenColors.surface_container_high },
+		Pmenu = { fg = matugenColors.on_background, bg = "none" },
+		PmenuSel = { fg = matugenColors.on_background, bg = matugenColors.secondary_fixed_dim },
+		PmenuSbar = { bg = matugenColors.surface_container_low },
+		PmenuThumb = { bg = matugenColors.surface_container_high },
+		Folded = { bg = matugenColors.on_tertiary_fixed_variant, fg = matugenColors.error_container, italic = true },
+		FoldColumn = { bg = matugenColors.on_tertiary_fixed_variant, fg = matugenColors.error_container, italic = true },
+		DiffAdd = { bg = "#335533" },
+		DiffChange = { bg = "#555533" },
+		DiffDelete = { bg = "#553333" },
+		DiffText = { bg = "#777733" },
+		SpellBad = { undercurl = true, sp = matugenColors.error_container },
+		SpellCap = { undercurl = true, sp = matugenColors.primary_fixed_dim },
+		SpellRare = { undercurl = true, sp = matugenColors.tertiary_fixed_dim },
+		SpellLocal = { undercurl = true, sp = matugenColors.secondary_fixed_dim },
+	}
+
+	for group, opts in pairs(highlights) do
+		vim.api.nvim_set_hl(0, group, opts)
+	end
+else
+  vim.notify("matugen not available, did you run it?")
 end
