@@ -45,7 +45,12 @@ require("autofolds")
 require("dirs")
 require("lsp")
 
-local _, _ = pcall(require, "current-theme")
+local ok, _ = pcall(require, "current-theme")
+if not ok then
+  vim.cmd("colorscheme catppuccin")
+  require("special").file.write(vim.fn.stdpath("config") .. "/lua/current-theme.lua",
+    [[vim.cmd("colorscheme catppuccin")]])
+end
 local snippetDir = vim.fn.stdpath("data") .. "/snippets"
 if vim.fn.isdirectory(snippetDir) == 0 then
   vim.fn.mkdir(snippetDir, "p")
