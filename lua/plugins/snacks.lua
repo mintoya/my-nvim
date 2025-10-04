@@ -16,15 +16,26 @@ local header = [[
 │⠀⠌⣿⣿⣿⡿⠀⢀⠀⠐⡚⡳⠥⣀⡄⠀⠀⠀⢿⣿⣿⣿⣿⠁⠀⠀⡀⣢⣤⣫⣞⣁⣡⢈⡠⠀⠀⠀⠀⠈⠰⠟⠻⠿⠟⠉⠀⠀⠀│
 │⠀⠀⠙⠿⠛⠃⠀⠀⠀⠠⠥⡀⢴⣆⡏⠕⡢⡀⠸⣿⣿⠏⢠⠄⡀⢐⣯⢫⣥⣽⡿⢽⡼⣾⡿⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
 ╰─────────────────────────────────────────────────╯]]
-return {
-  preset = {
-    header = header,
+return
+{
+  "folke/snacks.nvim",
+  opts = {
+    lazygit = {},
+    notifier = {},
+    words = {},
+    indent = {},
+    dashboard = {
+      preset = {
+        header = header,
+      },
+
+      sections = {
+        { section = "header", },
+        { section = "startup" },
+        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 1, 1 } },
+
+      }
+    },
   },
-
-  sections = {
-    { section = "header", },
-    { section = "startup" },
-    { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 1, 1 } },
-
-  }
+  lazy = false
 }
