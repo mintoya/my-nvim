@@ -36,6 +36,8 @@ local plugins = {
 for _, v in pairs(require("plugins.all")) do
   table.insert(plugins, v)
 end
+
+require("special")
 require("lazy").setup(
   plugins
 )

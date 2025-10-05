@@ -26,8 +26,25 @@ local function enable_v_text()
     virtual_lines = true,
   }
 end
-
-return {
+local M = {
   file = { read = read_from_file, write = write_to_file },
   vtext = { disable = disable_v_text, enable = enable_v_text },
 }
+vim.api.nvim_create_user_command('VText',
+  function(opts)
+    local which = opts.args
+    M.vtext[which]()
+  end,
+  {
+    nargs    = 1,
+    desc     = "toggle virtual text",
+    complete = function(_, _, _)
+      local res = {}
+      for i, _ in pairs(M.vtext) do
+        table.insert(res, i)
+      end
+      return res
+    end,
+  }
+)
+return M
