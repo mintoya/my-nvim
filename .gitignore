@@ -6,3 +6,4 @@ pinned.json
 lua/matugen-colors.lua
 noice.log
 lua/current-theme.lua
+nvim-pack-lock.json

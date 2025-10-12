@@ -1,4 +1,5 @@
 local vim = vim
+
 local path = vim.fn.stdpath("config") .. "/lua/plugins"
 
 return {
@@ -92,6 +93,7 @@ return {
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
   { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "InsertEnter" },
   { "wurli/visimatch.nvim",               event = "InsertEnter",        opts = { chars_lower_limit = 3 } },
+  { "lambdalisue/vim-suda" },
   {
     "chrisgrieser/nvim-origami",
     event = "VeryLazy",
