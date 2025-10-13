@@ -1,5 +1,4 @@
 local vim = vim
-
 local path = vim.fn.stdpath("config") .. "/lua/plugins"
 
 return {

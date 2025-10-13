@@ -1,21 +1,35 @@
+local vim = vim
+local colorfile = vim.fn.stdpath("config") .. "/lua/current-theme.lua"
+
 return {
   "nvim-mini/mini.nvim",
   config = function()
-    require("mini.comment").setup({
+    require("mini.misc").setup_termbg_sync {}
+    require("mini.pairs").setup {}
+    require("mini.surround").setup {}
+    require("mini.diff").setup {}
+
+    require("mini.indentscope").setup { symbol = "" }
+    require("mini.jump").setup {
       mappings = {
-        comment = "gc",
-        comment_line = "<leader>/",
-        comment_visual = "<leader>/",
-        textobject = "gc",
+        forward = 'f',
+        backward = 'F',
+        forward_till = 't',
+        backward_till = 'T',
+        repeat_jump = 'n',
       },
-    })
-    require("mini.pairs").setup()
-    require("mini.surround").setup()
-    require("mini.diff").setup()
-    require("mini.misc").setup_termbg_sync()
-    require("mini.indentscope").setup({
-      symbol = ""
-    })
+      delay = {
+        highlight = 50,
+        idle_stop = 1000,
+      },
+    }
+    require("mini.comment").setup {
+      mappings = {
+        comment_line   = "<leader>/",
+        comment_visual = "<leader>/",
+      },
+    }
+
     local picker = require("mini.pick")
     picker.registry.colors = function()
       return picker.start({
@@ -23,8 +37,7 @@ return {
           newStop = {
             char = "<Esc>",
             func = function()
-              require("current-theme")
-              dofile(vim.fn.stdpath("config") .. "/lua/current-theme.lua")
+              dofile(colorfile)
               picker.stop()
             end,
           },
@@ -32,9 +45,9 @@ return {
         source = {
           name = "colors",
           items = vim.fn.getcompletion("", "color"),
-          choose = function(item, modifier)
+          choose = function(item, _)
             require("special").file.write(
-              vim.fn.stdpath("config") .. "/lua/current-theme.lua",
+              colorfile,
               [[vim.cmd("colorscheme ]] .. item .. [[")]]
             )
 
