@@ -9,7 +9,7 @@ local keymaps = {
   { "v", "y",     '"+y',               { noremap = true, silent = true } },
 
   { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = false, silent = true } },
-  { "n", "<Tab>", "<C-w>",             { desc = "buffer actions",noremap = true, silent = true } },
+  { "n", "<Tab>", "<C-w>",             { desc = "buffer actions", noremap = true, silent = true } },
 
   { "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },
   { "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
@@ -19,7 +19,7 @@ local keymaps = {
     ":Pick colors<CR>",
     { desc = "change colorscheme", noremap = true, silent = true },
   },
-  { "n", "<leader>f", "", { desc = "find/format"} },
+  { "n", "<leader>f", "",     { desc = "find/format" } },
   {
     "n",
     "<leader>ff",
@@ -38,10 +38,11 @@ local keymaps = {
     [[:lua require("fyler").open()<cr>]],
     { desc = "edit files", noremap = true, silent = true },
   },
-  { "v", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
-  { "v", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
-  { "n", "<C-j>", "10j", { desc = "down 10", noremap = true, silent = true } },
-  { "n", "<C-k>", "10k", { desc = "up 10", noremap = true, silent = true } },
+  { "v", "<C-j>",     "10j",  { desc = "down 10", noremap = true, silent = true } },
+  { "v", "<C-k>",     "10k",  { desc = "up 10", noremap = true, silent = true } },
+  { "n", "<C-j>",     "10j",  { desc = "down 10", noremap = true, silent = true } },
+  { "n", "<C-k>",     "10k",  { desc = "up 10", noremap = true, silent = true } },
+  { "n", "yaa",       "ggyG", { desc = "yank all", noremap = true, silent = true } },
   {
     "n",
     "<leader>fh",
@@ -129,10 +130,10 @@ return function()
 
   local set = vim.keymap.set
 
-  set({ "n", "x" }, "<up>",          function() mc.lineAddCursor(-1)  end,{desc = "add cursor above"})
-  set({ "n", "x" }, "<down>",        function() mc.lineAddCursor(1)   end,{desc = "add cursor below"})
-  set({ "n", "x" }, "<leader><up>",  function() mc.lineSkipCursor(-1) end,{desc = "skip cursor above"})
-  set({ "n", "x" }, "<leader><down>",function() mc.lineSkipCursor(1)  end,{desc = "skip cursor below"})
+  set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end, { desc = "add cursor above" })
+  set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end, { desc = "add cursor below" })
+  set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end, { desc = "skip cursor above" })
+  set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end, { desc = "skip cursor below" })
 
 
   -- Add and remove cursors with control + left click.
@@ -152,6 +153,5 @@ return function()
         mc.clearCursors()
       end
     end)
-
   end)
 end
