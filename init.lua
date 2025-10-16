@@ -1,6 +1,8 @@
 local vim = vim
 vim.g.mapleader = " "
 
+local colorfile = vim.fn.stdpath("config") .. "/lua/current-theme.lua"
+
 --settings
 local vimOptions = {
   splitright = true,
@@ -50,8 +52,7 @@ require("lsp")
 local ok, _ = pcall(require, "current-theme")
 if not ok then
   vim.cmd("colorscheme catppuccin")
-  require("special").file.write(vim.fn.stdpath("config") .. "/lua/current-theme.lua",
-    [[vim.cmd("colorscheme catppuccin")]])
+  require("special").file.write(colorfile)
 end
 local snippetDir = vim.fn.stdpath("data") .. "/snippets"
 if vim.fn.isdirectory(snippetDir) == 0 then
@@ -59,3 +60,10 @@ if vim.fn.isdirectory(snippetDir) == 0 then
 end
 
 mappings()
+
+vim.api.nvim_create_autocmd("Signal", {
+  pattern = "SIGUSR1",
+  callback = function()
+    vim.notify("reloaded colorscheme")
+  end
+})

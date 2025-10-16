@@ -16,7 +16,7 @@ return {
         backward = 'F',
         forward_till = 't',
         backward_till = 'T',
-        repeat_jump = 'n',
+        repeat_jump = '<C-n>',
       },
       delay = {
         highlight = 50,

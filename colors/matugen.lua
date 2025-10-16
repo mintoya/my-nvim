@@ -1,5 +1,6 @@
 local vim = vim
 
+package.loaded["matugen-colors"] = nil
 local ok, matugenColors = pcall(require, "matugen-colors")
 
 if ok then
