@@ -108,37 +108,35 @@ for _, keymap in ipairs(keymaps) do
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
--- these have to be called after plugins are loaded
 return function()
-  local multicursors = function()
-    local mc = require("multicursor-nvim")
-    mc.setup()
+  local mc = require("multicursor-nvim")
+  mc.setup()
 
-    local set = vim.keymap.set
+  local set = vim.keymap.set
 
-  set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end, { desc = "add cursor above" })
-  set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end, { desc = "add cursor below" })
-  set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end, { desc = "skip cursor above" })
-  set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end, { desc = "skip cursor below" })
+  set({ "n", "x" }, "<up>",          function() mc.lineAddCursor(-1)  end,{desc = "add cursor above"})
+  set({ "n", "x" }, "<down>",        function() mc.lineAddCursor(1)   end,{desc = "add cursor below"})
+  set({ "n", "x" }, "<leader><up>",  function() mc.lineSkipCursor(-1) end,{desc = "skip cursor above"})
+  set({ "n", "x" }, "<leader><down>",function() mc.lineSkipCursor(1)  end,{desc = "skip cursor below"})
 
 
-    -- Add and remove cursors with control + left click.
-    set("n", "<c-leftmouse>", mc.handleMouse)
-    set("n", "<c-leftdrag>", mc.handleMouseDrag)
-    set("n", "<c-leftrelease>", mc.handleMouseRelease)
+  -- Add and remove cursors with control + left click.
+  set("n", "<c-leftmouse>", mc.handleMouse)
+  set("n", "<c-leftdrag>", mc.handleMouseDrag)
+  set("n", "<c-leftrelease>", mc.handleMouseRelease)
 
-    set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+  set({ "n", "x" }, "<c-q>", mc.toggleCursor)
 
-    mc.addKeymapLayer(function(layerSet)
-      layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
+  mc.addKeymapLayer(function(layerSet)
+    layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
 
-      layerSet("n", "<esc>", function()
-        if not mc.cursorsEnabled() then
-          mc.enableCursors()
-        else
-          mc.clearCursors()
-        end
-      end)
+    layerSet("n", "<esc>", function()
+      if not mc.cursorsEnabled() then
+        mc.enableCursors()
+      else
+        mc.clearCursors()
+      end
     end)
+
   end)
 end
