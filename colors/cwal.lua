@@ -35,7 +35,7 @@ M.highlights = {
   Directory      = { fg = c.color4 },
   ErrorMsg       = { fg = c.color1, bg = c.color0, bold = true },
   FoldColumn     = { fg = c.color8, bg = c.bg },
-  Folded         = { fg = c.color8, bg = c.color8, italic = true },
+  Folded         = { bg = c.color0, italic = true },
   IncSearch      = { fg = c.color0, bg = c.color3, bold = true },
   LineNr         = { fg = c.color8 },
   MatchParen     = { fg = c.color6, bold = true },
@@ -53,7 +53,7 @@ M.highlights = {
   Title          = { fg = c.color4, bold = true },
   Underlined     = { fg = c.color6, underline = true },
   VertSplit      = { fg = c.color8, bg = c.bg },
-  Visual         = { bg = c.color3 },
+  Visual         = { bg = "gray", italic = true },
   WarningMsg     = { fg = c.color11, bold = true },
   WildMenu       = { fg = c.color7, bg = c.color3, bold = true },
   -- Language syntax

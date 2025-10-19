@@ -35,7 +35,7 @@ M.highlights = {
   Directory      = { fg = c.color4 },
   ErrorMsg       = { fg = c.color1, bg = c.color0, bold = true },
   FoldColumn     = { fg = c.color8, bg = c.bg },
-  Folded         = { fg = c.color8, bg = c.color8, italic = true },
+  Folded         = { bg = c.color0, italic = true },
   IncSearch      = { fg = c.color0, bg = c.color3, bold = true },
   LineNr         = { fg = c.color8 },
   MatchParen     = { fg = c.color6, bold = true },
@@ -53,7 +53,7 @@ M.highlights = {
   Title          = { fg = c.color4, bold = true },
   Underlined     = { fg = c.color6, underline = true },
   VertSplit      = { fg = c.color8, bg = c.bg },
-  Visual         = { bg = c.color3 },
+  Visual         = { bg = "black" },
   WarningMsg     = { fg = c.color11, bold = true },
   WildMenu       = { fg = c.color7, bg = c.color3, bold = true },
   -- Language syntax
@@ -89,13 +89,15 @@ M.highlights = {
   Todo           = { fg = c.color15, bg = c.color0, bold = true, italic = true },
   Type           = { fg = c.color6, bold = true },
   --Plugin Specific
-  MiniPickNormal = { fg = c.color1, bg = c.bg },
   FloatBorder    = { fg = c.border, bg = "none" },
-  Pick           = { fg = c.color1, bg = "none" },
-  PmenuSbar      = { bg = c.cursor },
   PmenuThumb     = { bg = c.cursor },
+  MiniPickNormal = { bg = c.bg },
+  MiniJump       = { undercurl = true },
+  -- Pick           = { fg = c.color1, bg = "none" },
+  -- PmenuSbar      = { bg = c.cursor },
 }
 
+vim.g.colors_name = "cwal"
 vim.cmd("highlight clear")
 vim.cmd("set background=dark")
 vim.cmd("syntax reset")
@@ -104,7 +106,6 @@ for group, opts in pairs(M.highlights) do
   vim.api.nvim_set_hl(0, group, opts)
 end
 
-vim.g.colors_name = "cwal"
 
 
 return M

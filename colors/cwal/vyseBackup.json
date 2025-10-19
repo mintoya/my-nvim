@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/paa/Pictures/feihai-vyse-post.jpg",
+    "alpha": "{alpha}",
+
+    "special": {
+        "background": "#060506",
+        "foreground": "#cdcdcd",
+        "cursor": "#cdcdcd"
+    },
+    "colors": {
+        "color0": "#060506",
+        "color1": "#d78a95",
+        "color2": "#eb75cf",
+        "color3": "#bd92b2",
+        "color4": "#9d9bc8",
+        "color5": "#8189ff",
+        "color6": "#cd8e9d",
+        "color7": "#a79d9d",
+        "color8": "#b99797",
+        "color9": "#ff6c7c",
+        "color10": "#ff5ed8",
+        "color11": "#ee73c9",
+        "color12": "#8579ff",
+        "color13": "#616aff",
+        "color14": "#fb7295",
+        "color15": "#cdcdcd"
+    }
+}
