@@ -114,29 +114,13 @@ return function()
 
   local set = vim.keymap.set
 
-  set({ "n", "x" }, "<up>",          function() mc.lineAddCursor(-1)  end,{desc = "add cursor above"})
-  set({ "n", "x" }, "<down>",        function() mc.lineAddCursor(1)   end,{desc = "add cursor below"})
-  set({ "n", "x" }, "<leader><up>",  function() mc.lineSkipCursor(-1) end,{desc = "skip cursor above"})
-  set({ "n", "x" }, "<leader><down>",function() mc.lineSkipCursor(1)  end,{desc = "skip cursor below"})
-
-
-  -- Add and remove cursors with control + left click.
-  set("n", "<c-leftmouse>", mc.handleMouse)
-  set("n", "<c-leftdrag>", mc.handleMouseDrag)
-  set("n", "<c-leftrelease>", mc.handleMouseRelease)
-
-  set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+  -- Add or skip cursor above/below the main cursor.
+  set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end)
+  set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end)
 
   mc.addKeymapLayer(function(layerSet)
-    layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
-
     layerSet("n", "<esc>", function()
-      if not mc.cursorsEnabled() then
-        mc.enableCursors()
-      else
-        mc.clearCursors()
-      end
+      mc.clearCursors()
     end)
-
   end)
 end
