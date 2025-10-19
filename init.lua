@@ -64,6 +64,7 @@ mappings()
 vim.api.nvim_create_autocmd("Signal", {
   pattern = "SIGUSR1",
   callback = function()
+    dofile(colorfile)
     vim.notify("reloaded colorscheme")
   end
 })

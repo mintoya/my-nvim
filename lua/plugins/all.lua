@@ -84,14 +84,11 @@ return {
   -- color schemes
   { "catppuccin/nvim",                    name = "catppuccin" },
   { "folke/tokyonight.nvim",              opts = { style = "night" } },
-  { "vague2k/vague.nvim",                 opts = { transparent = true } },
-  { "kamwitsta/vinyl.nvim" },
-  { "NvChad/base46", },
 
-  { "adlrwbr/keep-split-ratio.nvim",      opts = {},                    lazy = false },
+  { "adlrwbr/keep-split-ratio.nvim",      opts = {},                 lazy = false },
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
-  { "rachartier/tiny-glimmer.nvim",       opts = {},                    event = "InsertEnter" },
-  { "wurli/visimatch.nvim",               event = "InsertEnter",        opts = { chars_lower_limit = 3 } },
+  { "rachartier/tiny-glimmer.nvim",       event = "InsertEnter",     opts = {}, },
+  { "wurli/visimatch.nvim",               event = "InsertEnter",     opts = { chars_lower_limit = 4 } },
   { "lambdalisue/vim-suda" },
   {
     "chrisgrieser/nvim-origami",
