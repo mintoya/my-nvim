@@ -87,7 +87,7 @@ return {
 
   { "adlrwbr/keep-split-ratio.nvim",      opts = {},                 lazy = false },
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
-  { "rachartier/tiny-glimmer.nvim",       event = "InsertEnter",     opts = {}, },
+  { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",        opts = {}, },
   { "wurli/visimatch.nvim",               event = "InsertEnter",     opts = { chars_lower_limit = 4 } },
   { "lambdalisue/vim-suda" },
   {
