@@ -2,7 +2,7 @@ local vim = vim
 
 local function read_from_file(filepath)
   local f
-  local i, result = pcall(function()
+  local i, _ = pcall(function()
     f = vim.fn.readfile(filepath, "b")
   end)
   if not i then

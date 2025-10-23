@@ -1,31 +1,32 @@
 local vim = vim
-local path = vim.fn.stdpath("config") .. "/lua/plugins"
 
-return {
-  dofile(path .. "/blink.lua"),
-  dofile(path .. "/mini.lua"),
-  dofile(path .. "/slimline.lua"),
-  dofile(path .. "/snacks.lua"),
-
+local function contains(table, name)
+  for i, x in ipairs(table) do
+    if x == name then return true end
+  end
+  return false
+end
+local dodir = function(dirname, exclusions, result)
+  if not result then
+    result = {}
+  end
+  for v, t in vim.fs.dir(dirname) do
+    if t == 'file' and not contains(exclusions, v) then
+      table.insert(result, dofile(dirname .. '/' .. v))
+    end
+  end
+  return result
+end
+local M = {
   {
     "nvim-treesitter/nvim-treesitter",
     event = "InsertEnter",
   },
   {
-    "folke/noice.nvim",
-    opts = {
-      presets = {
-        lsp_doc_border = true,
-      },
-      cmdline = {
-        view = "cmdline",
-      },
-    },
-    dependencies = { "MunifTanjim/nui.nvim" },
-  },
-  {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
+    opts = {
+      automatic_enable = true
+    },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
@@ -100,4 +101,28 @@ return {
       },
     },
   },
+
+
+  {
+    "folke/noice.nvim",
+    opts = {
+      presets = {
+        lsp_doc_border = true,
+      },
+      cmdline = {
+        view = "cmdline",
+      },
+    },
+    dependencies = { "MunifTanjim/nui.nvim" },
+  },
+
+
 }
+
+M = dodir(
+  vim.fn.stdpath("config") .. "/lua/plugins",
+  { "all.lua" },
+  M
+)
+
+return M
