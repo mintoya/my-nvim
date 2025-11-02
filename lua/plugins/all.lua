@@ -18,6 +18,7 @@ local dodir = function(dirname, exclusions, result)
   return result
 end
 local M = {
+  -- language support
   {
     "nvim-treesitter/nvim-treesitter",
   },
@@ -32,26 +33,12 @@ local M = {
     },
   },
   {
-    "folke/which-key.nvim",
-    opts = {
-      preset = "helix"
-    },
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
-      },
-    },
-    event = "VeryLazy"
-  },
-  {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = vim.fn.stdpath("data") .. "/snippets" },
     lazy = true,
   },
+
+
   {
     "jake-stewart/multicursor.nvim",
     event = "InsertEnter",
@@ -80,15 +67,33 @@ local M = {
       }
     }
   },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      preset = "helix"
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+    event = "VeryLazy"
+  },
 
   -- color schemes
   { "catppuccin/nvim",                    name = "catppuccin" },
   { "folke/tokyonight.nvim",              opts = { style = "night" } },
 
-  { "adlrwbr/keep-split-ratio.nvim",      opts = {},                 lazy = false },
-  { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
+  -- highlighters
   { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",        opts = {}, },
+  { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
   { "wurli/visimatch.nvim",               event = "InsertEnter",     opts = { chars_lower_limit = 4 } },
+
+  { "adlrwbr/keep-split-ratio.nvim",      opts = {},                 lazy = false },
   { "lambdalisue/vim-suda" },
   {
     "chrisgrieser/nvim-origami",
@@ -100,8 +105,6 @@ local M = {
       },
     },
   },
-
-
   {
     "folke/noice.nvim",
     opts = {
