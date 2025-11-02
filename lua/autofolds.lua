@@ -6,6 +6,7 @@ local foldTable = {
   Lazy             = "manual",
   lua              = "expr",
   c                = "indent",
+  markdown         = "manual",
 }
 
 local fMeta = setmetatable({}, {

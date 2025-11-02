@@ -20,7 +20,6 @@ end
 local M = {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "InsertEnter",
   },
   {
     "mason-org/mason-lspconfig.nvim",
@@ -115,7 +114,13 @@ local M = {
     },
     dependencies = { "MunifTanjim/nui.nvim" },
   },
-
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    preview = {
+      icon_provider = "mini",
+    }
+  },
 
 }
 
