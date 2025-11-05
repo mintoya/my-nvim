@@ -42,11 +42,11 @@ local keymaps = {
   { "n", "<leader>tj", ":belowright split | terminal<cr>:startinsert<cr>", { desc = "open terminal down", silent = true } },
   { "n", "<leader>th", ":leftabove vsplit|terminal<cr>:startinsert<cr>",   { desc = "open terminal left", silent = true } },
 
-  { "n", "<leader>p",  "",                                                 { desc = "open pane", silent = true } },
-  { "n", "<leader>pl", ":vsplit<cr>",                                      { desc = "open pane right", silent = true } },
-  { "n", "<leader>pk", ":above split<cr>",                                 { desc = "open pane up", silent = true } },
-  { "n", "<leader>pj", ":belowright split<cr>",                            { desc = "open pane down", silent = true } },
-  { "n", "<leader>ph", ":leftabove vsplit<cr>",                            { desc = "open pane left", silent = true } },
+  { "n", "<leader>b",  "",                                                 { desc = "open pane", silent = true } },
+  { "n", "<leader>bl", ":vsplit<cr>",                                      { desc = "open pane right", silent = true } },
+  { "n", "<leader>bk", ":above split<cr>",                                 { desc = "open pane up", silent = true } },
+  { "n", "<leader>bj", ":belowright split<cr>",                            { desc = "open pane down", silent = true } },
+  { "n", "<leader>bh", ":leftabove vsplit<cr>",                            { desc = "open pane left", silent = true } },
 
   { "n", "<leader>c",
     ":Pick colors<CR>",

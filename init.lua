@@ -39,6 +39,12 @@ for _, v in pairs(require("plugins.all")) do
   table.insert(plugins, v)
 end
 
+if vim.g.neovide then
+  vim.o.guifont = "Iosevka Nerd Font"
+end
+
+
+
 require("special")
 require("lazy").setup(
   plugins
@@ -68,3 +74,5 @@ vim.api.nvim_create_autocmd("Signal", {
     vim.notify("reloaded colorscheme")
   end
 })
+
+

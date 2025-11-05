@@ -28,8 +28,8 @@ local M = {
       automatic_enable = true
     },
     dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
+      { "mason-org/mason.nvim",  opts = {} },
+      { "neovim/nvim-lspconfig", }
     },
   },
   {
@@ -116,6 +116,9 @@ local M = {
       },
     },
     dependencies = { "MunifTanjim/nui.nvim" },
+  },
+  {
+    "nanotee/zoxide.vim"
   },
   {
     "OXY2DEV/markview.nvim",
