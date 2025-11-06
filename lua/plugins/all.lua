@@ -92,19 +92,15 @@ local M = {
   { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",        opts = {}, },
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
   { "wurli/visimatch.nvim",               event = "InsertEnter",     opts = { chars_lower_limit = 4 } },
-
-  { "adlrwbr/keep-split-ratio.nvim",      opts = {},                 lazy = false },
-  { "lambdalisue/vim-suda" },
   {
     "chrisgrieser/nvim-origami",
-    event = "VeryLazy",
     opts = {
       useLspFoldsWithTreesitterFallback = false,
-      foldtext = {
-        gitsignsCount = false,
-      },
+      foldtext = { gitsignsCount = false, },
     },
+    event = "VeryLazy",
   },
+
   {
     "folke/noice.nvim",
     opts = {
@@ -127,6 +123,7 @@ local M = {
       icon_provider = "mini",
     }
   },
+  { "lambdalisue/vim-suda", event = "VeryLazy" },
 
 }
 
