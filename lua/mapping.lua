@@ -43,10 +43,10 @@ local keymaps = {
   { "n", "<leader>th", ":leftabove vsplit|terminal<cr>:startinsert<cr>",   { desc = "open terminal left", silent = true } },
 
   { "n", "<leader>b",  "",                                                 { desc = "open pane", silent = true } },
-  { "n", "<leader>bl", ":vsplit<cr>:Pick files<CR>",                       { desc = "open pane right", silent = true } },
-  { "n", "<leader>bk", ":above split<cr>:Pick files<CR>",                  { desc = "open pane up", silent = true } },
-  { "n", "<leader>bj", ":belowright split<cr>:Pick files<CR>",             { desc = "open pane down", silent = true } },
-  { "n", "<leader>bh", ":leftabove vsplit<cr>:Pick files<CR>",             { desc = "open pane left", silent = true } },
+  { "n", "<leader>bl", ":vsplit<cr>:Fyler kind=replace<CR>",               { desc = "open pane right", silent = true } },
+  { "n", "<leader>bk", ":above split<cr>:Fyler kind=replace<CR>",          { desc = "open pane up", silent = true } },
+  { "n", "<leader>bj", ":belowright split<cr>:Fyler kind=replace<CR>",     { desc = "open pane down", silent = true } },
+  { "n", "<leader>bh", ":leftabove vsplit<cr>:Fyler kind=replace<CR>",     { desc = "open pane left", silent = true } },
 
   { "n", "<leader>c",
     ":Pick colors<CR>",

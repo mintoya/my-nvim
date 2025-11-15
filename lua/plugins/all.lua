@@ -43,24 +43,27 @@ local M = {
     "jake-stewart/multicursor.nvim",
     event = "InsertEnter",
   },
+  --  views.finder.win = {
+  -- }
   {
     "A7Lavinraj/fyler.nvim",
     dependencies = { "echasnovski/mini.icons" },
     opts = {
-      win = {
-        border = "rounded",
-        kind = "float",
-        kind_presets = {
-          float = {
-            left = "0.0rel",
-            width = "0.25rel",
-            top = "0.1rel",
-            height = "0.8rel",
-
-          }
-        }
-      },
       views = {
+        finder = {
+          win = {
+            border = "rounded",
+            kind = "float",
+            kind_presets = {
+              float = {
+                height = "0.8rel",
+                left = "0.0rel",
+                top = "0.1rel",
+                width = "0.25rel"
+              }
+            }
+          }
+        },
         explorer = {
           default_explorer = true,
         }
