@@ -1,7 +1,9 @@
+local vim = vim
 return {
   "saghen/blink.cmp",
   dependencies = "rafamadriz/friendly-snippets",
   opts_extend = { "sources.default" },
+
   opts = {
     cmdline = {
       keymap = { preset = 'inherit' },
@@ -34,6 +36,14 @@ return {
       },
     },
     sources = {
+      providers = {
+        snippets = {
+          opts = {
+            search_paths = { vim.fn.stdpath("data") .. "/snippets" },
+          },
+        }
+      },
+
       default = { "lsp", "path", "snippets", "buffer" },
     },
   },
