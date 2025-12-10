@@ -2,8 +2,8 @@ local vim = vim
 vim.g.mapleader = " "
 
 local colorfile = vim.fn.stdpath("config") .. "/lua/current-theme.lua"
-
 --settings
+
 local vimOptions = {
   splitright = true,
   splitbelow = true,
@@ -23,6 +23,9 @@ local vimOptions = {
   ignorecase = true,
   laststatus = 3,
   winborder = "rounded",
+  cursorline = true,
+  -- cursorcolumn = true,
+  -- shell = "nu",
 }
 
 for k, v in pairs(vimOptions) do
@@ -30,7 +33,9 @@ for k, v in pairs(vimOptions) do
 end
 
 local mappings = require("mapping")
-vim.pack.add({ "https://github.com/folke/lazy.nvim.git" })
+vim.pack.add({
+  "https://github.com/folke/lazy.nvim.git",
+})
 
 local plugins = {
   defaults = { lazy = true, }
@@ -38,6 +43,7 @@ local plugins = {
 for _, v in pairs(require("plugins.all")) do
   table.insert(plugins, v)
 end
+
 
 if vim.g.neovide then
   vim.o.guifont = "Iosevka Nerd Font"
@@ -54,6 +60,11 @@ require("nvim-highlight-colors").setup({})
 require("autofolds")
 require("dirs")
 require("lsp")
+
+require("mason").setup()
+require("mason-nvim-dap").setup()
+require("mason-lspconfig").setup({ automatic_enable = true })
+require("dapui").setup()
 
 local ok, _ = pcall(require, "current-theme")
 if not ok then
@@ -74,5 +85,3 @@ vim.api.nvim_create_autocmd("Signal", {
     vim.notify("reloaded colorscheme")
   end
 })
-
-

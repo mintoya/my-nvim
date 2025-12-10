@@ -1,23 +1,25 @@
 local vim = vim
 local keymaps = {
-  { "n", ";",     ":",                 { noremap = false, silent = false } },
+  { "n", ";",     ":",                                               { noremap = false, silent = false } },
 
-  { "v", "<<",    "<gv",               { desc = "unindent visual", noremap = false, silent = false } },
-  { "v", ">>",    ">gv",               { desc = "indent visual", noremap = false, silent = false } },
+  { "v", "<<",    "<gv",                                             { desc = "unindent visual", noremap = false, silent = false } },
+  { "v", ">>",    ">gv",                                             { desc = "indent visual", noremap = false, silent = false } },
 
-  { "n", "y",     '"+y',               { noremap = true, silent = true } },
-  { "v", "y",     '"+y',               { noremap = true, silent = true } },
+  { "n", "y",     '"+y',                                             { noremap = true, silent = true } },
+  { "v", "y",     '"+y',                                             { noremap = true, silent = true } },
 
-  { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = false, silent = true } },
-  { "n", "<Tab>", "<C-w>",             { desc = "buffer actions", noremap = true, silent = true } },
+  { "n", "<Esc>", ":nohlsearch<cr>",                                 { noremap = false, silent = true } },
+  { "n", "<Tab>", "<C-w>",                                           { desc = "buffer actions", noremap = true, silent = true } },
 
-  { "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },
-  { "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
+  { "t", "<Esc>", [[<C-\><C-n>]],                                    { noremap = true } },
+  { "t", "<C-w>", [[<C-\><C-n><C-w>]],                               { noremap = true, silent = true } },
 
-  { "v", "<C-j>", "10j",               { desc = "down 10", noremap = true, silent = true } },
-  { "v", "<C-k>", "10k",               { desc = "up 10", noremap = true, silent = true } },
-  { "n", "<C-j>", "10j",               { desc = "down 10", noremap = true, silent = true } },
-  { "n", "<C-k>", "10k",               { desc = "up 10", noremap = true, silent = true } },
+  { "t", "<C-l>", [[<C-l><C-\><C-n>:TermClear<cr>:startinsert<cr>]], { noremap = true, silent = true } },
+
+  { "v", "<C-j>", "10jzzz",                                          { desc = "down 10", noremap = true, silent = true } },
+  { "v", "<C-k>", "10kzzz",                                          { desc = "up 10", noremap = true, silent = true } },
+  { "n", "<C-j>", "10jzzz",                                          { desc = "down 10", noremap = true, silent = true } },
+  { "n", "<C-k>", "10kzzz",                                          { desc = "up 10", noremap = true, silent = true } },
 
   { "n", "<leader>z",
     "",
@@ -115,6 +117,11 @@ for _, keymap in ipairs(keymaps) do
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
+-- _G.termclear = function()
+--   vim.cmd("stopinsert")
+--   vim.cmd("TermClear")
+--   vim.cmd("startinsert")
+-- end
 return function()
   local mc = require("multicursor-nvim")
   mc.setup()
