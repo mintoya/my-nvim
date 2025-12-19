@@ -129,18 +129,18 @@ local M = {
     event = "VeryLazy",
   },
 
-  {
-    "folke/noice.nvim",
-    opts = {
-      presets = {
-        lsp_doc_border = true,
-      },
-      cmdline = {
-        view = "cmdline",
-      },
-    },
-    dependencies = { "MunifTanjim/nui.nvim" },
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   opts = {
+  --     presets = {
+  --       lsp_doc_border = true,
+  --     },
+  --     cmdline = {
+  --       view = "cmdline",
+  --     },
+  --   },
+  --   dependencies = { "MunifTanjim/nui.nvim" },
+  -- },
   {
     "nanotee/zoxide.vim"
   },
@@ -151,24 +151,8 @@ local M = {
   --     icon_provider = "mini",
   --   }
   -- },
-  -- In your plugins configuration file
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('render-markdown').setup({
-        inject_in_filetypes = true,
-        keymaps = {
-          toggle_visible = '<leader>rm',
-        },
-        conceal = {
-          enabled = true,
-        },
-      })
-    end,
-  },
   { "lambdalisue/vim-suda",   event = "VeryLazy" },
-  { "vague-theme/vague.nvim", },
+  { "vague-theme/vague.nvim", opt = { transparent = true } },
   { "catppuccin/nvim", },
   { "folke/tokyonight.nvim", },
   {

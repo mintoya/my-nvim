@@ -65,6 +65,14 @@ require("mason").setup()
 require("mason-nvim-dap").setup()
 require("mason-lspconfig").setup({ automatic_enable = true })
 require("dapui").setup()
+require('vim._extui').enable({
+  enable = true,
+  msg = {
+    ---@type 'cmd'|'msg' Where to place regular messages, either in the
+    target = 'msg',
+    timeout = 4000,
+  },
+})
 
 local ok, _ = pcall(require, "current-theme")
 if not ok then

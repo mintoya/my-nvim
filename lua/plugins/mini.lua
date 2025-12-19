@@ -7,6 +7,7 @@ return {
     require("mini.misc").setup_termbg_sync {}
     require("mini.pairs").setup {}
     require("mini.surround").setup {}
+    require("mini.cmdline").setup {}
     require("mini.diff").setup {}
 
     require("mini.indentscope").setup { symbol = "" }
