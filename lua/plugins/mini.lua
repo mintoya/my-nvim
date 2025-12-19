@@ -8,13 +8,51 @@ return {
     require("mini.pairs").setup {}
     require("mini.surround").setup {}
     require("mini.cmdline").setup {}
+
     local gen_loader = require('mini.snippets').gen_loader
-    require('mini.snippets').setup({
+    require("mini.snippets").setup({
       snippets = {
         gen_loader.from_lang(),
+        gen_loader.from_file(vim.fn.stdpath("config") .. "/snippets/global.json"),
+      },
+
+      mappings = {
+        stop = '',
+        expand = '',
+        jump_next = '',
+        jump_prev = '',
+      },
+      expand = {
+        insert = function(snippet)
+          if type(snippet) == "table" then
+            if snippet.body then
+              snippet = snippet.body
+            elseif snippet.text then
+              snippet = snippet.text
+            end
+          end
+          if type(snippet) ~= "string" then
+            vim.notify("cant expand snippet " .. vim.inspect(snippet))
+          end
+          vim.snippet.expand(snippet)
+        end,
       },
     })
-    require("mini.completion").setup {}
+    require("mini.completion").setup({
+      delay = { completion = 100, info = 100, signature = 50 },
+
+      window = {
+        info = { border = "rounded" },
+        signature = { border = "rounded" },
+      },
+
+      lsp_completion = {
+        source_func = "omnifunc",
+        auto_setup = true,
+      },
+
+      -- fallback_action = "<C-n>",
+    })
     require("mini.diff").setup {}
 
     require("mini.indentscope").setup { symbol = "|" }

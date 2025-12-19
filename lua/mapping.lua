@@ -1,4 +1,31 @@
 local vim = vim
+
+local snipJumpNext = function()
+  if vim.snippet.active({ direction = 1 }) then
+    vim.schedule(function()
+      vim.snippet.jump(1)
+    end)
+    return ""
+  else
+    return "<Tab>"
+  end
+end
+local snipJumpPrev = function()
+  if vim.snippet.active({ direction = -1 }) then
+    vim.schedule(function()
+      vim.snippet.jump(-1)
+    end)
+    return ""
+  else
+    return "<S-Tab>"
+  end
+end
+
+local fKeymaps = {
+  { { "i", "s" }, "<Tab>",   snipJumpNext, { expr = true, noremap = true } },
+  { { "i", "s" }, "<S-Tab>", snipJumpPrev, { expr = true, noremap = true } },
+}
+
 local keymaps = {
   { "n", ";",     ":",                                               { noremap = false, silent = false } },
 
@@ -16,10 +43,11 @@ local keymaps = {
 
   { "t", "<C-l>", [[<C-l><C-\><C-n>:TermClear<cr>:startinsert<cr>]], { noremap = true, silent = true } },
 
-  { "v", "<C-j>", "10jzzz",                                          { desc = "down 10", noremap = true, silent = true } },
-  { "v", "<C-k>", "10kzzz",                                          { desc = "up 10", noremap = true, silent = true } },
   { "n", "<C-j>", "10jzzz",                                          { desc = "down 10", noremap = true, silent = true } },
   { "n", "<C-k>", "10kzzz",                                          { desc = "up 10", noremap = true, silent = true } },
+  { "i", "<C-j>", "<C-n>",                                           { desc = "down 10", noremap = true, silent = true } },
+  { "i", "<C-k>", "<C-p>",                                           { desc = "up 10", noremap = true, silent = true } },
+  { "i", "<C-l>", "<C-y>",                                           { desc = "up 10", noremap = true, silent = true } },
 
   { "n", "<leader>z",
     "",
@@ -107,14 +135,19 @@ local keymaps = {
 
 }
 for _, keymap in ipairs(keymaps) do
-  -- apply keymaps
   local mode = keymap[1]
   local lhs = keymap[2]
   local rhs = keymap[3]
   local opts = keymap[4]
-  -- vim.api.nvim_set_keymap(tabel.unpack(keymap));
-
   vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+end
+
+for _, keymap in ipairs(fKeymaps) do
+  local mode = keymap[1]
+  local lhs = keymap[2]
+  local rhs = keymap[3]
+  local opts = keymap[4]
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 -- _G.termclear = function()

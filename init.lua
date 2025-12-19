@@ -51,6 +51,8 @@ end
 
 
 
+
+
 require("special")
 require("lazy").setup(
   plugins
@@ -86,6 +88,10 @@ end
 
 mappings()
 
+if true then
+
+end
+
 vim.api.nvim_create_autocmd("Signal", {
   pattern = "SIGUSR1",
   callback = function()
@@ -97,3 +103,4 @@ vim.o.shell = "nu"
 vim.o.shellcmdflag = "-c"
 vim.o.shellquote = ""
 vim.o.shellxquote = ""
+
