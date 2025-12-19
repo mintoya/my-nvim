@@ -5,27 +5,37 @@ local colorfile = vim.fn.stdpath("config") .. "/lua/current-theme.lua"
 
 --settings
 local vimOptions = {
-  splitright = true,
-  splitbelow = true,
-  signcolumn = "yes",
+  splitright     = true,
+  splitbelow     = true,
+  signcolumn     = "yes",
   relativenumber = true,
-  number = true,
-  tabstop = 2,
-  expandtab = true,
-  termguicolors = true,
-  wrap = false,
-  shiftwidth = 2,
-  fillchars = {
+  number         = true,
+  tabstop        = 2,
+  expandtab      = true,
+  termguicolors  = true,
+  wrap           = false,
+  shiftwidth     = 2,
+  splitkeep      = "screen",
+  fillchars      = {
     stl = " ",
     fold = " ",
   },
+
+  complete       = '.,w,b,kspell',
+  completeopt    = { "menu", "menuone", "noinsert" },
+  pumborder      = "single",
+
   -- foldtext = "v:lua.CustomFoldText()",
-  ignorecase = true,
-  laststatus = 2,
-  winborder = "rounded",
-  cursorline = true,
+  ignorecase     = true,
+  laststatus     = 2,
+  winborder      = "rounded",
+  cursorline     = true,
   -- cursorcolumn = true,
-  shell = "nu",
+
+  shell          = "nu",
+  shellcmdflag   = "-c",
+  shellquote     = "'",
+  shellxquote    = "",
 }
 
 for k, v in pairs(vimOptions) do
@@ -48,8 +58,6 @@ end
 if vim.g.neovide then
   vim.o.guifont = "Iosevka Nerd Font"
 end
-
-
 
 
 
@@ -87,20 +95,3 @@ if vim.fn.isdirectory(snippetDir) == 0 then
 end
 
 mappings()
-
-if true then
-
-end
-
-vim.api.nvim_create_autocmd("Signal", {
-  pattern = "SIGUSR1",
-  callback = function()
-    dofile(colorfile)
-    vim.notify("reloaded colorscheme")
-  end
-})
-vim.o.shell = "nu"
-vim.o.shellcmdflag = "-c"
-vim.o.shellquote = ""
-vim.o.shellxquote = ""
-

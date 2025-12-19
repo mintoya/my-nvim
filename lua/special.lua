@@ -47,16 +47,23 @@ vim.api.nvim_create_user_command('VText',
     end,
   }
 )
+vim.api.nvim_create_autocmd("Signal", {
+  pattern = "SIGUSR1",
+  callback = function()
+    dofile(vim.fn.stdpath("config") .. "/lua/current-theme.lua")
+    vim.notify("reloaded colorscheme")
+  end
+})
 vim.api.nvim_create_user_command('TermClear',
   function(opts)
-    vim.fn.feedkeys("^L", 'n')
+    vim.fn.feedkeys("", 'n')
     local sb = vim.bo.scrollback
     vim.bo.scrollback = 1
     vim.bo.scrollback = sb
   end,
   {
-    nargs    = 0,
-    desc     = "clear terminal",
+    nargs = 0,
+    desc  = "clear terminal",
   }
 )
 return M

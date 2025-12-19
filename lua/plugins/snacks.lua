@@ -21,7 +21,7 @@ return
   "folke/snacks.nvim",
   opts = {
     lazygit = {},
-    notifier = {},
+    -- notifier = {},
     words = {},
     -- indent = {},
     dashboard = {
