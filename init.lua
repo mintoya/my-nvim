@@ -2,8 +2,8 @@ local vim = vim
 vim.g.mapleader = " "
 
 local colorfile = vim.fn.stdpath("config") .. "/lua/current-theme.lua"
---settings
 
+--settings
 local vimOptions = {
   splitright = true,
   splitbelow = true,
@@ -19,13 +19,13 @@ local vimOptions = {
     stl = " ",
     fold = " ",
   },
-  foldtext = "v:lua.CustomFoldText()",
+  -- foldtext = "v:lua.CustomFoldText()",
   ignorecase = true,
-  laststatus = 3,
+  laststatus = 2,
   winborder = "rounded",
   cursorline = true,
   -- cursorcolumn = true,
-  -- shell = "nu",
+  shell = "nu",
 }
 
 for k, v in pairs(vimOptions) do
@@ -93,3 +93,7 @@ vim.api.nvim_create_autocmd("Signal", {
     vim.notify("reloaded colorscheme")
   end
 })
+vim.o.shell = "nu"
+vim.o.shellcmdflag = "-c"
+vim.o.shellquote = ""
+vim.o.shellxquote = ""

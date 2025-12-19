@@ -2,7 +2,7 @@ return {
   "sschleemilch/slimline.nvim",
   opts = {
     style = "fg",
-    disabled_filetypes = {},
+    -- disabled_filetypes = {},
     components = {
       left = {
         'mode',

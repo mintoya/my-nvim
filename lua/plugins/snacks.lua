@@ -23,7 +23,7 @@ return
     lazygit = {},
     notifier = {},
     words = {},
-    indent = {},
+    -- indent = {},
     dashboard = {
       preset = {
         header = header,

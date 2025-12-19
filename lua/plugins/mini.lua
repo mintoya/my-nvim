@@ -8,9 +8,16 @@ return {
     require("mini.pairs").setup {}
     require("mini.surround").setup {}
     require("mini.cmdline").setup {}
+    local gen_loader = require('mini.snippets').gen_loader
+    require('mini.snippets').setup({
+      snippets = {
+        gen_loader.from_lang(),
+      },
+    })
+    require("mini.completion").setup {}
     require("mini.diff").setup {}
 
-    require("mini.indentscope").setup { symbol = "" }
+    require("mini.indentscope").setup { symbol = "|" }
     require("mini.jump").setup {
       mappings = {
         forward = 'f',
