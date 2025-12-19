@@ -41,12 +41,12 @@ local keymaps = {
 
   { "n", "<C-j>", "10jzzz",                                          { desc = "down 10", noremap = true, silent = true } },
   { "n", "<C-k>", "10kzzz",                                          { desc = "up 10", noremap = true, silent = true } },
+
   { { "i",            "c" },
     "<C-j>", "<C-n>", { desc = "down 10", noremap = true, silent = true } },
   { { "i",          "c" },
     "<C-k>", "<C-p>", { desc = "up 10", noremap = true, silent = true } },
-  { { "i",          "c" },
-    "<C-l>", "<C-y>", { desc = "up 10", noremap = true, silent = true } },
+  { "i",  "<C-l>",      "<C-x><C-y>",                                       { desc = "up 10", noremap = true, silent = true } },
 
   { "n", "<leader>z",
     "",
@@ -65,17 +65,17 @@ local keymaps = {
     { desc = "marker foldmethod", silent = true },
   },
   --open terminal
-  { "n", "<leader>t",  "",                                                 { desc = "open terminal", silent = true } },
-  { "n", "<leader>tl", ":vsplit|terminal<cr>:startinsert<cr>",             { desc = "open terminal right", silent = true } },
-  { "n", "<leader>tk", ":above split | terminal<cr>:startinsert<cr>",      { desc = "open terminal up", silent = true } },
-  { "n", "<leader>tj", ":belowright split | terminal<cr>:startinsert<cr>", { desc = "open terminal down", silent = true } },
-  { "n", "<leader>th", ":leftabove vsplit|terminal<cr>:startinsert<cr>",   { desc = "open terminal left", silent = true } },
+  { "n",  "<leader>t",  "",                                                 { desc = "open terminal", silent = true } },
+  { "n",  "<leader>tl", ":vsplit|terminal<cr>:startinsert<cr>",             { desc = "open terminal right", silent = true } },
+  { "n",  "<leader>tk", ":above split | terminal<cr>:startinsert<cr>",      { desc = "open terminal up", silent = true } },
+  { "n",  "<leader>tj", ":belowright split | terminal<cr>:startinsert<cr>", { desc = "open terminal down", silent = true } },
+  { "n",  "<leader>th", ":leftabove vsplit|terminal<cr>:startinsert<cr>",   { desc = "open terminal left", silent = true } },
 
-  { "n", "<leader>b",  "",                                                 { desc = "open pane", silent = true } },
-  { "n", "<leader>bl", ":vsplit<cr>:Fyler kind=replace<CR>",               { desc = "open pane right", silent = true } },
-  { "n", "<leader>bk", ":above split<cr>:Fyler kind=replace<CR>",          { desc = "open pane up", silent = true } },
-  { "n", "<leader>bj", ":belowright split<cr>:Fyler kind=replace<CR>",     { desc = "open pane down", silent = true } },
-  { "n", "<leader>bh", ":leftabove vsplit<cr>:Fyler kind=replace<CR>",     { desc = "open pane left", silent = true } },
+  { "n",  "<leader>b",  "",                                                 { desc = "open pane", silent = true } },
+  { "n",  "<leader>bl", ":vsplit<cr>:Fyler kind=replace<CR>",               { desc = "open pane right", silent = true } },
+  { "n",  "<leader>bk", ":above split<cr>:Fyler kind=replace<CR>",          { desc = "open pane up", silent = true } },
+  { "n",  "<leader>bj", ":belowright split<cr>:Fyler kind=replace<CR>",     { desc = "open pane down", silent = true } },
+  { "n",  "<leader>bh", ":leftabove vsplit<cr>:Fyler kind=replace<CR>",     { desc = "open pane left", silent = true } },
 
   { "n", "<leader>c",
     ":Pick colors<CR>",
