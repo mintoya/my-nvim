@@ -63,6 +63,12 @@ local M = {
 
   {
     "jake-stewart/multicursor.nvim",
+    setup = function()
+      vim.api.nvim_set_hl(0, "MultiCursorCursor", { reverse = true })
+      vim.api.nvim_set_hl(0, "MultiCursorVisual", { link = "Visual" })
+      vim.api.nvim_set_hl(0, "MultiCursorSign", { link = "SignColumn" })
+      vim.api.nvim_set_hl(0, "MultiCursorMatchPreview", { link = "Search" })
+    end,
     event = "InsertEnter",
   },
   --  views.finder.win = {

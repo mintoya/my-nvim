@@ -21,10 +21,6 @@ local snipJumpPrev = function()
   end
 end
 
-local fKeymaps = {
-  { { "i", "s" }, "<Tab>",   snipJumpNext, { expr = true, noremap = true } },
-  { { "i", "s" }, "<S-Tab>", snipJumpPrev, { expr = true, noremap = true } },
-}
 
 local keymaps = {
   { "n", ";",     ":",                                               { noremap = false, silent = false } },
@@ -114,7 +110,7 @@ local keymaps = {
     { desc = "open local git repo(lazygit)", noremap = true, silent = true },
   },
 
-  { "n", "<leader>s", "", { desc = "Snippet" }, },
+  { "n",          "<leader>s", "",           { desc = "Snippet" }, },
   { "n",
     "<leader>se",
     [[:lua require("scissors").editSnippet()<cr>]],
@@ -132,6 +128,8 @@ local keymaps = {
   { "n", "<leader>rn",
     ":lua vim.lsp.buf.rename()<cr>", { desc = "lsp rename", silent = true },
   },
+  { { "i", "s" }, "<Tab>",     snipJumpNext, { expr = true, noremap = true } },
+  { { "i", "s" }, "<S-Tab>",   snipJumpPrev, { expr = true, noremap = true } },
 
 }
 for _, keymap in ipairs(keymaps) do
@@ -139,35 +137,21 @@ for _, keymap in ipairs(keymaps) do
   local lhs = keymap[2]
   local rhs = keymap[3]
   local opts = keymap[4]
-  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
-
-for _, keymap in ipairs(fKeymaps) do
-  local mode = keymap[1]
-  local lhs = keymap[2]
-  local rhs = keymap[3]
-  local opts = keymap[4]
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- _G.termclear = function()
---   vim.cmd("stopinsert")
---   vim.cmd("TermClear")
---   vim.cmd("startinsert")
--- end
+
 return function()
   local mc = require("multicursor-nvim")
   mc.setup()
 
   local set = vim.keymap.set
 
-  -- Add or skip cursor above/below the main cursor.
   set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end)
   set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end)
   set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
   set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end)
 
-  -- Add or skip adding a new cursor by matching word/selection
   -- set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
   -- set({ "n", "x" }, "<leader>s", function() mc.matchSkipCursor(1) end)
   -- set({ "n", "x" }, "<leader>N", function() mc.matchAddCursor(-1) end)
@@ -175,39 +159,11 @@ return function()
 
   -- Add and remove cursors with control + left click.
   set("n", "<c-leftmouse>", mc.handleMouse)
-  set("n", "<c-leftdrag>", mc.handleMouseDrag)
   set("n", "<c-leftrelease>", mc.handleMouseRelease)
 
-  -- Disable and enable cursors.
-  -- set({ "n", "x" }, "<c-q>", mc.toggleCursor)
-
-  -- Mappings defined in a keymap layer only apply when there are
-  -- multiple cursors. This lets you have overlapping mappings.
   mc.addKeymapLayer(function(layerSet)
-    -- Select a different cursor as the main one.
-    -- layerSet({ "n", "x" }, "<left>", mc.prevCursor)
-    -- layerSet({ "n", "x" }, "<right>", mc.nextCursor)
-
-    -- Delete the main cursor.
-    -- layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
-
-    -- Enable and clear cursors using escape.
     layerSet("n", "<esc>", function()
-      if not mc.cursorsEnabled() then
-        mc.enableCursors()
-      else
-        mc.clearCursors()
-      end
+      mc.clearCursors()
     end)
   end)
-
-  -- Customize how cursors look.
-  local hl = vim.api.nvim_set_hl
-  hl(0, "MultiCursorCursor", { reverse = true })
-  hl(0, "MultiCursorVisual", { link = "Visual" })
-  hl(0, "MultiCursorSign", { link = "SignColumn" })
-  hl(0, "MultiCursorMatchPreview", { link = "Search" })
-  hl(0, "MultiCursorDisabledCursor", { reverse = true })
-  hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-  hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
 end
