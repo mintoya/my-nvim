@@ -1,6 +1,7 @@
 local foldTable = {
   help             = "manual",
   snacks_dashboard = "manual",
+  dashboard        = "manual",
   Fyler            = "manual",
   fyler            = "manual",
   lazy             = "manual",

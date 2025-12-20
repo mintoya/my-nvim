@@ -31,6 +31,6 @@ return {
 
 
     },
-    event = "BufEnter"
+    lazy = false,
   },
 }

@@ -21,13 +21,13 @@ local vimOptions = {
     fold = " ",
   },
 
-  complete       = '.,w,b,kspell',
-  completeopt    = { "menu", "menuone", "noinsert" },
-  pumborder      = "single",
+  -- complete       = '.,w,b,kspell',
+  completeopt    = "menuone,fuzzy,noinsert",
 
   -- foldtext = "v:lua.CustomFoldText()",
   ignorecase     = true,
-  laststatus     = 2,
+  laststatus     = 3,
+  pumborder      = "rounded",
   winborder      = "rounded",
   cursorline     = true,
   -- cursorcolumn = true,
@@ -41,6 +41,8 @@ local vimOptions = {
 for k, v in pairs(vimOptions) do
   vim.opt[k] = v
 end
+
+vim.cmd("set foldopen+=insert")
 
 local mappings = require("mapping")
 vim.pack.add({

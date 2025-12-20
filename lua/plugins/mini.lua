@@ -6,6 +6,7 @@ return {
   config = function()
     require("mini.misc").setup_termbg_sync {}
     require("mini.pairs").setup {}
+    require("mini.cursorword").setup {}
     require("mini.surround").setup {}
     require("mini.cmdline").setup {}
 

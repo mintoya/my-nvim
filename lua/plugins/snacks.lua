@@ -20,15 +20,11 @@ return
 {
   "folke/snacks.nvim",
   opts = {
-    lazygit = {},
-    -- notifier = {},
-    words = {},
-    -- indent = {},
+    -- lazygit = {},
     dashboard = {
       preset = {
         header = header,
       },
-
       sections = {
         { section = "header", },
         { section = "startup" },
@@ -37,5 +33,4 @@ return
       }
     },
   },
-  lazy = false
 }
