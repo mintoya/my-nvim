@@ -5,7 +5,7 @@ local vim = vim
   # title
 ]]
 local function contains(table, name)
-  for i, x in ipairs(table) do
+  for _, x in ipairs(table) do
     if x == name then return true end
   end
   return false
@@ -110,19 +110,15 @@ local M = {
 
 
   -- highlighters
-  { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",    opts = {}, },
+  { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",   opts = {}, },
   { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
   {
     "chrisgrieser/nvim-origami",
     opts = {
       useLspFoldsWithTreesitterFallback = false,
-      foldtext = { gitsignsCount = false, },
+      foldtext = { gitsignsCount = true, },
     },
     event = "VeryLazy",
-  },
-
-  {
-    "nanotee/zoxide.vim"
   },
   -- {
   --   "OXY2DEV/markview.nvim",

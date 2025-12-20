@@ -34,7 +34,7 @@ local vimOptions = {
 
   shell          = "nu",
   shellcmdflag   = "-c",
-  shellquote     = "'",
+  shellquote     = "",
   shellxquote    = "",
 }
 

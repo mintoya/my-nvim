@@ -66,4 +66,16 @@ vim.api.nvim_create_user_command('TermClear',
     desc  = "clear terminal",
   }
 )
+vim.api.nvim_create_user_command('Z',
+  function(opts)
+    local folder = opts.args
+    folder = vim.fn.system("^zoxide query " .. folder)
+    vim.notify(folder)
+    vim.cmd("cd " .. folder);
+  end,
+  {
+    nargs = 1,
+    desc  = "cd with zoxide",
+  }
+)
 return M
