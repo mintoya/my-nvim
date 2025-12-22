@@ -27,6 +27,7 @@ local vimOptions = {
   -- complete       = '.,w,b,kspell',
   completeopt    = "menuone,noinsert",
 
+
   -- foldtext = "v:lua.CustomFoldText()",
   ignorecase     = true,
   laststatus     = 3,
@@ -40,7 +41,9 @@ local vimOptions = {
   shellquote     = "",
   shellxquote    = "",
   -- neovide
-  guifont        = "Iosevka Nerd Font"
+  guifont        = "Iosevka Nerd Font",
+  shada          = "'100,<50,s10,:1000,/100,@100,h"
+
 }
 
 for k, v in pairs(vimOptions) do

@@ -24,6 +24,8 @@ return {
   config = function()
     _G.MiniKeymap = require 'mini.keymap'
 
+    require "mini.pick".setup {}
+    require "mini.animate".setup {}
     require "mini.pairs".setup {}
     require "mini.cursorword".setup {}
     require "mini.surround".setup {}
@@ -44,6 +46,7 @@ return {
         comment_visual = "<leader>/",
       },
     }
+
     require "mini.jump".setup {
       mappings = {
         forward = 'f',
@@ -57,20 +60,22 @@ return {
         idle_stop = 1000,
       },
     }
-    require "mini.completion".setup {
-      delay = { completion = 100, info = 100, signature = 100 },
-      window = {
-        info = { height = 25, width = 80 },
-        signature = { height = 25, width = 80 },
-      },
+    do -- mini.completion
+      _G.MiniCompletion = require "mini.completion"
+      MiniCompletion.setup {
+        delay = { completion = 100, info = 100, signature = 100 },
+        window = {
+          info = { height = 25, width = 80 },
+          signature = { height = 25, width = 80 },
+        },
 
-      lsp_completion = {
-        source_func = "omnifunc",
-        auto_setup = true,
-      },
-      fallback_action = "",
-    }
-
+        lsp_completion = {
+          source_func = "omnifunc",
+          auto_setup = true,
+        },
+        fallback_action = "",
+      }
+    end
     do -- mini.snippets
       _G.MiniSnippets = require 'mini.snippets'
       local snippets  = {
@@ -85,6 +90,9 @@ return {
           )
         end
       end
+      local match_strict = function(snips)
+        return MiniSnippets.default_match(snips, { pattern_fuzzy = '%S+' })
+      end
       MiniSnippets.setup({
         snippets = snippets,
         mappings = {
@@ -94,6 +102,8 @@ return {
           jump_prev = '',
         },
         expand = {
+          match = match_strict,
+          -- use nvim default
           insert = function(snippet)
             if type(snippet) == "table" then
               if snippet.body then
@@ -107,18 +117,6 @@ return {
           end,
         },
       })
-      _G.expand_or_jump = function()
-        local can_expand = #MiniSnippets.expand({ insert = false }) > 0
-        if can_expand then
-          vim.schedule(MiniSnippets.expand); return ''
-        end
-        local is_active = MiniSnippets.session.get() ~= nil
-        if is_active then
-          MiniSnippets.session.jump('next'); return ''
-        end
-        return '\t'
-      end
-      _G.jump_prev = function() MiniSnippets.session.jump('prev') end
 
       MiniSnippets.start_lsp_server();
     end
@@ -172,44 +170,6 @@ return {
           MiniClue.gen_clues.z(),
         },
       }
-    end
-    do -- mini.picker
-      local MiniPicker = require "mini.pick"
-      MiniPicker.registry.colors = function()
-        return MiniPicker.start({
-          mappings = {
-            newStop = {
-              char = "<Esc>",
-              func = function()
-                dofile(colorfile)
-                MiniPicker.stop()
-              end,
-            },
-          },
-          source = {
-            name = "colors",
-            items = vim.fn.getcompletion("", "color"),
-            choose = function(item, _)
-              vim.cmd("colorscheme " .. item)
-            end,
-            preview = function(bufnr, item)
-              vim.cmd("colorscheme " .. item)
-
-              local sometext = {
-                [[local function name (arg1,arg2)]],
-                [[	for k,v in pairs(arg1) do]],
-                [[		print(v==arg2)]],
-                [[	end]],
-
-                [[end]],
-              }
-              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, sometext)
-              pcall(vim.treesitter.start, bufnr, "lua")
-            end,
-          },
-        })
-      end
-      MiniPicker.setup()
     end
   end,
 }

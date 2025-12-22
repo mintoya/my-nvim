@@ -8,7 +8,7 @@ local colorpath = vim.fn.expand("~/.cache/cwal/colors.json");
 local configJson = require("special").file.read(colorpath)
 
 if configJson == nil then
-  vim.notify("cwal josn colors not in cache")
+  vim.notify("cwal json colors not in cache")
   return
 end
 
@@ -43,8 +43,12 @@ M.highlights = {
   NonText        = { fg = c.color8 },
   Normal         = { fg = c.fg, bg = c.bg },
   NormalNC       = { fg = c.fg, bg = c.bg },
-  Pmenu          = { fg = c.fg, bg = c.color1 },
-  PmenuSel       = { fg = c.color7, bg = c.color2, bold = true },
+  Float          = { fg = c.color0, bg = c.color12 },
+  FloatBorder    = { fg = c.color0, bg = c.color12 },
+  Pmenu          = { fg = c.color0, bg = c.color12 },
+  PmenuSel       = { fg = c.color12, bg = c.color0, bold = true },
+  PmenuSbar      = { bg = c.cursor },
+  PmenuThumb     = { bg = c.cursor },
   Question       = { fg = c.color6 },
   Search         = { fg = c.color0, bg = c.color3, bold = true },
   SignColumn     = { fg = c.fg, bg = c.bg },
@@ -64,7 +68,6 @@ M.highlights = {
   Constant       = { fg = c.color3, bold = true },
   Define         = { fg = c.color10 },
   Error          = { fg = c.color1, bg = c.color0, bold = true },
-  Float          = { fg = c.color4 },
   Function       = { fg = c.color4 },
   Identifier     = { fg = c.color9 },
   Keyword        = { fg = c.color5, italic = true },
@@ -88,13 +91,9 @@ M.highlights = {
   Tag            = { fg = c.color3, bold = true },
   Todo           = { fg = c.color15, bg = c.color0, bold = true, italic = true },
   Type           = { fg = c.color6, bold = true },
-  --Plugin Specific
-  FloatBorder    = { fg = c.border, bg = "none" },
-  PmenuThumb     = { bg = c.cursor },
   MiniPickNormal = { bg = c.bg },
   MiniJump       = { undercurl = true },
   -- Pick           = { fg = c.color1, bg = "none" },
-  -- PmenuSbar      = { bg = c.cursor },
 }
 
 vim.g.colors_name = "cwal"

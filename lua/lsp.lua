@@ -70,3 +70,5 @@ require "mason-lspconfig".setup({
   automatic_enable = true
 })
 require "dapui".setup()
+
+vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })

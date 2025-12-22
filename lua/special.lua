@@ -78,4 +78,14 @@ vim.api.nvim_create_user_command('Z',
     desc  = "cd with zoxide",
   }
 )
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "cmd", "msg", "pager", "dialog" },
+  callback = function()
+    vim.api.nvim_set_option_value(
+      "winhl",
+      "Normal:Normal,FloatBorder:WinSeparator",
+      {}
+    )
+  end,
+})
 return M

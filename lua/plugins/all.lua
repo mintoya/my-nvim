@@ -46,7 +46,7 @@ local M = {
 
   {
     "chrisgrieser/nvim-scissors",
-    opts = { snippetDir = vim.fn.stdpath("data") .. "/snippets" },
+    opts = { snippetDir = snippetDir },
     event = "LspAttach",
   },
 
@@ -77,9 +77,9 @@ local M = {
   --   }
   -- },
   { "lambdalisue/vim-suda",   event = "VeryLazy" },
-  { "vague-theme/vague.nvim", opt = { transparent = true } },
+  { "vague-theme/vague.nvim", opts = { transparent = true } },
   { "catppuccin/nvim", },
-  { "folke/tokyonight.nvim", },
+  { "folke/tokyonight.nvim",  opts = { transparent = true } },
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
