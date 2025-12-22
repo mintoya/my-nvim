@@ -15,10 +15,7 @@ local foldTable = {
 local fMeta = setmetatable({}, {
   __index = function(_, key)
     local v = foldTable[key]
-    if v == nil then
-      v = "indent"
-    end
-    return v
+    return v or "indent"
   end
 })
 

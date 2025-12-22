@@ -1,27 +1,5 @@
 local vim = vim
 
-local snipJumpNext = function()
-  if vim.snippet.active({ direction = 1 }) then
-    vim.schedule(function()
-      vim.snippet.jump(1)
-    end)
-    return ""
-  else
-    return "<Tab>"
-  end
-end
-local snipJumpPrev = function()
-  if vim.snippet.active({ direction = -1 }) then
-    vim.schedule(function()
-      vim.snippet.jump(-1)
-    end)
-    return ""
-  else
-    return "<S-Tab>"
-  end
-end
-
-
 local keymaps = {
   { "n", ";",  ":",   { noremap = false, silent = false } },
 
@@ -38,17 +16,9 @@ local keymaps = {
   { "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
 
   --cmp
-  { { "i",          "c" },
-    "<C-j>", "<C-n>", { noremap = true, silent = true } },
-  { { "i",          "c" },
-    "<C-k>", "<C-p>", { noremap = true, silent = true } },
-  { "i", "<C-l>", function()
-    if vim.fn.pumvisible() == 1 then
-      return "<C-y>"
-    else
-      return "<C-l>"
-    end
-  end, { expr = true } },
+  { 'c', '<C-l>', function()
+    return vim.fn.wildmenumode() ~= 0 and '<C-L>' or '<C-l>'
+  end, { expr = true, noremap = true } },
 
   -- folds
   { "n", "<leader>z",
@@ -77,10 +47,10 @@ local keymaps = {
   { "n", "<leader>th", ":leftabove vsplit|terminal<cr>:startinsert<cr>",   { desc = "open terminal left", silent = true } },
 
   { "n", "<leader>b",  "",                                                 { desc = "open pane", silent = true } },
-  { "n", "<leader>bl", ":vsplit<cr>:Fyler kind=replace<CR>",               { desc = "open pane right", silent = true } },
-  { "n", "<leader>bk", ":above split<cr>:Fyler kind=replace<CR>",          { desc = "open pane up", silent = true } },
-  { "n", "<leader>bj", ":belowright split<cr>:Fyler kind=replace<CR>",     { desc = "open pane down", silent = true } },
-  { "n", "<leader>bh", ":leftabove vsplit<cr>:Fyler kind=replace<CR>",     { desc = "open pane left", silent = true } },
+  { "n", "<leader>bl", ":vsplit<cr>",                                      { desc = "open pane right", silent = true } },
+  { "n", "<leader>bk", ":above split<cr>",                                 { desc = "open pane up", silent = true } },
+  { "n", "<leader>bj", ":belowright split<cr>",                            { desc = "open pane down", silent = true } },
+  { "n", "<leader>bh", ":leftabove vsplit<cr>",                            { desc = "open pane left", silent = true } },
 
   { "n", "<leader>c",
     ":Pick colors<CR>",
@@ -106,7 +76,7 @@ local keymaps = {
   },
 
 
-  { "n",          "<leader>s", "",           { desc = "Snippet" }, },
+  { "n", "<leader>s", "", { desc = "Snippet" }, },
 
   { "n", "<leader>fm",
     function() vim.lsp.buf.format() end,
@@ -115,8 +85,6 @@ local keymaps = {
   { "n", "<leader>rn",
     function() vim.lsp.buf.rename() end, { desc = "lsp rename", silent = true },
   },
-  { { "i", "s" }, "<Tab>",     snipJumpNext, { expr = true, noremap = true } },
-  { { "i", "s" }, "<S-Tab>",   snipJumpPrev, { expr = true, noremap = true } },
 
 }
 for _, keymap in ipairs(keymaps) do
@@ -127,16 +95,22 @@ for _, keymap in ipairs(keymaps) do
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-vim.cmd("cnoremap <C-l> <C-y><Cmd>redraw<CR>")
-
 return function()
-  local mc = require("multicursor-nvim")
+  local mc = require "multicursor-nvim"
   mc.setup()
 
   local set = vim.keymap.set
 
+
+  MiniKeymap.map_multistep({ 'i', 'c' }, '<C-j>', { 'pmenu_next' })
+  MiniKeymap.map_multistep({ 'i', 'c' }, '<C-k>', { 'pmenu_prev' })
+  MiniKeymap.map_multistep({ 'i', 'c' }, '<C-l>', { 'pmenu_accept' })
+
+  MiniKeymap.map_combo({ 'n', 'i' }, '<C-w>>', '<C-w>', { delay = 100 })
+  MiniKeymap.map_combo({ 'n', 'i' }, '<C-w><', '<C-w>', { delay = 100 })
+
   set("n", "<leader>e",
-    function() require("fyler").open() end,
+    function() _G.MiniFiles.open() end,
     { desc = "edit files", noremap = true, silent = true }
   )
   set("n",
@@ -158,6 +132,8 @@ return function()
   set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end)
   set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
   set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end)
+  set('i', '<Tab>', expand_or_jump, { expr = true })
+  set('i', '<S-Tab>', jump_prev)
 
   -- set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
   -- set({ "n", "x" }, "<leader>s", function() mc.matchSkipCursor(1) end)

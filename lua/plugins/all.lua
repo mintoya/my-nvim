@@ -1,9 +1,5 @@
 local vim = vim
---[[
-  multiline comment
-  [x] a
-  # title
-]]
+
 local function contains(table, name)
   for _, x in ipairs(table) do
     if x == name then return true end
@@ -30,14 +26,11 @@ local M = {
         "markdown",
         "markdown_inline",
       },
-
     }
   },
+
   {
     "mason-org/mason-lspconfig.nvim",
-    -- opts = {
-    --   automatic_enable = true
-    -- },
     dependencies = {
       { "mason-org/mason.nvim", },
       { "jay-babu/mason-nvim-dap.nvim", },
@@ -58,60 +51,16 @@ local M = {
   },
 
 
-  {
-    "jake-stewart/multicursor.nvim",
-    setup = function()
-      vim.api.nvim_set_hl(0, "MultiCursorCursor", { reverse = true })
-      vim.api.nvim_set_hl(0, "MultiCursorVisual", { link = "Visual" })
-      vim.api.nvim_set_hl(0, "MultiCursorSign", { link = "SignColumn" })
-      vim.api.nvim_set_hl(0, "MultiCursorMatchPreview", { link = "Search" })
-    end,
-    event = "InsertEnter",
-  },
+  { "jake-stewart/multicursor.nvim", },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
-    priority = 1000,
     opts = {},
   },
-  {
-    "A7Lavinraj/fyler.nvim",
-    dependencies = { "echasnovski/mini.icons" },
-    opts = {
-      views = {
-        finder = {
-          win = {
-            border = "rounded",
-            kind = "float",
-          }
-        },
-        explorer = {
-          default_explorer = true,
-        }
-      }
-    }
-  },
-  {
-    "folke/which-key.nvim",
-    opts = {
-      preset = "helix"
-    },
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
-      },
-    },
-    event = "VeryLazy"
-  },
-
 
   -- highlighters
-  { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",   opts = {}, },
-  { "brenoprata10/nvim-highlight-colors", event = "InsertEnter" },
+  { "rachartier/tiny-glimmer.nvim",       event = "BufEnter",    opts = {}, },
+  { "brenoprata10/nvim-highlight-colors", event = "InsertEnter", opts = {}, },
   {
     "chrisgrieser/nvim-origami",
     opts = {
