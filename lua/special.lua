@@ -26,9 +26,21 @@ local function enable_v_text()
     virtual_lines = true,
   }
 end
+
+-- local function table_mux(table, key, val)
+--   local res = {}
+--   for _, k in pairs(table[key]) do
+--     for _, v in pairs(table[val]) do
+--       res.insert(res, {})
+--     end
+--   end
+--   return res;
+-- end
+
 local M = {
   file = { read = read_from_file, write = write_to_file },
   vtext = { disable = disable_v_text, enable = enable_v_text },
+  -- mux = table_mux,
 }
 vim.api.nvim_create_user_command('VText',
   function(opts)

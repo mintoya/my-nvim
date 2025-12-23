@@ -20,8 +20,7 @@ local header = [[
 ╰─────────────────────────────────────────────────╯]]
 
 return {
-  -- "nvim-mini/mini.nvim",
-  dir    = "~/Github/mini.nvim",
+  "nvim-mini/mini.nvim",
   config = function()
     _G.MiniKeymap = require 'mini.keymap'
 
@@ -142,13 +141,26 @@ return {
     end
     do -- mini.clue
       local MiniClue = require "mini.clue"
+      local function multiply_mode_keys(triggers)
+        local res = {}
+        for _, trigger in pairs(triggers) do
+          local keys = type(trigger.keys) == "table" and trigger.keys or { trigger.keys }
+          local modes = type(trigger.mode) == "table" and trigger.mode or { trigger.mode }
+          for _, k in pairs(keys) do
+            for _, m in pairs(modes) do
+              table.insert(res, { mode = m, keys = k })
+            end
+          end
+        end
+        return res;
+      end
       MiniClue.setup {
         window = {
           delay = 200,
           scroll_up = '<C-u>',
           scroll_down = '<C-d',
         },
-        triggers = {
+        triggers = multiply_mode_keys {
           {
             mode = { 'n', 'x' },
             keys = {
