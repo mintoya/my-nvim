@@ -1,8 +1,22 @@
 local vim = vim
-vim.lsp.enable({
+
+vim.lsp.config.nu = {
+  cmd = { 'nu', '-n', '--lsp' },
+  filetypes = { 'nu' },
+  root_dir = function(bufnr, on_dir)
+    on_dir(vim.fs.root(bufnr, { '.git' }) or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
+  end,
+}
+vim.lsp.enable {
   "lua_ls",
   "clangd",
   "zls",
+  "nu"
+}
+
+vim.lsp.config('*', {
+  capabilities =
+      MiniCompletion.get_lsp_capabilities()
 })
 
 vim.diagnostic.config({
@@ -22,15 +36,10 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO]  = "󰋽 ",
       [vim.diagnostic.severity.HINT]  = "󰌶 ",
     },
-    -- numhl = {
-    --   [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-    --   [vim.diagnostic.severity.WARN]  = "WarningMsg",
-    -- },
   },
 })
 
 local dap             = require("dap")
-
 local mason_path      = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/"
 local codelldb_path   = mason_path .. "adapter/codelldb"
 
@@ -66,9 +75,5 @@ dap.configurations.cpp.name = "Debug Cpp executable"
 
 require "mason".setup()
 require "mason-nvim-dap".setup()
-require "mason-lspconfig".setup({
-  automatic_enable = true
-})
+require "mason-lspconfig".setup { automatic_enable = true }
 require "dapui".setup()
-
-vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })

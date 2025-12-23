@@ -25,24 +25,25 @@ local vimOptions = {
   },
 
   -- complete       = '.,w,b,kspell',
-  completeopt    = "menuone,noinsert",
+  completeopt    = { "menuone", "noinsert", "noselect" },
+
 
 
   -- foldtext = "v:lua.CustomFoldText()",
-  ignorecase     = true,
-  laststatus     = 3,
-  pumborder      = "rounded",
-  winborder      = "rounded",
-  pummaxwidth    = 30,
-  cursorline     = true,
+  ignorecase   = true,
+  laststatus   = 3,
+  pumborder    = "rounded",
+  winborder    = "rounded",
+  pummaxwidth  = 30,
+  cursorline   = true,
 
-  shell          = "nu",
-  shellcmdflag   = "-c",
-  shellquote     = "",
-  shellxquote    = "",
+  shell        = "nu",
+  shellcmdflag = "-c",
+  shellquote   = "",
+  shellxquote  = "",
   -- neovide
-  guifont        = "Iosevka Nerd Font",
-  shada          = "'100,<50,s10,:1000,/100,@100,h"
+  guifont      = "Iosevka Nerd Font",
+  shada        = "'100,<50,s10,:1000,/100,@100,h"
 
 }
 

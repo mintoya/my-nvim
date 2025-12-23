@@ -34,7 +34,7 @@ return {
     require "mini.diff".setup {}
 
     require "mini.misc".setup_termbg_sync {}
-    require "mini.indentscope".setup { symbol = "." }
+    require "mini.indentscope".setup { symbol = "-" }
     require "mini.tabline".setup {
       show_icons = true
     }
@@ -157,14 +157,11 @@ return {
           },
 
           { mode = 'i',          keys = '<C-x>' },
-
           { mode = { 'i', 'c' }, keys = '<C-r>' },
-
           { mode = 'n',          keys = '<C-w>' },
         },
 
         clues = {
-          -- Enhance this by adding descriptions for <Leader> mapping groups
           MiniClue.gen_clues.builtin_completion(),
           MiniClue.gen_clues.g(),
           MiniClue.gen_clues.marks(),
