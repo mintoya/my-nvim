@@ -20,12 +20,12 @@ local header = [[
 ╰─────────────────────────────────────────────────╯]]
 
 return {
-  "nvim-mini/mini.nvim",
+  -- "nvim-mini/mini.nvim",
+  dir    = "~/Github/mini.nvim",
   config = function()
     _G.MiniKeymap = require 'mini.keymap'
 
     require "mini.pick".setup {}
-    require "mini.animate".setup {}
     require "mini.pairs".setup {}
     require "mini.cursorword".setup {}
     require "mini.surround".setup {}
@@ -34,19 +34,30 @@ return {
     require "mini.diff".setup {}
 
     require "mini.misc".setup_termbg_sync {}
-    require "mini.indentscope".setup { symbol = "|" }
-    require "mini.starter".setup {
-      header         = header,
-      footer         = "",
-      query_updaters = "",
+    require "mini.indentscope".setup { symbol = "." }
+    require "mini.tabline".setup {
+      show_icons = true
     }
+    do -- mini.starter
+      _G.MiniStarter = require "mini.starter"
+      MiniStarter.setup {
+        header         = header,
+        footer         = "",
+        query_updaters = "",
+        content_hooks  = {
+          -- MiniStarter.gen_hook.adding_bullet(' '),
+          MiniStarter.gen_hook.adding_bullet('- '),
+          MiniStarter.gen_hook.aligning('center', 'center'),
+        },
+
+      }
+    end
     require "mini.comment".setup {
       mappings = {
         comment_line   = "<leader>/",
         comment_visual = "<leader>/",
       },
     }
-
     require "mini.jump".setup {
       mappings = {
         forward = 'f',
@@ -60,6 +71,15 @@ return {
         idle_stop = 1000,
       },
     }
+
+    do -- mini.hipatterns
+      _G.MiniHipatterns = require "mini.hipatterns"
+      MiniHipatterns.setup {
+        highlighters = {
+          hex_color = MiniHipatterns.gen_highlighter.hex_color(),
+        }
+      }
+    end
     do -- mini.completion
       _G.MiniCompletion = require "mini.completion"
       MiniCompletion.setup {
@@ -129,35 +149,18 @@ return {
           scroll_down = '<C-d',
         },
         triggers = {
-          -- Leader triggers
-          { mode = 'n', keys = '<Leader>' },
-          { mode = 'x', keys = '<Leader>' },
+          {
+            mode = { 'n', 'x' },
+            keys = {
+              '<Leader>', 'g', "'", '`', '"', 'z'
+            }
+          },
 
-          -- Built-in completion
-          { mode = 'i', keys = '<C-x>' },
+          { mode = 'i',          keys = '<C-x>' },
 
-          -- `g` key
-          { mode = 'n', keys = 'g' },
-          { mode = 'x', keys = 'g' },
+          { mode = { 'i', 'c' }, keys = '<C-r>' },
 
-          -- Marks
-          { mode = 'n', keys = "'" },
-          { mode = 'n', keys = '`' },
-          { mode = 'x', keys = "'" },
-          { mode = 'x', keys = '`' },
-
-          -- Registers
-          { mode = 'n', keys = '"' },
-          { mode = 'x', keys = '"' },
-          { mode = 'i', keys = '<C-r>' },
-          { mode = 'c', keys = '<C-r>' },
-
-          -- Window commands
-          { mode = 'n', keys = '<C-w>' },
-
-          -- `z` key
-          { mode = 'n', keys = 'z' },
-          { mode = 'x', keys = 'z' },
+          { mode = 'n',          keys = '<C-w>' },
         },
 
         clues = {
