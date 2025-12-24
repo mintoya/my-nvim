@@ -33,7 +33,7 @@ return {
     require "mini.diff".setup {}
 
     require "mini.misc".setup_termbg_sync {}
-    require "mini.indentscope".setup { symbol = "-" }
+    require "mini.indentscope".setup { symbol = "⡂" }
     require "mini.tabline".setup {
       show_icons = true
     }
