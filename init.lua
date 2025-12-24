@@ -67,7 +67,8 @@ for _, v in pairs(require("plugins.all")) do
   table.insert(plugins, v)
 end
 
-local special = require "special"
+_G.special = require "special"
+
 require("lazy").setup(
   plugins
 )
@@ -89,12 +90,4 @@ if vim.fn.isdirectory(snippetDir) == 0 then
   vim.fn.mkdir(snippetDir, "p")
 end
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function(afile, _)
-    special.file.write(colorfile, ' vim.cmd("colorscheme ' .. afile.match .. '") ')
-  end
-})
-
-
-pcall(require, "current-theme")
 mappings()

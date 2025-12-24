@@ -1,17 +1,14 @@
 local vim = vim
 
+---@param filepath string
+---@return nil|string
 local function read_from_file(filepath)
-  local f
-  local i, _ = pcall(function()
-    f = vim.fn.readfile(filepath, "b")
-  end)
-  if not i then
-    return nil
-  else
-    return table.concat(f)
-  end
+  local a, b = pcall(vim.fn.readfile, filepath, "b")
+  return a and table.concat(b) or nil
 end
 
+---@param filepath string
+---@param content string
 local function write_to_file(filepath, content)
   vim.fn.writefile({ content }, filepath, "b")
 end
@@ -27,20 +24,9 @@ local function enable_v_text()
   }
 end
 
--- local function table_mux(table, key, val)
---   local res = {}
---   for _, k in pairs(table[key]) do
---     for _, v in pairs(table[val]) do
---       res.insert(res, {})
---     end
---   end
---   return res;
--- end
-
 local M = {
   file = { read = read_from_file, write = write_to_file },
   vtext = { disable = disable_v_text, enable = enable_v_text },
-  -- mux = table_mux,
 }
 vim.api.nvim_create_user_command('VText',
   function(opts)
@@ -50,7 +36,7 @@ vim.api.nvim_create_user_command('VText',
   {
     nargs    = 1,
     desc     = "toggle virtual text",
-    complete = function(_, _, _)
+    complete = function(_, _)
       local res = {}
       for i, _ in pairs(M.vtext) do
         table.insert(res, i)
@@ -59,13 +45,29 @@ vim.api.nvim_create_user_command('VText',
     end,
   }
 )
-vim.api.nvim_create_autocmd("Signal", {
-  pattern = "SIGUSR1",
-  callback = function()
-    dofile(vim.fn.stdpath("config") .. "/lua/current-theme.lua")
-    vim.notify("reloaded colorscheme")
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function(afile, _)
+    M.file.write(colorfile, afile.match)
   end
 })
+vim.api.nvim_create_autocmd({ "Signal", "VimEnter" }, {
+  pattern = { "*" },
+  callback = function(ev)
+    if (ev.event == "VimEnter" or ev.match == "SIGUSR1") then
+      local colorscheme = M.file.read(colorfile)
+      vim.schedule(function() vim.cmd("colorscheme " .. colorscheme) end)
+      vim.notify("reloaded colorscheme")
+      -- vim.notify("reloaded colorscheme on" .. vim.inspect(ev))
+    end
+  end
+})
+-- vim.api.nvim_create_autocmd("Signal", {
+--   pattern = "SIGWINCH",
+--   callback = function()
+--     local layout = vim.fn.winlayout;
+--     vim.notify(vim.inspect(layout))
+--   end
+-- })
 vim.api.nvim_create_user_command('TermClear',
   function(opts)
     vim.fn.feedkeys("", 'n')
@@ -81,7 +83,7 @@ vim.api.nvim_create_user_command('TermClear',
 vim.api.nvim_create_user_command('Z',
   function(opts)
     local folder = opts.args
-    folder = vim.fn.system("^zoxide query " .. folder)
+    folder = vim.fn.system("zoxide query " .. folder)
     vim.notify(folder)
     vim.cmd("cd " .. folder);
   end,
@@ -90,14 +92,4 @@ vim.api.nvim_create_user_command('Z',
     desc  = "cd with zoxide",
   }
 )
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "cmd", "msg", "pager", "dialog" },
-  callback = function()
-    vim.api.nvim_set_option_value(
-      "winhl",
-      "Normal:Normal,FloatBorder:WinSeparator",
-      {}
-    )
-  end,
-})
 return M

@@ -152,7 +152,7 @@ vim.keymap.set({ 'i', 's' }, '<Tab>', function()
   )
   set("n", "<leader>c",
     function()
-      require "mini.extra".pickers.colorschemes()
+      MiniExtra.pickers.colorschemes()
     end,
     { desc = "change colorscheme", noremap = true, silent = true }
   )
