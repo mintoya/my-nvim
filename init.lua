@@ -1,11 +1,15 @@
-local vim = vim
 
+_G.dataPath = vim.fn.stdpath("data")
 _G.configPath = vim.fn.stdpath("config")
 _G.colorfile = configPath .. "/lua/current-theme.lua"
 _G.snippetDir = configPath .. "/snippets"
+_G.Special = require "special"
+
+math.randomseed(os.time())
+vim.schedule(function() vim.cmd("colorscheme " .. Special.file.read(colorfile)) end)
+
 
 vim.g.mapleader = " "
-
 --settings
 local vimOptions = {
   splitright     = true,
@@ -46,38 +50,30 @@ local vimOptions = {
   shada        = "'100,<50,s10,:1000,/100,@100,h"
 
 }
-
 for k, v in pairs(vimOptions) do
   vim.opt[k] = v
 end
 
-vim.cmd("set foldopen+=insert")
+vim.cmd.set("foldopen+=insert")
 
-local mappings = require("mapping")
-vim.pack.add({
-  "https://github.com/folke/lazy.nvim.git",
-})
-
-
-local plugins = {
-  defaults = { lazy = true, }
-}
-
-for _, v in pairs(require("plugins.all")) do
-  table.insert(plugins, v)
-end
-
-_G.special = require "special"
-
-require("lazy").setup(
-  plugins
+local plugin_maps = require("mapping")
+vim.pack.add(
+  { "https://github.com/folke/lazy.nvim.git" },
+  {
+    load = function(plugin)
+      vim.cmd("packadd " .. plugin.spec.name)
+      require "lazy".setup(require "plugins.all")
+    end
+  }
 )
+
+
 
 require "autofolds"
 require "dirs"
 require "lsp"
 
-require 'vim._extui'.enable {
+require "vim._extui".enable {
   enable = true,
   msg = {
     target = 'msg',
@@ -90,4 +86,4 @@ if vim.fn.isdirectory(snippetDir) == 0 then
   vim.fn.mkdir(snippetDir, "p")
 end
 
-mappings()
+plugin_maps()

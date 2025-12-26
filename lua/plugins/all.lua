@@ -51,15 +51,12 @@ local M = {
   },
 
 
-  { "jake-stewart/multicursor.nvim", },
+  { "jake-stewart/multicursor.nvim", event = "InsertEnter" },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
     opts = {},
   },
-
-  -- highlighters
-  { "rachartier/tiny-glimmer.nvim",  event = "BufEnter", opts = {}, },
   {
     "chrisgrieser/nvim-origami",
     opts = {
@@ -75,15 +72,20 @@ local M = {
   --     icon_provider = "mini",
   --   }
   -- },
-  { "vague-theme/vague.nvim", opts = { transparent = true } },
+  { "vague-theme/vague.nvim",        opts = { transparent = true } },
   { "catppuccin/nvim", },
-  { "folke/tokyonight.nvim",  opts = { transparent = true } },
+  { "folke/tokyonight.nvim",         opts = { transparent = true } },
+
   {
     "folke/trouble.nvim",
-    opts = {},
     cmd = "Trouble",
+    opts = {},
   },
-  { "lambdalisue/vim-suda", cmd = { "SudaRead", "SudaWrite" } },
+  {
+    "lambdalisue/vim-suda",
+    cmd = { "SudaRead", "SudaWrite" }
+  },
+
 }
 
 M = dodir(

@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/paa/Pictures/2025-12-15-212924_hyprshot.png",
+    "alpha": "{alpha}",
+
+    "special": {
+        "background": "#070608",
+        "foreground": "#cdcdcd",
+        "cursor": "#cdcdcd"
+    },
+    "colors": {
+        "color0": "#070608",
+        "color1": "#da92ff",
+        "color2": "#9af6e0",
+        "color3": "#aab0ff",
+        "color4": "#dc52ff",
+        "color5": "#ff3f66",
+        "color6": "#cbe914",
+        "color7": "#bdbdca",
+        "color8": "#dbb0db",
+        "color9": "#d688ff",
+        "color10": "#acffeb",
+        "color11": "#7d89ff",
+        "color12": "#e066ff",
+        "color13": "#ff476d",
+        "color14": "#e4ff3d",
+        "color15": "#cdcdcd"
+    }
+}

@@ -1,85 +1,17 @@
 local vim = vim
 -- adapted from hellwal.vim
 
--- Convert hex color (#RRGGBB) to HSL
-
-
----@class hsl
----@field h number hue
----@field s number saturation
----@field l number lightness
-
-
----@param hex string
----@return hsl
-local function toHSL(hex)
-  hex = hex:gsub("#", "")
-  local r = tonumber(hex:sub(1, 2), 16) / 255
-  local g = tonumber(hex:sub(3, 4), 16) / 255
-  local b = tonumber(hex:sub(5, 6), 16) / 255
-
-  local max = math.max(r, g, b)
-  local min = math.min(r, g, b)
-  local h, s, l
-  l = (max + min) / 2
-
-  if max == min then
-    h, s = 0, 0 -- achromatic
-  else
-    local d = max - min
-    s = l > 0.5 and d / (2 - max - min) or d / (max + min)
-    if max == r then
-      h = (g - b) / d + (g < b and 6 or 0)
-    elseif max == g then
-      h = (b - r) / d + 2
-    else
-      h = (r - g) / d + 4
-    end
-    h = h / 6
-  end
-
-  return { h = h, s = s, l = l }
-end
-
-
-local function hue2rgb(p, q, t)
-  if t < 0 then t = t + 1 end
-  if t > 1 then t = t - 1 end
-  if t < 1 / 6 then return p + (q - p) * 6 * t end
-  if t < 1 / 2 then return q end
-  if t < 2 / 3 then return p + (q - p) * (2 / 3 - t) * 6 end
-  return p
-end
-
----@param hsl hsl
----@return string
-local function fromHSL(hsl)
-  local r, g, b
-  if hsl.s == 0 then
-    r, g, b = hsl.l, hsl.l, hsl.l -- achromatic
-  else
-    local q = hsl.l < 0.5 and hsl.l * (1 + hsl.s) or hsl.l + hsl.s - hsl.l * hsl.s
-    local p = 2 * hsl.l - q
-    r = hue2rgb(p, q, hsl.h + 1 / 3)
-    g = hue2rgb(p, q, hsl.h)
-    b = hue2rgb(p, q, hsl.h - 1 / 3)
-  end
-
-  local function toHex(x)
-    return string.format("%02X", math.floor(x * 255 + 0.5))
-  end
-
-  return "#" .. toHex(r) .. toHex(g) .. toHex(b)
-end
+local colorfn = require "special".color
 
 ---@param hex string hex color
 ---@param percent number less than 1
 ---@return string hex color
 local function darkenHex(hex, percent)
-  percent = percent or 10
-  local hsl = toHSL(hex)
-  hsl.l = math.max(0, hsl.l * (1 - percent))
-  return fromHSL(hsl)
+  percent   = percent or 10
+  local hsv = colorfn.hsv(colorfn.str2rgb(hex))
+  hsv.v     = hsv.v * (1 - percent)
+  -- hsv.s     = math.min(1, hsv.s * (1.1))
+  return colorfn.rgb2str(colorfn.rgb(hsv))
 end
 
 local M = {}
@@ -90,7 +22,13 @@ local configJson = require("special").file.read(colorpath)
 
 if configJson == nil then
   vim.notify("cwal json colors not in cache")
-  return
+  vim.notify("picking random scheme")
+  local arr = {}
+  for name, type in vim.fs.dir(vim.fn.stdpath("config") .. "/colors/cwal") do
+    table.insert(arr, name)
+  end
+  configJson = vim.fn.stdpath("config") .. "/colors/cwal/" .. arr[math.random(#arr)]
+  configJson = require("special").file.read(configJson)
 end
 
 local config = vim.json.decode(configJson)

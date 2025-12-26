@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/paa/Pictures/background/warhammer-salamanders.jpg",
+    "alpha": "{alpha}",
+
+    "special": {
+        "background": "#0e0d0c",
+        "foreground": "#cecece",
+        "cursor": "#cecece"
+    },
+    "colors": {
+        "color0": "#0e0d0c",
+        "color1": "#bed46a",
+        "color2": "#ffb48d",
+        "color3": "#eec1a0",
+        "color4": "#ff905b",
+        "color5": "#febe6f",
+        "color6": "#f3dda6",
+        "color7": "#cbcbbd",
+        "color8": "#ebbfbf",
+        "color9": "#b8d64f",
+        "color10": "#ff9c68",
+        "color11": "#ffa76e",
+        "color12": "#ff8f58",
+        "color13": "#fbbe73",
+        "color14": "#ffe9b3",
+        "color15": "#cecece"
+    }
+}

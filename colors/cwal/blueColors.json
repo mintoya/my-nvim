@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/paa/Pictures/background/feihai-super-low-res.jpg",
+    "alpha": "{alpha}",
+
+    "special": {
+        "background": "#0a0a25",
+        "foreground": "#ceced3",
+        "cursor": "#ceced3"
+    },
+    "colors": {
+        "color0": "#0a0a25",
+        "color1": "#888fff",
+        "color2": "#8e9bf3",
+        "color3": "#7f8fff",
+        "color4": "#6b82ff",
+        "color5": "#7f9ef6",
+        "color6": "#6486ff",
+        "color7": "#9f9fb4",
+        "color8": "#9b9bdc",
+        "color9": "#616eff",
+        "color10": "#6979ff",
+        "color11": "#6478ff",
+        "color12": "#5873ff",
+        "color13": "#5f87ff",
+        "color14": "#5e7fff",
+        "color15": "#ceced3"
+    }
+}
