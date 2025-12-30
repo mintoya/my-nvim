@@ -37,19 +37,6 @@ vim.pack.add(
       -- require "mini.misc".setup_termbg_sync {}
       -- require "mini.tabline".setup { show_icons = true }
       require "mini.indentscope".setup { symbol = "⡂" }
-      do -- mini.starter
-        local MiniStarter = require "mini.starter"
-        MiniStarter.setup {
-          header         = header,
-          footer         = "",
-          query_updaters = "",
-          content_hooks  = {
-            MiniStarter.gen_hook.adding_bullet('- '),
-            MiniStarter.gen_hook.aligning('center', 'center'),
-          },
-
-        }
-      end
       require "mini.comment".setup {
         mappings = {
           comment_line   = "<leader>/",
@@ -82,6 +69,19 @@ vim.pack.add(
           highlighters = {
             hex_color = MiniHipatterns.gen_highlighter.hex_color(),
           }
+        }
+      end
+      do -- mini.starter
+        local MiniStarter = require "mini.starter"
+        MiniStarter.setup {
+          header         = header,
+          footer         = "",
+          query_updaters = "",
+          content_hooks  = {
+            MiniStarter.gen_hook.adding_bullet('- '),
+            MiniStarter.gen_hook.aligning('center', 'center'),
+          },
+
         }
       end
       do -- mini.completion

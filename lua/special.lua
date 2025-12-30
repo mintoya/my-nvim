@@ -89,7 +89,6 @@ do --color
     return { r = r, g = g, b = b }
   end
 end
-
 local M = {
   file = { read = readFile, write = writeFile },
   vtext = { disable = disable_v_text, enable = enable_v_text },
@@ -99,6 +98,10 @@ local M = {
     str2rgb = str2rgb,
     rgb2str = rgb2str,
   },
+  pipeline = function(...)
+    local args = { ... }
+    for _, v in pairs(args) do print(v) end
+  end,
 }
 
 do -- autocommands

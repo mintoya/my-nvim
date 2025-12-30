@@ -69,9 +69,7 @@ dap.configurations.zig      = {
 }
 
 dap.configurations.c        = dap.configurations.zig
-dap.configurations.c.name   = "Debug C executable"
 dap.configurations.cpp      = dap.configurations.zig
-dap.configurations.cpp.name = "Debug Cpp executable"
 
 require "mason".setup()
 require "mason-nvim-dap".setup()
