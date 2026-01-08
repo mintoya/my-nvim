@@ -70,6 +70,7 @@ plugin_maps()
 require "autofolds"
 require "dirs"
 require "lsp"
+require "autocmds"
 
 require "vim._extui".enable {
   enable = true,
