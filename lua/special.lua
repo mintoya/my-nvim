@@ -134,7 +134,7 @@ do -- autocommands
     pattern = { "*" },
     callback = function(ev)
       if (ev.event == "VimEnter" or ev.match == "SIGUSR1") then
-        local colorscheme = M.file.read(colorfile)
+        local colorscheme = M.file.read(colorfile) or "default"
         if ev.event == "VimEnter" then
           vim.cmd("colorscheme " .. colorscheme)
         else

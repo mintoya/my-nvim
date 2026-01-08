@@ -1,10 +1,12 @@
+local profileStart = os.clock()
+math.randomseed(profileStart)
+
 _G.dataPath   = vim.fn.stdpath "data"
 _G.configPath = vim.fn.stdpath "config"
 _G.colorfile  = configPath .. "/lua/current-theme.lua"
 _G.snippetDir = configPath .. "/snippets"
 _G.Special    = require "special"
 
-math.randomseed(os.time())
 
 vim.g.mapleader = " "
 --settings
@@ -30,7 +32,7 @@ local vimOptions = {
 
 
 
-  foldtext  = "",
+  foldtext     = "",
   ignorecase   = true,
   laststatus   = 3,
   pumborder    = "rounded",
@@ -45,13 +47,13 @@ local vimOptions = {
   -- neovide
   guifont      = "Iosevka Nerd Font",
   shada        = "'100,<50,s10,:1000,/100,@100,h"
-
 }
 for k, v in pairs(vimOptions) do
   vim.opt[k] = v
 end
 
 vim.cmd.set("foldopen+=insert")
+
 
 local plugin_maps = require "mapping"
 require "mini"
@@ -81,3 +83,5 @@ require "vim._extui".enable {
 if vim.fn.isdirectory(snippetDir) == 0 then
   vim.fn.mkdir(snippetDir, "p")
 end
+
+vim.notify("startup: " .. (os.clock() - profileStart) * 1000);
