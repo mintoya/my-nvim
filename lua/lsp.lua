@@ -7,6 +7,26 @@ vim.lsp.config.nu = {
     on_dir(vim.fs.root(bufnr, { '.git' }) or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
   end,
 }
+vim.lsp.config.clangd = {
+  cmd = { 'clangd' },
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+  root_markers = {
+    '.clangd',
+    '.clang-tidy',
+    '.clang-format',
+    'compile_commands.json',
+    'compile_flags.txt',
+    '.git',
+  },
+  capabilities = {
+    textDocument = {
+      completion = {
+        editsNearCursor = true,
+      },
+    },
+    offsetEncoding = { 'utf-8', 'utf-16' },
+  },
+}
 vim.lsp.enable {
   "lua_ls",
   "clangd",
@@ -14,9 +34,10 @@ vim.lsp.enable {
   "nu"
 }
 
+local miniCapabilities = MiniCompletion.get_lsp_capabilities()
+miniCapabilities.textDocument.completion.editsNearCursor = true
 vim.lsp.config('*', {
-  capabilities =
-      MiniCompletion.get_lsp_capabilities()
+  capabilities = miniCapabilities,
 })
 
 vim.diagnostic.config({
@@ -39,10 +60,12 @@ vim.diagnostic.config({
   },
 })
 
-local dap             = require("dap")
-local mason_path      = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/"
-local codelldb_path   = mason_path .. "adapter/codelldb"
+local mason_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/"
 
+
+--[[
+local dap             = require("dap")
+local codelldb_path   = mason_path .. "adapter/codelldb"
 dap.adapters.codelldb = {
   type = "server",
   port = "${port}",
@@ -54,7 +77,6 @@ dap.adapters.codelldb = {
 if vim.fn.has("windows") then
   dap.adapters.codelldb.executable.detached = false
 end
-
 dap.configurations.zig      = {
   {
     name = "Debug Zig executable",
@@ -67,13 +89,12 @@ dap.configurations.zig      = {
     stopOnEntry = false,
   },
 }
-
 dap.configurations.c        = dap.configurations.zig
 dap.configurations.c.name   = "Debug C executable"
 dap.configurations.cpp      = dap.configurations.zig
 dap.configurations.cpp.name = "Debug Cpp executable"
-
+require "dapui".setup()
+]]
 require "mason".setup()
 require "mason-nvim-dap".setup()
 require "mason-lspconfig".setup { automatic_enable = true }
-require "dapui".setup()

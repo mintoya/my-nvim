@@ -99,6 +99,29 @@ local M = {
     str2rgb = str2rgb,
     rgb2str = rgb2str,
   },
+  ---@param exclusions table<string>|nil
+  ---@param dirname string
+  ---@param result table
+  ---@return table
+  dodir = function(dirname, result, exclusions)
+    exclusions = exclusions or {};
+    setmetatable(result, { __index = table });
+    ---@param table table<string>
+    ---@param name string
+    ---@return boolean
+    local function contains(table, name)
+      for _, x in ipairs(table) do
+        if x == name then return true end
+      end
+      return false
+    end
+    for v, t in vim.fs.dir(dirname) do
+      if t == 'file' and not contains(exclusions, v) then
+        result:insert(dofile(dirname .. '/' .. v));
+      end
+    end
+    return result
+  end
 }
 
 do -- autocommands

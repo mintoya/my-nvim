@@ -1,98 +1,79 @@
-local vim = vim
-
-local function contains(table, name)
-  for _, x in ipairs(table) do
-    if x == name then return true end
-  end
-  return false
-end
-local dodir = function(dirname, exclusions, result)
-  if not result then
-    result = {}
-  end
-  for v, t in vim.fs.dir(dirname) do
-    if t == 'file' and not contains(exclusions, v) then
-      table.insert(result, dofile(dirname .. '/' .. v))
-    end
-  end
-  return result
-end
-
-local M = {
+local dodir = require "special".dodir
+return dodir(configPath .. "/lua/plugins",
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "markdown",
-        "markdown_inline",
+    {
+      "nvim-treesitter/nvim-treesitter",
+      opts = {
+        ensure_installed = {
+          "markdown",
+          "markdown_inline",
+        },
       },
-    }
-  },
-
-  {
-    "mason-org/mason-lspconfig.nvim",
-    dependencies = {
-      { "mason-org/mason.nvim", },
-      { "jay-babu/mason-nvim-dap.nvim", },
-      { "mfussenegger/nvim-dap", },
-      { "neovim/nvim-lspconfig", }
+      event = { "BufReadPost", "BufNewFile" },
     },
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-    event = "LspAttach",
-  },
 
-  {
-    "chrisgrieser/nvim-scissors",
-    opts = { snippetDir = snippetDir },
-    event = "LspAttach",
-  },
-
-
-  { "jake-stewart/multicursor.nvim", event = "InsertEnter" },
-  {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
-    opts = {},
-  },
-  {
-    "chrisgrieser/nvim-origami",
-    opts = {
-      useLspFoldsWithTreesitterFallback = false,
-      foldtext = { gitsignsCount = true, },
+    {
+      "mason-org/mason-lspconfig.nvim",
+      dependencies = {
+        { "mason-org/mason.nvim", },
+        { "jay-babu/mason-nvim-dap.nvim", },
+        { "mfussenegger/nvim-dap", },
+        { "neovim/nvim-lspconfig", }
+      },
+      event = "VeryLazy",
     },
-    event = "VeryLazy",
-  },
-  -- {
-  --   "OXY2DEV/markview.nvim",
-  --   lazy = false,
-  --   preview = {
-  --     icon_provider = "mini",
-  --   }
-  -- },
-  { "vague-theme/vague.nvim",        opts = { transparent = true } },
-  { "catppuccin/nvim", },
-  { "folke/tokyonight.nvim",         opts = { transparent = true } },
+    {
+      "rcarriga/nvim-dap-ui",
+      dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+      event = "LspAttach",
+    },
 
-  {
-    "folke/trouble.nvim",
-    cmd = "Trouble",
-    opts = {},
-  },
-  {
-    "lambdalisue/vim-suda",
-    cmd = { "SudaRead", "SudaWrite" }
-  },
+    {
+      "chrisgrieser/nvim-scissors",
+      opts = { snippetDir = snippetDir },
+      event = "LspAttach",
+    },
 
-}
 
-M = dodir(
-  vim.fn.stdpath("config") .. "/lua/plugins",
-  { "all.lua" },
-  M
+    { "jake-stewart/multicursor.nvim", event = "InsertEnter" },
+    {
+      "rachartier/tiny-inline-diagnostic.nvim",
+      event = "LspAttach",
+      opts = {},
+    },
+    {
+      "chrisgrieser/nvim-origami",
+      opts = {
+        useLspFoldsWithTreesitterFallback = { enabled = false },
+        foldtext = { gitsignsCount = true, },
+        autoFold = {
+          enabled = true,
+          kinds = { "comment" },
+        },
+      },
+      event = "LspAttach",
+    },
+    -- {
+    --   "OXY2DEV/markview.nvim",
+    --   lazy = false,
+    --   preview = {
+    --     icon_provider = "mini",
+    --   }
+    -- },
+    { "vague-theme/vague.nvim", },
+    { "catppuccin/nvim", },
+    { "folke/tokyonight.nvim", },
+
+    {
+      "folke/trouble.nvim",
+      cmd = "Trouble",
+      opts = {},
+      event = "LspAttach",
+    },
+    {
+      "lambdalisue/vim-suda",
+      cmd = { "SudaRead", "SudaWrite" }
+    },
+
+  }, { "all.lua" }
 )
-
-
-return M
