@@ -25,3 +25,4 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.cmd("set foldmethod=" .. fMeta[vim.bo.filetype]);
   end,
 })
+

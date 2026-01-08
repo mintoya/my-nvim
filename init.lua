@@ -30,7 +30,7 @@ local vimOptions = {
 
 
 
-  -- foldtext = "v:lua.CustomFoldText()",
+  foldtext  = "",
   ignorecase   = true,
   laststatus   = 3,
   pumborder    = "rounded",

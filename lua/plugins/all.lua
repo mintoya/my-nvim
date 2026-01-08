@@ -41,25 +41,6 @@ return dodir(configPath .. "/lua/plugins",
       event = "LspAttach",
       opts = {},
     },
-    {
-      "chrisgrieser/nvim-origami",
-      opts = {
-        useLspFoldsWithTreesitterFallback = { enabled = false },
-        foldtext = { gitsignsCount = true, },
-        autoFold = {
-          enabled = true,
-          kinds = { "comment" },
-        },
-      },
-      event = "LspAttach",
-    },
-    -- {
-    --   "OXY2DEV/markview.nvim",
-    --   lazy = false,
-    --   preview = {
-    --     icon_provider = "mini",
-    --   }
-    -- },
     { "vague-theme/vague.nvim", },
     { "catppuccin/nvim", },
     { "folke/tokyonight.nvim", },
