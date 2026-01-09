@@ -1,10 +1,8 @@
 lua/current-theme.lua
 snippets
 lazy-lock.json
-todone
-pinned.json
 lua/matugen-colors.lua
 noice.log
 lua/current-theme.lua
 nvim-pack-lock.json
-MiniMax
+current-theme.txt

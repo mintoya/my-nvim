@@ -3,9 +3,8 @@ math.randomseed(profileStart)
 
 _G.dataPath   = vim.fn.stdpath "data"
 _G.configPath = vim.fn.stdpath "config"
-_G.colorfile  = configPath .. "/lua/current-theme.lua"
+_G.colorfile  = configPath .. "/current-theme.txt"
 _G.snippetDir = configPath .. "/snippets"
-_G.Special    = require "special"
 
 
 vim.g.mapleader = " "

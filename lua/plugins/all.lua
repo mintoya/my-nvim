@@ -55,6 +55,12 @@ return dodir(configPath .. "/lua/plugins",
       "lambdalisue/vim-suda",
       cmd = { "SudaRead", "SudaWrite" }
     },
+    {
+      "folke/flash.nvim",
+      opts = {},
+      event = "InsertEnter",
+    },
+    { "ii14/neorepl.nvim" },
 
   }, { "all.lua" }
 )

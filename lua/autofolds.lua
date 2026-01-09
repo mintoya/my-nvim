@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
 _G.fold_special = function()
   local foldstart = vim.v.foldstart
   local foldend = vim.v.foldend
-  local count = foldstart - foldend + 1
+  local count = foldend - foldstart + 1
   local fallback = { "  󱞣  " .. count, "@spell" }
   local line = vim.fn.getline(vim.v.foldstart)
   local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
@@ -40,6 +40,7 @@ _G.fold_special = function()
   local tree = parser:parse({ foldstart - 1, foldstart })[1]
 
   local result = {}
+  setmetatable(result, { __index = table })
 
   local line_pos = 0
   local prev_range = nil
@@ -50,19 +51,19 @@ _G.fold_special = function()
     if start_row == foldstart - 1 and end_row == foldstart - 1 then
       local range = { start_col, end_col }
       if start_col > line_pos then
-        table.insert(result, { line:sub(line_pos + 1, start_col), "Folded" })
+        result:insert({ line:sub(line_pos + 1, start_col), "Folded" })
       end
       line_pos = end_col
       local text = vim.treesitter.get_node_text(node, 0)
       if prev_range ~= nil and range[1] == prev_range[1] and range[2] == prev_range[2] then
         result[#result] = { text, "@" .. name }
       else
-        table.insert(result, { text, "@" .. name })
+        result:insert({ text, "@" .. name })
       end
       prev_range = range
     end
   end
-  table.insert(result, { " 󱞣  " .. count, "@spell" });
+  table.insert(result, fallback);
   return result
 end
 vim.wo.foldtext = "v:lua.fold_special()"

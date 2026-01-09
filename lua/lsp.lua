@@ -8,8 +8,24 @@ vim.lsp.config.nu = {
   end,
 }
 vim.lsp.config.clangd = {
-  cmd = { 'clangd' },
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+  cmd = {
+    'clangd',
+    '--background-index=1',
+    '--limit-results=10',
+    '--pch-storage=memory',
+  },
+  init_options = {
+    fallbackFlags = {
+      -- "-std=c23",
+    },
+  },
+  filetypes = {
+    'c',
+    'cpp',
+    'objc',
+    'objcpp',
+    'cuda'
+  },
   root_markers = {
     '.clangd',
     '.clang-tidy',

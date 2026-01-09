@@ -1,13 +1,15 @@
-local vim = vim
+-- returns mappings that need a plugin to work
+local set = vim.keymap.set
 
+--- @alias KeymapEntry {[1]:string|string[], [2]:string, [3]:string|function, [4]?:vim.keymap.set.Opts}
+--- @type KeymapEntry[]
 local keymaps = {
-  { 'n', ';',  ':',   { noremap = false, silent = false } },
-
-  { 'v', "<<", "<gv", { desc = "unindent visual", noremap = false, silent = false } },
-  { 'v', ">>", ">gv", { desc = "indent visual", noremap = false, silent = false } },
+  { 'n', ';',     ':',                 { noremap = false, silent = false } },
 
   { { "n",          "v" },
     'y', '"+y', { noremap = true, silent = true } },
+  { 'v', "<<",    "<gv",               { desc = "unindent visual", noremap = false, silent = false } },
+  { 'v', ">>",    ">gv",               { desc = "indent visual", noremap = false, silent = false } },
 
   { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = true, silent = true } },
   { "n", "<Tab>", "<C-w>",             { desc = "buffer actions", noremap = true, silent = true } },
@@ -19,6 +21,19 @@ local keymaps = {
   { 'c', '<C-l>', function()
     return vim.fn.wildmenumode() ~= 0 and '<C-L>' or '<C-l>'
   end, { expr = true, noremap = true } },
+  { { 'i',        's' }, '<Tab>', function()
+    return
+        vim.snippet.active({ direction = 1 }) and
+        '<Cmd>lua vim.snippet.jump(1)<CR>' or
+        '<Tab>'
+  end, { desc = '...', expr = true, silent = true } },
+  { { 'i',        's' }, '<S-Tab>', function()
+    return
+        vim.snippet.active({ direction = -1 }) and
+        '<Cmd>lua vim.snippet.jump(-1)<CR>' or
+        '<S-Tab>'
+  end, { desc = '...', expr = true, silent = true }
+  },
 
   -- folds
   { "n", "<leader>z",
@@ -53,26 +68,7 @@ local keymaps = {
   { "n", "<leader>bh", ":leftabove vsplit<cr>",                            { desc = "open pane left", silent = true } },
 
   { "n", "<leader>f",  "",                                                 { desc = "find/format" } },
-  {
-    "n",
-    "<leader>ff",
-    ":Pick files<CR>",
-    { desc = "find files", noremap = true, silent = true },
-  },
-  { "n", "<leader>ft",
-    ":Pick grep_live<CR>",
-    { desc = "find text in files", noremap = true, silent = true },
-  },
-  { "n", "yaa",       "ggyG", { desc = "yank all", noremap = true, silent = true } },
-  {
-    "n",
-    "<leader>fh",
-    ":Pick resume<CR>",
-    { desc = "recently opened", noremap = true, silent = true },
-  },
-
-
-  { "n", "<leader>s", "",     { desc = "Snippet" }, },
+  { "n", "<leader>s",  "",                                                 { desc = "Snippet" }, },
 
   { "n", "<leader>fm",
     function() vim.lsp.buf.format() end,
@@ -84,47 +80,11 @@ local keymaps = {
 
 }
 for _, keymap in ipairs(keymaps) do
-  local mode = keymap[1]
-  local lhs = keymap[2]
-  local rhs = keymap[3]
-  local opts = keymap[4]
-  vim.keymap.set(mode, lhs, rhs, opts)
+  set(keymap[1], keymap[2], keymap[3], keymap[4])
 end
 
 return function()
-  local mc = require "multicursor-nvim"
-  mc.setup()
-
-  local set = vim.keymap.set
-
-
-vim.keymap.set({ 'i', 's' }, '<Tab>', function()
-    if vim.snippet.active({ direction = 1 }) then
-      return '<Cmd>lua vim.snippet.jump(1)<CR>'
-    else
-      return '<Tab>'
-    end
-  end, { desc = '...', expr = true, silent = true })
-  vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
-    if vim.snippet.active({ direction = -1 }) then
-      return '<Cmd>lua vim.snippet.jump(-1)<CR>'
-    else
-      return '<S-Tab>'
-    end
-  end, { desc = '...', expr = true, silent = true })
-
-  -- local jump_next = function()
-  --   local session = MiniSnippets.session.get()
-  --   if session ~= nil then
-  --     MiniSnippets.session.jump('next'); return ''
-  --   end
-  --   return '\t'
-  -- end
-  -- local jump_prev = function() MiniSnippets.session.jump('prev') end
-  -- vim.keymap.set('i', '<Tab>', jump_next, { expr = true })
-  -- vim.keymap.set('i', '<S-Tab>', jump_prev)
-
-  local MiniKeymap = _G.MiniKeymap;
+  local MiniKeymap = _G.MiniKeymap
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-j>', { 'pmenu_next' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-k>', { 'pmenu_prev' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-l>', { 'pmenu_accept' })
@@ -132,39 +92,51 @@ vim.keymap.set({ 'i', 's' }, '<Tab>', function()
   MiniKeymap.map_combo({ 'n', 'i' }, '<C-w>>', '<C-w>', { delay = 100 })
   MiniKeymap.map_combo({ 'n', 'i' }, '<C-w><', '<C-w>', { delay = 100 })
 
+
+  local MiniFiles = _G.MiniFiles
   set('n', "<leader>e",
-    function() _G.MiniFiles.open() end,
+    MiniFiles.open,
     { desc = "edit files", noremap = true, silent = true }
   )
+  local scissors = require "scissors"
   set('n',
     "<leader>se",
-    function() require("scissors").editSnippet() end,
+    function() scissors.editSnippet() end,
     { desc = "Snippet: Edit" }
   )
   set('n', "<leader>sa",
-    function() require("scissors").addNewSnippet() end,
+    function() scissors.addNewSnippet() end,
     { desc = "Snippet: Add" }
   )
 
-  set('n', "<leader>g",
-    function() require 'snacks'.lazygit.open() end,
-    { desc = "open local git repo(lazygit)", noremap = true, silent = true }
-  )
+  local MiniPick = _G.MiniPick
+  local MiniExtra = _G.MiniExtra
   set("n", "<leader>c",
-    function()
-      MiniExtra.pickers.colorschemes()
-    end,
+    MiniExtra.pickers.colorschemes,
     { desc = "change colorscheme", noremap = true, silent = true }
   )
+  set("n", "<leader>fb",
+    MiniPick.builtin.buffers,
+    { desc = "find buffers", noremap = true, silent = true }
+  )
+  set("n", "<leader>ff",
+    MiniPick.builtin.files,
+    { desc = "find files", noremap = true, silent = true })
+  set("n", "<leader>ft",
+    MiniPick.builtin.grep_live,
+    { desc = "find text in files", noremap = true, silent = true })
+  set("n", "<leader>fh",
+    MiniPick.builtin.resume,
+    { desc = "recently opened", noremap = true, silent = true }
+  )
+
+  local mc = require "multicursor-nvim"
+  mc.setup {}
 
   set({ 'n', 'x' }, "<up>", function() mc.lineAddCursor(-1) end)
   set({ 'n', 'x' }, "<down>", function() mc.lineAddCursor(1) end)
   set({ 'n', 'x' }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
   set({ 'n', 'x' }, "<leader><down>", function() mc.lineSkipCursor(1) end)
-
-
-
-
 
 
   set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
@@ -181,4 +153,5 @@ vim.keymap.set({ 'i', 's' }, '<Tab>', function()
       mc.clearCursors()
     end)
   end)
+  set({ "n", "x", "o" }, "s", require("flash").jump, { desc = "Flash" })
 end
