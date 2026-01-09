@@ -76,6 +76,15 @@ do -- arrayTable
     return self
   end
 
+  ---@param self arrayTable
+  ---@return arrayTable
+  function arrayTable:squash()
+    local result = arrayTable.new()
+    self:each(function(e) result:append(e) end)
+    self = result
+    return self
+  end
+
   ---@return arrayTable
   ---@param self arrayTable
   ---@param index integer
@@ -122,22 +131,22 @@ do -- arrayTable
   ---@param fn_v_i fun(item:any,index:integer)
   ---@return arrayTable
   function arrayTable:each(fn_v_i)
-    for i, v in ipairs(self) do fn_v_i(v, i) end
+    for i, v in pairs(self) do fn_v_i(v, i) end
     return self
   end
 
   ---@param self arrayTable
   ---@param other arrayTable
-  ---@return boolean
+  ---@return arrayTable|nil -- array of indexes where arraytable contains other arraytable
   function arrayTable:contains(other)
-    if not getmetatable(other) then setmetatable(other, arrayTable) end
-    local result = false
-    self:each(function(e, _)
+    -- if not getmetatable(other) == arrayTable then setmetatable(other, arrayTable) end
+    local result = arrayTable.new()
+    self:each(function(e, i)
       other:each(function(d, _)
-        if e == d then result = true end
+        if e == d then result:append(i) end
       end)
     end)
-    return result
+    return #result > 0 and result or nil
   end
 
   ---@return arrayTable
