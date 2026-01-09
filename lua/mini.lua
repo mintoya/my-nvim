@@ -29,7 +29,6 @@ vim.pack.add(
           require "mini.diff".setup {}
           require "mini.pairs".setup {}
           require "mini.notify".setup {}
-          require "mini.surround".setup {}
           require "mini.cmdline".setup {}
           require "mini.cursorword".setup {}
 
@@ -42,6 +41,18 @@ vim.pack.add(
               comment_line   = "<leader>/",
               comment_visual = "<leader>/",
             },
+          }
+          require "mini.surround".setup {
+            mappings = {
+              add = "sa",
+              delete = "sd",
+              find = "",
+              find_left = "",
+              highlight = "",
+              replace = "",
+              suffix_last = "",
+              suffix_next = "",
+            }
           }
 
           do -- mini.keymap
@@ -171,7 +182,7 @@ vim.pack.add(
               window = {
                 delay = 200,
                 scroll_up = '<C-u>',
-                scroll_down = '<C-d',
+                scroll_down = '<C-d>',
               },
               triggers = multiply_mode_keys {
                 {

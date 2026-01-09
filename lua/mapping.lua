@@ -153,5 +153,5 @@ return function()
       mc.clearCursors()
     end)
   end)
-  set({ "n", "x", "o" }, "s", require("flash").jump, { desc = "Flash" })
+  set({ "n", "x", "o" }, "<C-f>", require("flash").jump, { desc = "Flash" })
 end
