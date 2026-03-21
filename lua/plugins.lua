@@ -78,6 +78,8 @@ return {
     "rachartier/tiny-inline-diagnostic.nvim",
     opts = {},
   },
+  -- colorshcemes
+  { "nitinbhat972/cwal.nvim", },
   { "vague-theme/vague.nvim", },
   { "catppuccin/nvim", },
   { "folke/tokyonight.nvim", },
