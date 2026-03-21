@@ -17,13 +17,11 @@ return {
       { "mfussenegger/nvim-dap", },
       { "neovim/nvim-lspconfig", }
     },
-    lazy = false,
   },
   {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' },
 
-    -- Using the zpack build function callback
     build = function(plugin)
       vim.notify("Building blink.cmp with Cargo... This might take a minute.", vim.log.levels.INFO)
 
@@ -37,8 +35,8 @@ return {
             end)
           else
             vim.schedule(function()
-              vim.notify("blink.cmp build failed. Check your Rust installation.", vim.log.levels.ERROR)
-              print(out.stderr) -- Print the actual cargo error to the message area
+              vim.notify("blink.cmp build failed ", vim.log.levels.ERROR)
+              vim.print(out.stderr)
             end)
           end
         end
@@ -64,20 +62,23 @@ return {
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = snippetDir },
-    lazy = false,
   },
 
 
   {
     "jake-stewart/multicursor.nvim",
-    lazy = false,
-    opts = {},
-    main = "multicursor-nvim"
+    main = "multicursor-nvim",
+    config = function()
+      local mc = require "multicursor-nvim"
+      mc.setup {}
+      mc.addKeymapLayer(function(layerSet)
+        layerSet("n", "<esc>", function()
+          require "multicursor-nvim".clearCursors()
+        end)
+      end)
+    end
   },
-  {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    opts = {},
-  },
+  { "rachartier/tiny-inline-diagnostic.nvim", opts = {}, },
   -- colorshcemes
   { "nitinbhat972/cwal.nvim", },
   { "vague-theme/vague.nvim", },
@@ -93,9 +94,13 @@ return {
     cmd = { "SudaRead", "SudaWrite" }
   },
   {
-    "folke/flash.nvim",
-    opts = {},
+    url = "https://codeberg.org/andyg/leap.nvim",
+    main = "leap",
   },
+  -- {
+  --   "folke/flash.nvim",
+  --   opts = {},
+  -- },
   { "ii14/neorepl.nvim" },
   { "OXY2DEV/markview.nvim", opts = { preview = { icon_provider = "mini", } } },
   {

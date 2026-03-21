@@ -70,6 +70,30 @@ local keymaps = {
   { "n", "<leader>f",  "",                                                 { desc = "find/format" } },
   { "n", "<leader>s",  "",                                                 { desc = "Snippet" }, },
 
+
+}
+--- @type KeymapEntry[]
+local keymap_plugins = {
+
+  { { "n" },      "<leader>db",     "",                                                          { desc = "Dap actions" } },
+  { { "n" },      "<leader>dbn",    ":DapNew<cr>",                                               { desc = "Dap actions" } },
+  { { "n" },      "<leader>dbb",    ":DapToggleBreakpoint<cr>",                                  { desc = "toggle breakpoint" } },
+  { { "n" },      "<leader>dbr",    ":DapToggleRepl<cr>",                                        { desc = "open dap repl" } },
+
+
+
+
+
+  { { 'n', 'x' }, "<up>",           function() require "multicursor-nvim".lineAddCursor(-1) end },
+  { { 'n', 'x' }, "<down>",         function() require "multicursor-nvim".lineAddCursor(1) end },
+  { { 'n', 'x' }, "<leader><up>",   function() require "multicursor-nvim".lineSkipCursor(-1) end },
+  { { 'n', 'x' }, "<leader><down>", function() require "multicursor-nvim".lineSkipCursor(1) end },
+
+
+  -- { "n",               "<c-leftmouse>",   require "multicursor-nvim".handleMouse },
+  -- { "n",               "<c-leftrelease>", require "multicursor-nvim".handleMouseRelease },
+
+  -- { { "n", "x", "o" }, "<C-f>",          require "flash".jump,                                        { desc = "Flash" } },
   { "n", "<leader>fm",
     function() vim.lsp.buf.format() end,
     { desc = "Format buffer" },
@@ -77,11 +101,23 @@ local keymaps = {
   { "n", "<leader>rn",
     function() vim.lsp.buf.rename() end, { desc = "lsp rename", silent = true },
   },
-
+  { 'n',
+    "<leader>se",
+    function() require "scissors".editSnippet() end,
+    { desc = "Snippet: Edit" }
+  },
+  { 'n', "<leader>sa",
+    function() require "scissors".addNewSnippet() end,
+    { desc = "Snippet: Add" }
+  },
+  { { 'n', 'x', 'o' }, '<C-s>', '<Plug>(leap-forward)' },
+  { { 'n', 'x', 'o' }, '<C-S>', '<Plug>(leap-backward)' },
+  -- { { 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)' },
 }
-for _, keymap in ipairs(keymaps) do
+local array = require "special".metatables.array
+array.new():append(keymaps):append(keymap_plugins):each(function(keymap, _)
   set(keymap[1], keymap[2], keymap[3], keymap[4])
-end
+end)
 
 return function()
   local MiniKeymap = _G.MiniKeymap
@@ -98,15 +134,6 @@ return function()
     MiniFiles.open,
     { desc = "edit files", noremap = true, silent = true }
   )
-  set('n',
-    "<leader>se",
-    function() require "scissors".editSnippet() end,
-    { desc = "Snippet: Edit" }
-  )
-  set('n', "<leader>sa",
-    function() require "scissors".addNewSnippet() end,
-    { desc = "Snippet: Add" }
-  )
 
   local MiniPick = _G.MiniPick
   local MiniExtra = _G.MiniExtra
@@ -118,32 +145,7 @@ return function()
     MiniPick.builtin.buffers,
     { desc = "find buffers", noremap = true, silent = true }
   )
-  set({ "n" }, "<leader>db", "", { desc = "Dap actions" })
-  set({ "n" }, "<leader>dbn", ":DapNew<cr>", { desc = "Dap actions" })
-  set({ "n" }, "<leader>dbb", ":DapToggleBreakpoint<cr>", { desc = "toggle breakpoint" })
-  set({ "n" }, "<leader>dbr", ":DapToggleRepl<cr>", { desc = "open dap repl" })
-
-
-
   set({ "n" }, "<leader>ff", MiniPick.builtin.files, { desc = "find files" })
   set({ "n" }, "<leader>ft", MiniPick.builtin.grep_live, { desc = "find text in files" })
   set({ "n" }, "<leader>fh", MiniPick.builtin.resume, { desc = "recently opened" })
-
-  -- local require"multicursor-nvim" = require "multicursor-nvim"
-
-  set({ 'n', 'x' }, "<up>", function() require "multicursor-nvim".lineAddCursor(-1) end)
-  set({ 'n', 'x' }, "<down>", function() require "multicursor-nvim".lineAddCursor(1) end)
-  set({ 'n', 'x' }, "<leader><up>", function() require "multicursor-nvim".lineSkipCursor(-1) end)
-  set({ 'n', 'x' }, "<leader><down>", function() require "multicursor-nvim".lineSkipCursor(1) end)
-
-
-  set("n", "<c-leftmouse>", require "multicursor-nvim".handleMouse)
-  set("n", "<c-leftrelease>", require "multicursor-nvim".handleMouseRelease)
-
-  require "multicursor-nvim".addKeymapLayer(function(layerSet)
-    layerSet("n", "<esc>", function()
-      require "multicursor-nvim".clearCursors()
-    end)
-  end)
-  set({ "n", "x", "o" }, "<C-f>", require "flash".jump, { desc = "Flash" })
 end
