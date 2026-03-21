@@ -7,8 +7,8 @@ local foldTable = {
   lazy             = "manual",
   Lazy             = "manual",
   lua              = "expr",
-  c                = "indent",
-  cpp              = "indent",
+  c                = "syntax",
+  cpp              = "syntax",
   markdown         = "manual",
 }
 
@@ -22,6 +22,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "*" },
   callback = function()
     vim.cmd.set("foldmethod=" .. fMeta[vim.bo.filetype])
+    vim.cmd.set("foldmarker=" .. "{,}")
   end,
 })
 _G.fold_special = function()
@@ -66,4 +67,5 @@ _G.fold_special = function()
   table.insert(result, fallback);
   return result
 end
-vim.wo.foldtext = "v:lua.fold_special()"
+-- vim.wo.foldtext = "v:lua.fold_special()"
+vim.wo.foldtext = ""

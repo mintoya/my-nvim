@@ -1,10 +1,10 @@
 local profileStart = os.clock()
-math.randomseed(profileStart)
+math.randomseed(profileStart) -- for some random colorshcemes
 
 _G.dataPath   = vim.fn.stdpath "data"
 _G.configPath = vim.fn.stdpath "config"
-_G.colorfile  = configPath .. "/current-theme.txt"
-_G.snippetDir = configPath .. "/snippets"
+_G.colorfile  = vim.fs.joinpath(configPath, "current-theme.txt")
+_G.snippetDir = vim.fs.joinpath(configPath, "snippets")
 
 
 vim.g.mapleader = " "
@@ -25,8 +25,10 @@ local vimOptions = {
     stl = " ",
     fold = " ",
   },
+  showbreak      = "  ",
+  linebreak      = true,
 
-  -- complete       = '.,w,b,kspell',
+  complete       = '.,w,b,kspell',
   completeopt    = { "menuone", "noinsert", "noselect" },
 
 
@@ -54,31 +56,29 @@ end
 vim.cmd.set("foldopen+=insert")
 
 
-local plugin_maps = require "mapping"
+local plugin_maps = require "mapping" -- sets up mappings then returns the ones that require a plugin
 require "mini"
-vim.pack.add(
-  { "https://github.com/folke/lazy.nvim.git" },
-  {
-    load = function(plugin)
-      vim.cmd.packadd(plugin.spec.name)
-      require "lazy".setup(require "plugins.all")
-    end
-  }
-)
-plugin_maps()
+
+vim.pack.add({ 'https://github.com/zuqini/zpack.nvim' }, {
+  load = function(plug_data)
+    vim.cmd.packadd(plug_data.spec.name)
+    require "zpack".setup(require "plugins")
+    plugin_maps()
+  end
+})
+
 require "autofolds"
 require "dirs"
 require "lsp"
 require "autocmds"
 
-require "vim._extui".enable {
+require "vim._core.ui2".enable {
   enable = true,
   msg = {
     target = 'msg',
     timeout = 5000,
   },
 }
-
 
 if vim.fn.isdirectory(snippetDir) == 0 then
   vim.fn.mkdir(snippetDir, "p")

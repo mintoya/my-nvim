@@ -98,14 +98,13 @@ return function()
     MiniFiles.open,
     { desc = "edit files", noremap = true, silent = true }
   )
-  local scissors = require "scissors"
   set('n',
     "<leader>se",
-    function() scissors.editSnippet() end,
+    function() require "scissors".editSnippet() end,
     { desc = "Snippet: Edit" }
   )
   set('n', "<leader>sa",
-    function() scissors.addNewSnippet() end,
+    function() require "scissors".addNewSnippet() end,
     { desc = "Snippet: Add" }
   )
 
@@ -119,39 +118,32 @@ return function()
     MiniPick.builtin.buffers,
     { desc = "find buffers", noremap = true, silent = true }
   )
-  set("n", "<leader>ff",
-    MiniPick.builtin.files,
-    { desc = "find files", noremap = true, silent = true })
-  set("n", "<leader>ft",
-    MiniPick.builtin.grep_live,
-    { desc = "find text in files", noremap = true, silent = true })
-  set("n", "<leader>fh",
-    MiniPick.builtin.resume,
-    { desc = "recently opened", noremap = true, silent = true }
-  )
-
-  local mc = require "multicursor-nvim"
-  mc.setup {}
-
-  set({ 'n', 'x' }, "<up>", function() mc.lineAddCursor(-1) end)
-  set({ 'n', 'x' }, "<down>", function() mc.lineAddCursor(1) end)
-  set({ 'n', 'x' }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
-  set({ 'n', 'x' }, "<leader><down>", function() mc.lineSkipCursor(1) end)
+  set({ "n" }, "<leader>db", "", { desc = "Dap actions" })
+  set({ "n" }, "<leader>dbn", ":DapNew<cr>", { desc = "Dap actions" })
+  set({ "n" }, "<leader>dbb", ":DapToggleBreakpoint<cr>", { desc = "toggle breakpoint" })
+  set({ "n" }, "<leader>dbr", ":DapToggleRepl<cr>", { desc = "open dap repl" })
 
 
-  set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
-  set({ "n", "x" }, "<leader>s", function() mc.matchSkipCursor(1) end)
-  set({ "n", "x" }, "<leader>N", function() mc.matchAddCursor(-1) end)
-  set({ "n", "x" }, "<leader>S", function() mc.matchSkipCursor(-1) end)
 
-  -- Add and remove cursors with control + left click.
-  set("n", "<c-leftmouse>", mc.handleMouse)
-  set("n", "<c-leftrelease>", mc.handleMouseRelease)
+  set({ "n" }, "<leader>ff", MiniPick.builtin.files, { desc = "find files" })
+  set({ "n" }, "<leader>ft", MiniPick.builtin.grep_live, { desc = "find text in files" })
+  set({ "n" }, "<leader>fh", MiniPick.builtin.resume, { desc = "recently opened" })
 
-  mc.addKeymapLayer(function(layerSet)
+  -- local require"multicursor-nvim" = require "multicursor-nvim"
+
+  set({ 'n', 'x' }, "<up>", function() require "multicursor-nvim".lineAddCursor(-1) end)
+  set({ 'n', 'x' }, "<down>", function() require "multicursor-nvim".lineAddCursor(1) end)
+  set({ 'n', 'x' }, "<leader><up>", function() require "multicursor-nvim".lineSkipCursor(-1) end)
+  set({ 'n', 'x' }, "<leader><down>", function() require "multicursor-nvim".lineSkipCursor(1) end)
+
+
+  set("n", "<c-leftmouse>", require "multicursor-nvim".handleMouse)
+  set("n", "<c-leftrelease>", require "multicursor-nvim".handleMouseRelease)
+
+  require "multicursor-nvim".addKeymapLayer(function(layerSet)
     layerSet("n", "<esc>", function()
-      mc.clearCursors()
+      require "multicursor-nvim".clearCursors()
     end)
   end)
-  set({ "n", "x", "o" }, "<C-f>", require("flash").jump, { desc = "Flash" })
+  set({ "n", "x", "o" }, "<C-f>", require "flash".jump, { desc = "Flash" })
 end

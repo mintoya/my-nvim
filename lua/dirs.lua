@@ -3,8 +3,8 @@ local expand = vim.fn.expand
 --backup directorys
 local dirs = {
   backup = expand "~/.vim/backup//",
-  swap = expand "~/.vim/swap//",
-  undo = expand "~/.vim/undo//",
+  swap   = expand "~/.vim/swap//",
+  undo   = expand "~/.vim/undo//",
 }
 for _, dir in ipairs(dirs) do
   if vim.fn.isdirectory(dir) == 0 then

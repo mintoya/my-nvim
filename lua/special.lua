@@ -5,7 +5,7 @@ local rgb2str = nil
 local rgb     = nil
 local hsv     = nil
 do --color
-  local lshxPath = dataPath .. "/lshx"
+  local lshxPath = vim.fs.joinpath(dataPath, "lshx")
   if vim.fn.isdirectory(lshxPath) == 0 then
     vim.cmd(
       "!git clone https://github.com/iskolbin/lhsx "
@@ -15,7 +15,7 @@ do --color
   if vim.fn.isdirectory(lshxPath) == 0 then
     vim.notify("couldnt get lhsx, some colors wont work", 2)
   else
-    local hsx = dofile(lshxPath .. "/hsx.lua")
+    local hsx = dofile(vim.fs.joinpath(lshxPath, "hsx.lua"))
 
     ---@class hsv
     ---@field h integer 0 to 359

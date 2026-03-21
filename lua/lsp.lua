@@ -1,5 +1,3 @@
-local vim = vim
-
 vim.lsp.config.nu = {
   cmd = { 'nu', '-n', '--lsp' },
   filetypes = { 'nu' },
@@ -8,46 +6,26 @@ vim.lsp.config.nu = {
   end,
 }
 vim.lsp.config.clangd = {
-  cmd = {
-    'clangd',
-    '--background-index=1',
-    '--limit-results=10',
-    '--pch-storage=memory',
-  },
-  init_options = {
-    fallbackFlags = {
-      -- "-std=c23",
-    },
-  },
-  filetypes = {
-    'c',
-    'cpp',
-    'objc',
-    'objcpp',
-    'cuda'
-  },
-  root_markers = {
-    '.clangd',
-    '.clang-tidy',
-    '.clang-format',
-    'compile_commands.json',
-    'compile_flags.txt',
-    '.git',
-  },
-  capabilities = {
-    textDocument = {
-      completion = {
-        editsNearCursor = true,
-      },
-    },
-    offsetEncoding = { 'utf-8', 'utf-16' },
+  -- cmd = { 'clangd' },
+  cmd = { 'clangd', '--background-index', '--query-driver=**' },
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'arduino' },
+  initializationOptions = {
+    fallbackFlags = { '-std=c2y' },
   },
 }
+vim.lsp.config.denols = {
+  cmd = { "deno", "lsp" },
+  filetypes = { 'javascript' },
+}
 vim.lsp.enable {
-  "lua_ls",
-  "clangd",
-  "zls",
-  "nu"
+  'lua_ls',
+  -- 'arduino_language_server',
+  'clangd',
+  'denols',
+  -- 'ccls',
+  -- 'zenc',
+  'zls',
+  'nu',
 }
 
 local miniCapabilities = MiniCompletion.get_lsp_capabilities()
@@ -63,54 +41,72 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = true,
   float = {
-    border = "rounded",
+    border = 'rounded',
     source = true,
   },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = "󰅚 ",
-      [vim.diagnostic.severity.WARN]  = "󰀪 ",
-      [vim.diagnostic.severity.INFO]  = "󰋽 ",
-      [vim.diagnostic.severity.HINT]  = "󰌶 ",
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN]  = '󰀪 ',
+      [vim.diagnostic.severity.INFO]  = '󰋽 ',
+      [vim.diagnostic.severity.HINT]  = '󰌶 ',
     },
   },
 })
 
-local mason_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/"
+local mason_path      = vim.fs.joinpath(vim.fn.stdpath('data'), 'mason/packages/codelldb/extension/')
 
-
---[[
-local dap             = require("dap")
-local codelldb_path   = mason_path .. "adapter/codelldb"
+local dap             = require('dap')
+local codelldb_path   = vim.fs.joinpath(mason_path, 'adapter/codelldb')
 dap.adapters.codelldb = {
-  type = "server",
-  port = "${port}",
+  type = 'server',
+  port = '${port}',
   executable = {
     command = codelldb_path,
-    args = { "--port", "${port}" },
+    args = { '--port', '${port}' },
   },
 }
-if vim.fn.has("windows") then
+if vim.fn.has('windows') then
   dap.adapters.codelldb.executable.detached = false
 end
-dap.configurations.zig      = {
+
+dap.configurations.zig         = {
   {
-    name = "Debug Zig executable",
-    type = "codelldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input("Path to executable: ", vim.loop.cwd() .. "/", "file")
-    end,
-    cwd = "${workspaceFolder}",
+    name = 'Debug Zig executable',
+    type = 'codelldb',
+    request = 'launch',
+    cwd = '${workspaceFolder}',
     stopOnEntry = false,
+    program = function()
+      local executables = require 'special'.metatables.array.new()
+      local cmd = 'find . -maxdepth 5 -type f -executable -not -path "*/.*"'
+      local handle = io.popen(cmd)
+
+      if handle then
+        for line in handle:lines() do
+          executables:append(line:gsub('^%./', ""))
+        end
+        handle:close()
+      end
+
+      if #executables > 0 then
+        return coroutine.create(function(dap_run_co)
+          vim.ui.select(executables, {
+            prompt = 'Select executable to debug:',
+          }, function(choice)
+            coroutine.resume(dap_run_co, choice or vim.fn.input('Manual path: ', "', 'file"))
+          end)
+        end)
+      else
+        return vim.fn.input('No executables found. Path: ', vim.loop.cwd() .. '/', 'file')
+      end
+    end,
   },
 }
-dap.configurations.c        = dap.configurations.zig
-dap.configurations.c.name   = "Debug C executable"
-dap.configurations.cpp      = dap.configurations.zig
-dap.configurations.cpp.name = "Debug Cpp executable"
-require "dapui".setup()
-]]
-require "mason".setup()
-require "mason-nvim-dap".setup()
-require "mason-lspconfig".setup { automatic_enable = true }
+dap.configurations.c           = dap.configurations.zig
+dap.configurations.c[1].name   = 'Debug C executable'
+dap.configurations.cpp         = dap.configurations.zig
+dap.configurations.cpp[1].name = 'Debug Cpp executable'
+require 'mason'.setup()
+require 'mason-nvim-dap'.setup()
+require 'mason-lspconfig'.setup { automatic_enable = true }
