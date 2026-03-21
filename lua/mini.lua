@@ -104,64 +104,63 @@ vim.pack.add(
             }
           end
           do -- mini.completion
-            _G.MiniCompletion = require "mini.completion"
-            MiniCompletion.setup {
-              delay = { completion = 100, info = 100, signature = 100 },
-              window = {
-                info = { height = 25, width = 80 },
-                signature = { height = 25, width = 80 },
-              },
-
-              lsp_completion = {
-                source_func = "omnifunc",
-                auto_setup = true,
-              },
-              fallback_action = "",
-            }
+            -- _G.MiniCompletion = require "mini.completion"
+            -- MiniCompletion.setup {
+            --   delay = { completion = 100, info = 100, signature = 100 },
+            --   window = {
+            --     info = { height = 25, width = 80 },
+            --     signature = { height = 25, width = 80 },
+            --   },
+            --
+            --   lsp_completion = {
+            --     source_func = "omnifunc",
+            --     auto_setup = true,
+            --   },
+            --   fallback_action = "",
+            -- }
           end
           do -- mini.snippets
-            _G.MiniSnippets = require 'mini.snippets'
-            local snippets  = {
-              MiniSnippets.gen_loader.from_lang(),
-            }
-            for v, t in vim.fs.dir(snippetDir) do
-              if t == 'file' and v ~= "package.json" then
-                local snippetfile = snippetDir .. "/" .. v
-                table.insert(
-                  snippets,
-                  MiniSnippets.gen_loader.from_file(snippetfile)
-                )
-              end
-            end
-            local match_strict = function(snips)
-              return MiniSnippets.default_match(snips, { pattern_fuzzy = '%S+' })
-            end
-            MiniSnippets.setup({
-              snippets = snippets,
-              mappings = {
-                stop = '',
-                expand = '',
-                jump_next = '',
-                jump_prev = '',
-              },
-              expand = {
-                match = match_strict,
-                -- use nvim default
-                insert = function(snippet)
-                  if type(snippet) == "table" then
-                    if snippet.body then
-                      snippet = snippet.body
-                    end
-                  end
-                  if type(snippet) ~= "string" then
-                    vim.notify("cant expand snippet " .. vim.inspect(snippet))
-                  end
-                  vim.snippet.expand(snippet)
-                end,
-              },
-            })
-
-            MiniSnippets.start_lsp_server();
+            -- _G.MiniSnippets = require 'mini.snippets'
+            -- local snippets  = {
+            --   MiniSnippets.gen_loader.from_lang(),
+            -- }
+            -- for v, t in vim.fs.dir(snippetDir) do
+            --   if t == 'file' and v ~= "package.json" then
+            --     local snippetfile = snippetDir .. "/" .. v
+            --     table.insert(
+            --       snippets,
+            --       MiniSnippets.gen_loader.from_file(snippetfile)
+            --     )
+            --   end
+            -- end
+            -- local match_strict = function(snips)
+            --   return MiniSnippets.default_match(snips, { pattern_fuzzy = '%S+' })
+            -- end
+            -- MiniSnippets.setup({
+            --   snippets = snippets,
+            --   mappings = {
+            --     stop = '',
+            --     expand = '',
+            --     jump_next = '',
+            --     jump_prev = '',
+            --   },
+            --   expand = {
+            --     match = match_strict,
+            --     -- use nvim default
+            --     insert = function(snippet)
+            --       if type(snippet) == "table" then
+            --         if snippet.body then
+            --           snippet = snippet.body
+            --         end
+            --       end
+            --       if type(snippet) ~= "string" then
+            --         vim.notify("cant expand snippet " .. vim.inspect(snippet))
+            --       end
+            --       vim.snippet.expand(snippet)
+            --     end,
+            --   },
+            -- })
+            -- MiniSnippets.start_lsp_server();
           end
           do -- mini.clue
             local MiniClue = require "mini.clue"

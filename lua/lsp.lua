@@ -28,11 +28,11 @@ vim.lsp.enable {
   'nu',
 }
 
-local miniCapabilities = MiniCompletion.get_lsp_capabilities()
-miniCapabilities.textDocument.completion.editsNearCursor = true
-vim.lsp.config('*', {
-  capabilities = miniCapabilities,
-})
+-- local miniCapabilities = MiniCompletion.get_lsp_capabilities()
+-- miniCapabilities.textDocument.completion.editsNearCursor = true
+-- vim.lsp.config('*', {
+--   capabilities = miniCapabilities,
+-- })
 
 vim.diagnostic.config({
   virtual_lines = false,

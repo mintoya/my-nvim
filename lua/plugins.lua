@@ -19,7 +19,48 @@ return {
     },
     lazy = false,
   },
+  {
+    'saghen/blink.cmp',
+    dependencies = { 'rafamadriz/friendly-snippets' },
 
+    -- Using the zpack build function callback
+    build = function(plugin)
+      vim.notify("Building blink.cmp with Cargo... This might take a minute.", vim.log.levels.INFO)
+
+      vim.system(
+        { "cargo", "build", "--release" },
+        { cwd = plugin.path },
+        function(out)
+          if out.code == 0 then
+            vim.schedule(function()
+              vim.notify("blink.cmp built successfully!", vim.log.levels.INFO)
+            end)
+          else
+            vim.schedule(function()
+              vim.notify("blink.cmp build failed. Check your Rust installation.", vim.log.levels.ERROR)
+              print(out.stderr) -- Print the actual cargo error to the message area
+            end)
+          end
+        end
+      )
+    end,
+
+    opts = {
+      keymap = {
+        preset = 'none',
+        ['<C-k>'] = { 'select_prev', 'fallback' },
+        ['<C-j>'] = { 'select_next', 'fallback' },
+        ['<C-l>'] = { 'select_and_accept', 'fallback' },
+      },
+      completion = { documentation = { auto_show = true } },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      -- You can safely prefer rust now that we are building it correctly
+      fuzzy = { implementation = "prefer_rust" }
+    },
+    opts_extend = { "sources.default" }
+  },
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = snippetDir },
