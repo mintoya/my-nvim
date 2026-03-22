@@ -24,7 +24,6 @@ return {
 
     build = function(plugin)
       vim.notify("Building blink.cmp with Cargo... This might take a minute.", vim.log.levels.INFO)
-
       vim.system(
         { "cargo", "build", "--release" },
         { cwd = plugin.path },
@@ -54,7 +53,6 @@ return {
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
-      -- You can safely prefer rust now that we are building it correctly
       fuzzy = { implementation = "prefer_rust" }
     },
     opts_extend = { "sources.default" }
@@ -96,11 +94,15 @@ return {
   {
     url = "https://codeberg.org/andyg/leap.nvim",
     main = "leap",
+    opts = {
+      keys = {
+        next_target = "<C-n>",
+        prev_target = "<C-N>",
+        next_group = "<space>",
+        prev_group = "<tab>",
+      },
+    },
   },
-  -- {
-  --   "folke/flash.nvim",
-  --   opts = {},
-  -- },
   { "ii14/neorepl.nvim" },
   { "OXY2DEV/markview.nvim", opts = { preview = { icon_provider = "mini", } } },
   {

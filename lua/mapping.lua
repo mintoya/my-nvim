@@ -1,5 +1,4 @@
 -- returns mappings that need a plugin to work
-local set = vim.keymap.set
 
 --- @alias KeymapEntry {[1]:string|string[], [2]:string, [3]:string|function, [4]?:vim.keymap.set.Opts}
 --- @type KeymapEntry[]
@@ -110,10 +109,11 @@ local keymap_plugins = {
     function() require "scissors".addNewSnippet() end,
     { desc = "Snippet: Add" }
   },
-  { { 'n', 'x', 'o' }, '<C-s>', '<Plug>(leap-forward)' },
+  { { 'n', 'x', 'o' }, '<C-f>', '<Plug>(leap-forward)' },
   { { 'n', 'x', 'o' }, '<C-S>', '<Plug>(leap-backward)' },
   -- { { 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)' },
 }
+local set = vim.keymap.set
 local array = require "special".metatables.array
 array.new():append(keymaps):append(keymap_plugins):each(function(keymap, _)
   set(keymap[1], keymap[2], keymap[3], keymap[4])
