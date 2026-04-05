@@ -91,18 +91,7 @@ return {
     "lambdalisue/vim-suda",
     cmd = { "SudaRead", "SudaWrite" }
   },
-  {
-    url = "https://codeberg.org/andyg/leap.nvim",
-    main = "leap",
-    opts = {
-      keys = {
-        next_target = "<C-n>",
-        prev_target = "<C-N>",
-        next_group = "<space>",
-        prev_group = "<tab>",
-      },
-    },
-  },
+  { "smoka7/hop.nvim" ,opts = {}},
   { "ii14/neorepl.nvim" },
   { "OXY2DEV/markview.nvim", opts = { preview = { icon_provider = "mini", } } },
   {

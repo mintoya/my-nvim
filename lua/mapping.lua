@@ -109,9 +109,7 @@ local keymap_plugins = {
     function() require "scissors".addNewSnippet() end,
     { desc = "Snippet: Add" }
   },
-  { { 'n', 'x', 'o' }, '<C-f>', '<Plug>(leap-forward)' },
-  { { 'n', 'x', 'o' }, '<C-S>', '<Plug>(leap-backward)' },
-  -- { { 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)' },
+  { { 'n', 'x', 'o' }, '<C-f>', ':HopPattern<cr>' },
 }
 local set = vim.keymap.set
 local array = require "special".metatables.array

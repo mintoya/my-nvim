@@ -73,11 +73,11 @@ require "lsp"
 require "autocmds"
 
 require "vim._core.ui2".enable {
-  enable = true,
-  msg = {
-    target = 'msg',
-    timeout = 5000,
-  },
+  -- enable = true,
+  -- msg = {
+  --   target = 'msg',
+  --   timeout = 5000,
+  -- },
 }
 
 if vim.fn.isdirectory(snippetDir) == 0 then
