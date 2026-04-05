@@ -16,7 +16,7 @@ end
 
 local M = {}
 
-local colorpath = vim.fn.expand("~/.cache/cwal/colors.json");
+local colorpath = vim.fs.joinpath(vim.fn.expand("~"), ".cache/cwal/colors.json")
 
 local configJson = require("special").file.read(colorpath)
 
