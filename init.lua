@@ -72,16 +72,42 @@ require "dirs"
 require "lsp"
 require "autocmds"
 
-require "vim._core.ui2".enable {
-  -- enable = true,
-  -- msg = {
-  --   target = 'msg',
-  --   timeout = 5000,
-  -- },
-}
+require "vim._core.ui2".enable {}
 
 if vim.fn.isdirectory(snippetDir) == 0 then
   vim.fn.mkdir(snippetDir, "p")
 end
 
 vim.notify("startup: " .. (os.clock() - profileStart) * 1000);
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.MultiFoldMarker(v:lnum)"
+
+
+function _G.MultiFoldMarker(lnum)
+  local line = vim.fn.getline(lnum)
+
+  -- Count { and }
+  local opens = select(2, line:gsub("{", ""))
+  local closes = select(2, line:gsub("}", ""))
+
+  -- %( escapes the parenthesis, %s*$ ignores trailing spaces before the newline
+  if line:match("%($") then
+    opens = opens + 1
+  end
+
+  -- Subtract a fold if the line starts with )
+  -- ^%s* ignores leading spaces after the newline, %) escapes the parenthesis
+  if line:match("^%)") then
+    closes = closes + 1
+  end
+
+  if opens > closes then
+    return "a" .. (opens - closes)
+  end
+  if closes > opens then
+    return "s" .. (closes - opens)
+  end
+
+  return "="
+end

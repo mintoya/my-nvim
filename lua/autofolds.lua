@@ -1,71 +1,68 @@
 local foldTable = {
-  help             = "manual",
-  snacks_dashboard = "manual",
-  dashboard        = "manual",
-  Fyler            = "manual",
-  fyler            = "manual",
-  lazy             = "manual",
-  Lazy             = "manual",
-  lua              = "expr",
-  c                = "syntax",
-  cpp              = "syntax",
-  markdown         = "manual",
+  help             = { method = "manual" },
+  snacks_dashboard = { method = "manual" },
+  dashboard        = { method = "manual" },
+  Fyler            = { method = "manual" },
+  fyler            = { method = "manual" },
+  lazy             = { method = "manual" },
+  Lazy             = { method = "manual" },
+  lua              = { method = "expr" },
+  c                = { method = "expr", expr = "v:lua.cfold()" },
+  cpp              = { method = "syntax" },
+  markdown         = { method = "manual" },
 }
 
 local fMeta = setmetatable({}, {
   __index = function(_, key)
-    return foldTable[key] or "indent"
+    return foldTable[key] or { method = "indent" }
   end
 })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "*" },
-  callback = function()
-    vim.cmd.set("foldmethod=" .. fMeta[vim.bo.filetype])
-    vim.cmd.set("foldmarker=" .. "{,}")
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    local fmt = fMeta[ft]
+
+    vim.opt_local.foldmethod = fmt.method
+
+    if fmt[fmt.method] then
+      vim.opt_local["fold" .. fmt.method] = fmt[fmt.method]
+    end
   end,
 })
-_G.fold_special = function()
-  local foldstart = vim.v.foldstart
-  local foldend = vim.v.foldend
-  local count = foldend - foldstart + 1
-  local fallback = { "  ^--  " .. count, "@spell" }
-  local line = vim.fn.getline(vim.v.foldstart)
-  local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
-  local parser = vim.treesitter.get_parser(0, lang)
+_G.cfold = function()
+  -- Cache the line number so we don't query Vim's C-API repeatedly
+  local lnum = vim.v.lnum
+  local line = vim.fn.getline(lnum)
 
-  if not parser then return { fallback } end
-  local query = vim.treesitter.query.get(parser:lang(), "highlights")
-  if not query then return { fallback } end
+  local _, brackets_a = line:find("{")
+  local _, brackets_b = line:find("}")
 
-  local tree = parser:parse({ foldstart - 1, foldstart })[1]
 
-  local result = {}
-  setmetatable(result, { __index = table })
+  -- Escape the parentheses with % so Lua looks for the literal characters
+  local _, parens_a = line:find("%(")
+  local _, parens_b = line:find("%)")
 
-  local line_pos = 0
-  local prev_range = nil
+  local nextindent = function()
+    return vim.fn.indent(lnum) < vim.fn.indent(lnum + 1)
+  end
 
-  for id, node, _ in query:iter_captures(tree:root(), 0, foldstart - 1, foldstart) do
-    local name = query.captures[id]
-    local start_row, start_col, end_row, end_col = node:range()
-    if start_row == foldstart - 1 and end_row == foldstart - 1 then
-      local range = { start_col, end_col }
-      if start_col > line_pos then
-        result:insert({ line:sub(line_pos + 1, start_col), "Folded" })
-      end
-      line_pos = end_col
-      local text = vim.treesitter.get_node_text(node, 0)
-      if prev_range ~= nil and range[1] == prev_range[1] and range[2] == prev_range[2] then
-        result[#result] = { text, "@" .. name }
-      else
-        result:insert({ text, "@" .. name })
-      end
-      prev_range = range
+  local previndent = function()
+    return vim.fn.indent(lnum - 1) > vim.fn.indent(lnum)
+  end
+
+  if (brackets_a and not brackets_b) or (parens_a and not parens_b) then
+    if nextindent() then
+      return "a1"
     end
   end
-  table.insert(result, fallback);
-  return result
+  if (brackets_b and not brackets_a) or (parens_b and not parens_a) then
+    if previndent() then
+      return "s1"
+    end
+  end
+  return "="
 end
--- vim.wo.foldtext = "v:lua.fold_special()"
 vim.wo.foldtext = ""
+
