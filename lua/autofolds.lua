@@ -31,38 +31,34 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+local lchartable = {
+  ["{"] = 1,
+  ["}"] = -1,
+  ["("] = 1,
+  [")"] = -1,
+  ["["] = 1,
+  ["]"] = -1,
+}
 _G.cfold = function()
-  -- Cache the line number so we don't query Vim's C-API repeatedly
   local lnum = vim.v.lnum
   local line = vim.fn.getline(lnum)
 
-  local _, brackets_a = line:find("{")
-  local _, brackets_b = line:find("}")
 
-
-  -- Escape the parentheses with % so Lua looks for the literal characters
-  local _, parens_a = line:find("%(")
-  local _, parens_b = line:find("%)")
-
-  local nextindent = function()
-    return vim.fn.indent(lnum) < vim.fn.indent(lnum + 1)
+  local diff = 0
+  for c in line:gmatch(".") do
+    diff = diff + (lchartable[c] or 0)
   end
 
-  local previndent = function()
-    return vim.fn.indent(lnum - 1) > vim.fn.indent(lnum)
-  end
-
-  if (brackets_a and not brackets_b) or (parens_a and not parens_b) then
-    if nextindent() then
-      return "a1"
+  if diff > 0 then
+    return "a" .. diff
+  else
+    if diff < 0 then
+      return "s" .. -diff
+    else
+      return "="
     end
   end
-  if (brackets_b and not brackets_a) or (parens_b and not parens_a) then
-    if previndent() then
-      return "s1"
-    end
-  end
-  return "="
 end
-vim.wo.foldtext = ""
 
+vim.wo.foldtext = ""
