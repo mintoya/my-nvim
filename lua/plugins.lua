@@ -8,6 +8,7 @@ return {
       },
     },
   },
+  { "rluba/jai.vim" },
 
   {
     "mason-org/mason-lspconfig.nvim",
@@ -18,45 +19,45 @@ return {
       { "neovim/nvim-lspconfig", }
     },
   },
-  {
-    'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
-
-    build = function(plugin)
-      vim.notify("Building blink.cmp with Cargo... This might take a minute.", vim.log.levels.INFO)
-      vim.system(
-        { "cargo", "build", "--release" },
-        { cwd = plugin.path },
-        function(out)
-          if out.code == 0 then
-            vim.schedule(function()
-              vim.notify("blink.cmp built successfully!", vim.log.levels.INFO)
-            end)
-          else
-            vim.schedule(function()
-              vim.notify("blink.cmp build failed ", vim.log.levels.ERROR)
-              vim.print(out.stderr)
-            end)
-          end
-        end
-      )
-    end,
-
-    opts = {
-      keymap = {
-        preset = 'none',
-        ['<C-k>'] = { 'select_prev', 'fallback' },
-        ['<C-j>'] = { 'select_next', 'fallback' },
-        ['<C-l>'] = { 'select_and_accept', 'fallback' },
-      },
-      completion = { documentation = { auto_show = true } },
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
-      },
-      fuzzy = { implementation = "prefer_rust" }
-    },
-    opts_extend = { "sources.default" }
-  },
+  -- {
+  --   'saghen/blink.cmp',
+  --   dependencies = { 'rafamadriz/friendly-snippets', 'saghen/blink.lib' },
+  --
+  --   build = function(plugin)
+  --     vim.notify("Building blink.cmp with Cargo... This might take a minute.", vim.log.levels.INFO)
+  --     vim.system(
+  --       { "cargo", "build", "--release" },
+  --       { cwd = plugin.path },
+  --       function(out)
+  --         if out.code == 0 then
+  --           vim.schedule(function()
+  --             vim.notify("blink.cmp built successfully!", vim.log.levels.INFO)
+  --           end)
+  --         else
+  --           vim.schedule(function()
+  --             vim.notify("blink.cmp build failed ", vim.log.levels.ERROR)
+  --             vim.print(out.stderr)
+  --           end)
+  --         end
+  --       end
+  --     )
+  --   end,
+  --
+  --   opts = {
+  --     keymap = {
+  --       preset = 'none',
+  --       ['<C-k>'] = { 'select_prev', 'fallback' },
+  --       ['<C-j>'] = { 'select_next', 'fallback' },
+  --       ['<C-l>'] = { 'select_and_accept', 'fallback' },
+  --     },
+  --     completion = { documentation = { auto_show = true } },
+  --     sources = {
+  --       default = { 'lsp', 'path', 'snippets', 'buffer' },
+  --     },
+  --     fuzzy = { implementation = "prefer_rust" }
+  --   },
+  --   opts_extend = { "sources.default" }
+  -- },
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = snippetDir },
@@ -79,9 +80,10 @@ return {
   { "rachartier/tiny-inline-diagnostic.nvim", opts = {}, },
   -- colorshcemes
   { "nitinbhat972/cwal.nvim", },
-  { "vague-theme/vague.nvim", opts = {transparent = true} },
+  { "vague-theme/vague.nvim",                 opts = { transparent = true } },
   { "catppuccin/nvim", },
   { "folke/tokyonight.nvim", },
+  { "smlx/nocte" },
 
   {
     "folke/trouble.nvim",
@@ -91,9 +93,9 @@ return {
     "lambdalisue/vim-suda",
     cmd = { "SudaRead", "SudaWrite" }
   },
-  { "smoka7/hop.nvim" ,opts = {}},
+  { "smoka7/hop.nvim",  opts = {} },
   { "ii14/neorepl.nvim" },
-  { "OXY2DEV/markview.nvim", opts = { preview = { icon_provider = "mini", } } },
+  -- { "OXY2DEV/markview.nvim", opts = { preview = { icon_provider = "mini", } } },
   {
     "folke/lazydev.nvim",
     opts = {

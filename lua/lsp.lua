@@ -13,10 +13,6 @@ vim.lsp.config.clangd = {
     fallbackFlags = { '-std=c2y' },
   },
 }
-vim.lsp.config.denols = {
-  cmd = { "deno", "lsp" },
-  filetypes = { 'javascript' },
-}
 vim.lsp.enable {
   'lua_ls',
   -- 'arduino_language_server',
@@ -28,11 +24,11 @@ vim.lsp.enable {
   'nu',
 }
 
--- local miniCapabilities = MiniCompletion.get_lsp_capabilities()
--- miniCapabilities.textDocument.completion.editsNearCursor = true
--- vim.lsp.config('*', {
---   capabilities = miniCapabilities,
--- })
+local miniCapabilities = MiniCompletion.get_lsp_capabilities()
+miniCapabilities.textDocument.completion.editsNearCursor = true
+vim.lsp.config('*', {
+  capabilities = miniCapabilities,
+})
 
 vim.diagnostic.config({
   virtual_lines = false,

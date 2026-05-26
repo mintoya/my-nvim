@@ -1,6 +1,5 @@
 local profileStart = os.clock()
 math.randomseed(profileStart) -- for some random colorshcemes
-
 _G.dataPath   = vim.fn.stdpath "data"
 _G.configPath = vim.fn.stdpath "config"
 _G.colorfile  = vim.fs.joinpath(configPath, "current-theme.txt")
