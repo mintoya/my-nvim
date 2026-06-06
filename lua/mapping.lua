@@ -13,7 +13,6 @@ local keymaps = {
   { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = true, silent = true } },
   { "n", "<Tab>", "<C-w>",             { desc = "buffer actions", noremap = true, silent = true } },
 
-  { "t", "<Esc>", [[<C-\><C-n>]],      { noremap = true } },
   { "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
 
   --cmp
@@ -119,12 +118,13 @@ end)
 
 return function()
   local MiniKeymap = _G.MiniKeymap
+
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-j>', { 'pmenu_next' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-k>', { 'pmenu_prev' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-l>', { 'pmenu_accept' })
 
-  MiniKeymap.map_combo({ 'n', 'i' }, '<C-w>>', '<C-w>', { delay = 100 })
-  MiniKeymap.map_combo({ 'n', 'i' }, '<C-w><', '<C-w>', { delay = 100 })
+  -- MiniKeymap.map_combo({ 'n', 'i' }, '<C-w>>', '<C-w>', { delay = 1})
+  -- MiniKeymap.map_combo({ 'n', 'i' }, '<C-w><', '<C-w>', { delay = 1})
 
 
   local MiniFiles = _G.MiniFiles

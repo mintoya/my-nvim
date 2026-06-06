@@ -17,17 +17,15 @@ vim.lsp.enable {
   'lua_ls',
   -- 'arduino_language_server',
   'clangd',
-  'denols',
   -- 'ccls',
   -- 'zenc',
-  'zls',
   'nu',
 }
 
-local miniCapabilities = MiniCompletion.get_lsp_capabilities()
-miniCapabilities.textDocument.completion.editsNearCursor = true
-vim.lsp.config('*', {
-  capabilities = miniCapabilities,
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, {})
+  end,
 })
 
 vim.diagnostic.config({

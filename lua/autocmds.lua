@@ -1,7 +1,7 @@
 local special = require "special"
 do -- autocommands
   vim.api.nvim_create_autocmd("ColorScheme", {
-    callback = function(afile, _)
+    callback = function(afile)
       special.file.write(colorfile, afile.match)
     end
   })
@@ -19,13 +19,6 @@ do -- autocommands
       end
     end
   })
-  -- vim.api.nvim_create_autocmd("Signal", {
-  --   pattern = "SIGWINCH",
-  --   callback = function()
-  --     local layout = vim.fn.winlayout;
-  --     vim.notify(vim.inspect(layout))
-  --   end
-  -- })
 end
 do -- usercommands
   vim.api.nvim_create_user_command('VText',
@@ -43,18 +36,6 @@ do -- usercommands
         end
         return res
       end,
-    }
-  )
-  vim.api.nvim_create_user_command('TermClear',
-    function(opts)
-      vim.fn.feedkeys("", 'n')
-      local sb = vim.bo.scrollback
-      vim.bo.scrollback = 1
-      vim.bo.scrollback = sb
-    end,
-    {
-      nargs = 0,
-      desc  = "clear terminal",
     }
   )
   vim.api.nvim_create_user_command('Z',

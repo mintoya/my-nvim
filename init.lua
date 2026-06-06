@@ -1,5 +1,6 @@
 local profileStart = os.clock()
 math.randomseed(profileStart) -- for some random colorshcemes
+
 _G.dataPath   = vim.fn.stdpath "data"
 _G.configPath = vim.fn.stdpath "config"
 _G.colorfile  = vim.fs.joinpath(configPath, "current-theme.txt")
@@ -28,7 +29,8 @@ local vimOptions = {
   linebreak      = true,
 
   complete       = '.,w,b,kspell',
-  completeopt    = { "menuone", "noinsert", "noselect" },
+  completeopt    = { "fuzzy", "menuone", "noinsert", "noselect" },
+  autocomplete   = true,
 
 
 
@@ -44,6 +46,7 @@ local vimOptions = {
   shellcmdflag = "-c",
   shellquote   = "",
   shellxquote  = "",
+  shellpipe    = "e>| ^tee %s",
   -- neovide
   guifont      = "Iosevka Nerd Font",
   shada        = "'100,<50,s10,:1000,/100,@100,h"
