@@ -16,9 +16,9 @@ local keymaps = {
   { "t", "<C-w>", [[<C-\><C-n>]],    { noremap = true, silent = true } },
 
   --cmp
-  { 'c', '<C-l>', function()
-    return vim.fn.wildmenumode() ~= 0 and '<C-L>' or '<C-l>'
-  end, { expr = true, noremap = true } },
+  -- { 'c', '<C-l>', function()
+  --   return vim.fn.wildmenumode() ~= 0 and '<C-L>' or '<C-l>'
+  -- end, { expr = true, noremap = true } },
   { { 'i',        's' }, '<Tab>', function()
     return
         vim.snippet.active({ direction = 1 }) and

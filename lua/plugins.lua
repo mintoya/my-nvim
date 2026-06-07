@@ -20,12 +20,6 @@ return {
   },
   {
     'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      -- 'L3MON4D3/LuaSnip',
-    },
     config = function()
       local cmp = require('cmp')
       cmp.setup({
@@ -37,39 +31,7 @@ return {
       })
     end,
   },
-  -- {
-  --   'saghen/blink.cmp',
-  --   dependencies = { 'rafamadriz/friendly-snippets', 'saghen/blink.lib' },
-  --
-  --   build = function(plugin)
-  --     vim.notify("Building blink.cmp with Cargo... This might take a minute.", vim.log.levels.INFO)
-  --     vim.system(
-  --       { "cargo", "build", "--release" },
-  --       { cwd = plugin.path },
-  --       function(out)
-  --         if out.code == 0 then
-  --           vim.schedule(function()
-  --             vim.notify("blink.cmp built successfully!", vim.log.levels.INFO)
-  --           end)
-  --         else
-  --           vim.schedule(function()
-  --             vim.notify("blink.cmp build failed ", vim.log.levels.ERROR)
-  --             vim.print(out.stderr)
-  --           end)
-  --         end
-  --       end
-  --     )
-  --   end,
-  --
-  --   opts = {
-  --     completion = { documentation = { auto_show = true } },
-  --     sources = {
-  --       default = { 'lsp', 'path', 'snippets', 'buffer' },
-  --     },
-  --     fuzzy = { implementation = "prefer_rust" }
-  --   },
-  --   opts_extend = { "sources.default" }
-  -- },
+
   {
     "chrisgrieser/nvim-scissors",
     opts = { snippetDir = snippetDir },
