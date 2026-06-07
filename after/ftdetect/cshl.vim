@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *.myl set filetype=mylang
+autocmd BufRead,BufNewFile *.cshl set filetype=cshl

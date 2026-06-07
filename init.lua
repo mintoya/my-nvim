@@ -28,9 +28,9 @@ local vimOptions = {
   showbreak      = "  ",
   linebreak      = true,
 
-  complete       = '.,w,b,kspell',
-  completeopt    = { "fuzzy", "menuone", "noinsert", "noselect" },
-  autocomplete   = true,
+  -- complete       = '.,w,b,kspell',
+  -- completeopt    = { "fuzzy", "menuone", "noinsert", "noselect" },
+  -- autocomplete   = true,
 
 
 

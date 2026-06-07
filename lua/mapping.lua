@@ -3,17 +3,17 @@
 --- @alias KeymapEntry {[1]:string|string[], [2]:string, [3]:string|function, [4]?:vim.keymap.set.Opts}
 --- @type KeymapEntry[]
 local keymaps = {
-  { 'n', ';',     ':',                 { noremap = false, silent = false } },
+  { 'n', ';',     ':',               { noremap = false, silent = false } },
 
   { { "n",          "v" },
     'y', '"+y', { noremap = true, silent = true } },
-  { 'v', "<<",    "<gv",               { desc = "unindent visual", noremap = false, silent = false } },
-  { 'v', ">>",    ">gv",               { desc = "indent visual", noremap = false, silent = false } },
+  { 'v', "<<",    "<gv",             { desc = "unindent visual", noremap = false, silent = false } },
+  { 'v', ">>",    ">gv",             { desc = "indent visual", noremap = false, silent = false } },
 
-  { "n", "<Esc>", ":nohlsearch<cr>",   { noremap = true, silent = true } },
-  { "n", "<Tab>", "<C-w>",             { desc = "buffer actions", noremap = true, silent = true } },
+  { "n", "<Esc>", ":nohlsearch<cr>", { noremap = true, silent = true } },
+  { "n", "<Tab>", "<C-w>",           { desc = "buffer actions", noremap = true, silent = true } },
 
-  { "t", "<C-w>", [[<C-\><C-n><C-w>]], { noremap = true, silent = true } },
+  { "t", "<C-w>", [[<C-\><C-n>]],    { noremap = true, silent = true } },
 
   --cmp
   { 'c', '<C-l>', function()
@@ -117,7 +117,6 @@ array.new():append(keymaps):append(keymap_plugins):each(function(keymap, _)
 end)
 
 return function()
-  local MiniKeymap = _G.MiniKeymap
 
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-j>', { 'pmenu_next' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-k>', { 'pmenu_prev' })
@@ -127,14 +126,11 @@ return function()
   -- MiniKeymap.map_combo({ 'n', 'i' }, '<C-w><', '<C-w>', { delay = 1})
 
 
-  local MiniFiles = _G.MiniFiles
   set('n', "<leader>e",
     MiniFiles.open,
     { desc = "edit files", noremap = true, silent = true }
   )
 
-  local MiniPick = _G.MiniPick
-  local MiniExtra = _G.MiniExtra
   set("n", "<leader>c",
     MiniExtra.pickers.colorschemes,
     { desc = "change colorscheme", noremap = true, silent = true }

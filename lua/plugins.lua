@@ -8,7 +8,6 @@ return {
       },
     },
   },
-  { "rluba/jai.vim" },
 
   {
     "mason-org/mason-lspconfig.nvim",
@@ -18,6 +17,25 @@ return {
       { "mfussenegger/nvim-dap", },
       { "neovim/nvim-lspconfig", }
     },
+  },
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      -- 'L3MON4D3/LuaSnip',
+    },
+    config = function()
+      local cmp = require('cmp')
+      cmp.setup({
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
+      })
+    end,
   },
   -- {
   --   'saghen/blink.cmp',
@@ -44,12 +62,6 @@ return {
   --   end,
   --
   --   opts = {
-  --     keymap = {
-  --       preset = 'none',
-  --       ['<C-k>'] = { 'select_prev', 'fallback' },
-  --       ['<C-j>'] = { 'select_next', 'fallback' },
-  --       ['<C-l>'] = { 'select_and_accept', 'fallback' },
-  --     },
   --     completion = { documentation = { auto_show = true } },
   --     sources = {
   --       default = { 'lsp', 'path', 'snippets', 'buffer' },
@@ -77,10 +89,10 @@ return {
       end)
     end
   },
-  { "rachartier/tiny-inline-diagnostic.nvim", opts = {}, },
+  -- { "rachartier/tiny-inline-diagnostic.nvim", opts = {}, },
   -- colorshcemes
   { "nitinbhat972/cwal.nvim", },
-  { "vague-theme/vague.nvim",                 opts = { transparent = true } },
+  { "vague-theme/vague.nvim", opts = { transparent = true } },
   { "catppuccin/nvim", },
   { "folke/tokyonight.nvim", },
   { "smlx/nocte" },

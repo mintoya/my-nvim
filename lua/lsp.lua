@@ -1,18 +1,12 @@
 vim.lsp.config.nu = {
   cmd = { 'nu', '-n', '--lsp' },
   filetypes = { 'nu' },
-  root_dir = function(bufnr, on_dir)
-    on_dir(vim.fs.root(bufnr, { '.git' }) or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
-  end,
 }
 vim.lsp.config.clangd = {
-  -- cmd = { 'clangd' },
-  cmd = { 'clangd', '--background-index', '--query-driver=**' },
+  cmd = { 'clangd', '--background-index', '--query-driver=**', },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'arduino' },
-  initializationOptions = {
-    fallbackFlags = { '-std=c2y' },
-  },
 }
+
 vim.lsp.enable {
   'lua_ls',
   -- 'arduino_language_server',
@@ -22,14 +16,8 @@ vim.lsp.enable {
   'nu',
 }
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, {})
-  end,
-})
-
 vim.diagnostic.config({
-  virtual_lines = false,
+  virtual_lines = true,
   virtual_text = false,
   underline = true,
   update_in_insert = false,
