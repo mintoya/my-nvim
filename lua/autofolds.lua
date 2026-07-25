@@ -8,7 +8,7 @@ local foldTable = {
   Lazy             = { method = "manual" },
   lua              = { method = "expr" },
   c                = { method = "expr", expr = "v:lua.cfold()" },
-  cpp              = { method = "syntax" },
+  cpp              = { method = "expr", expr = "v:lua.cfold()" },
   markdown         = { method = "manual" },
 }
 
@@ -40,6 +40,35 @@ local lchartable = {
   ["["] = 1,
   ["]"] = -1,
 }
+
+local fold_cache = {}
+_G.cfold2 = function()
+  local lnum = vim.v.lnum
+  local line = vim.fn.getline(lnum);
+
+  if string.match(line, "^%s*$") then
+    return "-1"
+  end;
+
+  local sw = vim.fn.shiftwidth();
+
+  local function get_level(l)
+    if l <= 0 or l > vim.fn.line('$') then return 0 end;
+    return math.floor(vim.fn.indent(l) / sw)
+  end;
+
+  local result = get_level(lnum);
+
+  local p_lnum = vim.fn.prevnonblank(lnum - 1);
+  local n_lnum = vim.fn.nextnonblank(lnum + 1);
+
+  local p = p_lnum > 0 and get_level(p_lnum) or result;
+  local n = n_lnum > 0 and get_level(n_lnum) or result;
+
+  if n > p then return n end;
+  if n < p then return p end;
+  return result;
+end
 _G.cfold = function()
   local lnum = vim.v.lnum
   local line = vim.fn.getline(lnum)

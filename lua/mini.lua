@@ -75,19 +75,19 @@ vim.pack.add(
               }
             }
           end
-          do -- mini.starter
-            local MiniStarter = require "mini.starter"
-            MiniStarter.setup {
-              header         = header,
-              footer         = "",
-              query_updaters = "",
-              content_hooks  = {
-                MiniStarter.gen_hook.adding_bullet('- '),
-                MiniStarter.gen_hook.aligning('center', 'center'),
-              },
+--        do -- mini.starter
+--          local MiniStarter = require "mini.starter"
+--          MiniStarter.setup {
+--            header         = header,
+--            footer         = "",
+--            query_updaters = "",
+--            content_hooks  = {
+--              MiniStarter.gen_hook.adding_bullet('- '),
+--              MiniStarter.gen_hook.aligning('center', 'center'),
+--            },
 
-            }
-          end
+--          }
+--        end
           do -- mini.files
             _G.MiniFiles = require "mini.files"
             MiniFiles.setup {

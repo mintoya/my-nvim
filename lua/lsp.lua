@@ -3,8 +3,15 @@ vim.lsp.config.nu = {
   filetypes = { 'nu' },
 }
 vim.lsp.config.clangd = {
-  cmd = { 'clangd', '--background-index', '--query-driver=**', },
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'arduino' },
+  cmd = {
+    'clangd',
+    -- "--fallback-style=none",
+    "--background-index",
+    -- "-all-scopes-completion",
+    -- "--completion-style=detailed",
+    "--j=3",
+    -- "--pch-storage=memory", -- or "disk" if RAM is the issue
+  }
 }
 
 vim.lsp.enable {
