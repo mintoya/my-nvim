@@ -29,7 +29,6 @@ local vimOptions = {
   linebreak      = true,
 
   -- complete       = '.,w,b,kspell',
-  -- completeopt    = { "fuzzy", "menuone", "noinsert", "noselect" },
   -- autocomplete   = true,
 
 
@@ -39,7 +38,6 @@ local vimOptions = {
   laststatus   = 3,
   pumborder    = "rounded",
   winborder    = "rounded",
-  pummaxwidth  = 30,
   cursorline   = true,
 
   shell        = "nu",
@@ -49,11 +47,16 @@ local vimOptions = {
   shellpipe    = "e>| ^tee %s",
   -- neovide
   guifont      = "Iosevka Nerd Font",
-  shada        = "'100,<50,s10,:1000,/100,@100,h"
+  -- shada        = "'100,<50,s10,:1000,/100,@100,h"
 }
 for k, v in pairs(vimOptions) do
   vim.opt[k] = v
 end
+vim.cmd("set completeopt+=noselect")
+vim.cmd([[
+  syntax match NonAsciiError /[^\x00-\x7F]/
+  highlight link NonAsciiError ErrorMsg
+]])
 
 vim.cmd.set("foldopen+=insert")
 
