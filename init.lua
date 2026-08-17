@@ -84,3 +84,4 @@ if vim.fn.isdirectory(snippetDir) == 0 then
 end
 
 vim.notify("startup: " .. (os.clock() - profileStart) * 1000);
+

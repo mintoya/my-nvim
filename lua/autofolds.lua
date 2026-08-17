@@ -1,3 +1,49 @@
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  group = vim.api.nvim_create_augroup('TreesitterCustomParser', { clear = true }),
+  callback = function(args)
+    local filepath = vim.api.nvim_buf_get_name(args.buf)
+    if filepath == "" then return end
+
+    local config_matches = vim.fs.find(".tsconfig.json", {
+      upward = true,
+      path = vim.fs.dirname(filepath),
+    })
+
+    local config_file = config_matches[1]
+    if config_file then
+      local f = io.open(config_file, "r")
+      if f then
+        local content = f:read("*a")
+        f:close()
+        local ok, config = pcall(vim.json.decode, content)
+
+        if ! ok or ! config or ! config.extension or ! config.path then return end
+        local ext = config.extension
+        vim.filetype.add({ extension = { [ext] = ext } })
+
+        vim.treesitter.language.add(ext, { path = config.path })
+
+        if config.highlights then
+          local hq_file = io.open(config.highlights, "r")
+          if hq_file then
+            local query_text = hq_file:read("*a")
+            hq_file:close()
+            vim.treesitter.query.set(ext, "highlights", query_text)
+          end
+        end
+        if config.folds then
+          local fq_file = io.open(config.folds, "r")
+          if fq_file then
+            local query_text = fq_file:read("*a")
+            fq_file:close()
+            vim.treesitter.query.set(ext, "folds", query_text)
+          end
+        end
+      end
+    end
+  end,
+})
+
 local foldTable = {
   help             = { method = "manual" },
   snacks_dashboard = { method = "manual" },
@@ -6,21 +52,23 @@ local foldTable = {
   fyler            = { method = "manual" },
   lazy             = { method = "manual" },
   Lazy             = { method = "manual" },
-  lua              = { method = "expr" },
-  c                = { method = "expr", expr = "v:lua.cfold()" },
-  cpp              = { method = "expr", expr = "v:lua.cfold()" },
   markdown         = { method = "manual" },
 }
 
-local fMeta = setmetatable({}, {
-  __index = function(_, key)
-    return foldTable[key] or { method = "indent" }
+local fMeta = setmetatable(foldTable, {
+  __index = function(tbl, key)
+    if pcall(vim.treesitter.get_parser, 0) then
+      return { method = "expr", expr = "v:lua.vim.treesitter.foldexpr()" }
+    end
+    return tbl[key] or { method = "indent" }
   end
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup('TreesitterSetup', { clear = true }),
   pattern = { "*" },
   callback = function(args)
+    pcall(vim.treesitter.start)
     local ft = vim.bo[args.buf].filetype
     local fmt = fMeta[ft]
 
@@ -31,63 +79,3 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
-
-local lchartable = {
-  ["{"] = 1,
-  ["}"] = -1,
-  ["("] = 1,
-  [")"] = -1,
-  ["["] = 1,
-  ["]"] = -1,
-}
-
-local fold_cache = {}
-_G.cfold2 = function()
-  local lnum = vim.v.lnum
-  local line = vim.fn.getline(lnum);
-
-  if string.match(line, "^%s*$") then
-    return "-1"
-  end;
-
-  local sw = vim.fn.shiftwidth();
-
-  local function get_level(l)
-    if l <= 0 or l > vim.fn.line('$') then return 0 end;
-    return math.floor(vim.fn.indent(l) / sw)
-  end;
-
-  local result = get_level(lnum);
-
-  local p_lnum = vim.fn.prevnonblank(lnum - 1);
-  local n_lnum = vim.fn.nextnonblank(lnum + 1);
-
-  local p = p_lnum > 0 and get_level(p_lnum) or result;
-  local n = n_lnum > 0 and get_level(n_lnum) or result;
-
-  if n > p then return n end;
-  if n < p then return p end;
-  return result;
-end
-_G.cfold = function()
-  local lnum = vim.v.lnum
-  local line = vim.fn.getline(lnum)
-
-
-  local diff = 0
-  for c in line:gmatch(".") do
-    diff = diff + (lchartable[c] or 0)
-  end
-
-  if diff > 0 then
-    return "a" .. diff
-  else
-    if diff < 0 then
-      return "s" .. -diff
-    else
-      return "="
-    end
-  end
-end
-
-vim.wo.foldtext = ""

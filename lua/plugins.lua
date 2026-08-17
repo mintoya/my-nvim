@@ -1,13 +1,5 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "markdown",
-        "markdown_inline",
-      },
-    },
-  },
+  { "nvim-treesitter/nvim-treesitter", },
 
   {
     "mason-org/mason-lspconfig.nvim",
