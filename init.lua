@@ -85,3 +85,4 @@ end
 
 vim.notify("startup: " .. (os.clock() - profileStart) * 1000);
 
+vim.filetype.add { extension = { rv = "revo" } }

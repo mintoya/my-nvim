@@ -13,9 +13,18 @@ vim.lsp.config.clangd = {
     -- "--pch-storage=memory", -- or "disk" if RAM is the issue
   }
 }
+vim.lsp.config.revo = {
+  cmd = { 'revo', '--lsp' }, -- or path to 'revolt' binary
+  filetypes = { 'revo' },    -- adjust to your Revo file extension/type
+  root_markers = { '.git' },
+}
+
+
 
 vim.lsp.enable {
+  'revo',
   'lua_ls',
+  'zls',
   -- 'arduino_language_server',
   'clangd',
   -- 'ccls',

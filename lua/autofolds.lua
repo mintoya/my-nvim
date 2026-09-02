@@ -51,6 +51,8 @@ local foldTable = {
   Fyler            = { method = "manual" },
   fyler            = { method = "manual" },
   lazy             = { method = "manual" },
+  c                = { method = "indent" },
+  cpp              = { method = "indent" },
   Lazy             = { method = "manual" },
   markdown         = { method = "manual" },
 }

@@ -108,6 +108,10 @@ local keymap_plugins = {
     function() require "scissors".addNewSnippet() end,
     { desc = "Snippet: Add" }
   },
+  { 'n', "<leader>gne",
+    function() vim.diagnostic.goto_next() end,
+    { desc = "goto next error" }
+  },
   { { 'n', 'x', 'o' }, '<C-f>', ':HopPattern<cr>' },
 }
 local set = vim.keymap.set
@@ -117,7 +121,6 @@ array.new():append(keymaps):append(keymap_plugins):each(function(keymap, _)
 end)
 
 return function()
-
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-j>', { 'pmenu_next' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-k>', { 'pmenu_prev' })
   MiniKeymap.map_multistep({ 'i', 'c' }, '<C-l>', { 'pmenu_accept' })
