@@ -10,6 +10,7 @@ _G.snippetDir = vim.fs.joinpath(configPath, "snippets")
 vim.g.mapleader = " "
 --settings
 local vimOptions = {
+  exrc           = true,
   splitright     = true,
   splitbelow     = true,
   signcolumn     = "yes",
