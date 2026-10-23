@@ -2,6 +2,13 @@ vim.lsp.config.nu = {
   cmd = { 'nu', '-n', '--lsp' },
   filetypes = { 'nu' },
 }
+vim.lsp.config.zls = {
+  settings = {
+    zls = {
+      enable_build_on_save = true,
+    },
+  },
+}
 vim.lsp.config.clangd = {
   cmd = {
     'clangd',
@@ -19,11 +26,19 @@ vim.lsp.config.revo = {
   root_markers = { '.git' },
 }
 
+vim.filetype.add { extension = { nelua = 'nelua' } }
+local nelua_lsp_path = vim.pack.get({ 'nelua-lsp' })[1].path
+vim.lsp.config.nelua_lsp = {
+  cmd = { 'nelua', '-L', nelua_lsp_path, '--script', vim.fs.joinpath(nelua_lsp_path, 'main.lua') },
+  filetypes = { 'nelua' },
+  root_markers = { 'Makefile', '.git' },
+}
 
 
 vim.lsp.enable {
   'revo',
   'lua_ls',
+  'nelua_lsp',
   'zls',
   -- 'arduino_language_server',
   'clangd',

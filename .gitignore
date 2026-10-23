@@ -6,3 +6,4 @@ noice.log
 lua/current-theme.lua
 nvim-pack-lock.json
 current-theme.txt
+/nvim.log

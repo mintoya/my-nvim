@@ -1,5 +1,7 @@
 return {
   { "nvim-treesitter/nvim-treesitter", },
+  { "stefanos82/nelua.vim", },
+  { "kmafeni04/nelua-lsp", },
 
   {
     "mason-org/mason-lspconfig.nvim",
@@ -29,20 +31,6 @@ return {
     opts = { snippetDir = snippetDir },
   },
 
-
-  {
-    "jake-stewart/multicursor.nvim",
-    main = "multicursor-nvim",
-    config = function()
-      local mc = require "multicursor-nvim"
-      mc.setup {}
-      mc.addKeymapLayer(function(layerSet)
-        layerSet("n", "<esc>", function()
-          require "multicursor-nvim".clearCursors()
-        end)
-      end)
-    end
-  },
   -- { "rachartier/tiny-inline-diagnostic.nvim", opts = {}, },
   -- colorshcemes
   { "nitinbhat972/cwal.nvim", },

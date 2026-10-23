@@ -73,25 +73,11 @@ local keymaps = {
 --- @type KeymapEntry[]
 local keymap_plugins = {
 
-  { { "n" },      "<leader>db",     "",                                                          { desc = "Dap actions" } },
-  { { "n" },      "<leader>dbn",    ":DapNew<cr>",                                               { desc = "Dap actions" } },
-  { { "n" },      "<leader>dbb",    ":DapToggleBreakpoint<cr>",                                  { desc = "toggle breakpoint" } },
-  { { "n" },      "<leader>dbr",    ":DapToggleRepl<cr>",                                        { desc = "open dap repl" } },
+  { { "n" }, "<leader>db",  "",                         { desc = "Dap actions" } },
+  { { "n" }, "<leader>dbn", ":DapNew<cr>",              { desc = "Dap actions" } },
+  { { "n" }, "<leader>dbb", ":DapToggleBreakpoint<cr>", { desc = "toggle breakpoint" } },
+  { { "n" }, "<leader>dbr", ":DapToggleRepl<cr>",       { desc = "open dap repl" } },
 
-
-
-
-
-  { { 'n', 'x' }, "<up>",           function() require "multicursor-nvim".lineAddCursor(-1) end },
-  { { 'n', 'x' }, "<down>",         function() require "multicursor-nvim".lineAddCursor(1) end },
-  { { 'n', 'x' }, "<leader><up>",   function() require "multicursor-nvim".lineSkipCursor(-1) end },
-  { { 'n', 'x' }, "<leader><down>", function() require "multicursor-nvim".lineSkipCursor(1) end },
-
-
-  -- { "n",               "<c-leftmouse>",   require "multicursor-nvim".handleMouse },
-  -- { "n",               "<c-leftrelease>", require "multicursor-nvim".handleMouseRelease },
-
-  -- { { "n", "x", "o" }, "<C-f>",          require "flash".jump,                                        { desc = "Flash" } },
   { "n", "<leader>fm",
     function() vim.lsp.buf.format() end,
     { desc = "Format buffer" },
